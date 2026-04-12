@@ -1,0 +1,41 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Godot 3+ specific ignores
+.import/
+export.cfg
+export_presets.cfg
+
+# Imported translations (if generated dynamically)
+*.translation
+
+# Mono / C# specific ignores (only relevant if using Godot .NET)
+.mono/
+data_*/
+mono_crash.*.json
+bin/
+obj/
+Properties/
+*.csproj.user
+
+# OS-generated files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Exported builds (Uncomment and adjust if you output builds to a specific folder in your repo)
+builds/
+exports/
+
+# Large generated/baked files you might not want tracked
+*.light map
+*.lmbake

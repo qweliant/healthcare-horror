@@ -1,0 +1,311 @@
+[gd_scene format=3 uid="uid://c1hospital001"]
+
+[ext_resource type="Script" uid="uid://cth8yjxkudj6t" path="res://scenes/hospital/hospital.gd" id="1_hospital"]
+[ext_resource type="Script" uid="uid://cwbm0t7vgkbus" path="res://scripts/player/player.gd" id="2_player"]
+[ext_resource type="Script" uid="uid://bnyyt0s1a6wbc" path="res://scripts/dialogue/dialogue_box.gd" id="3_dialogue"]
+[ext_resource type="Script" uid="uid://d2y53qg2j8mr2" path="res://scripts/interaction/checkout_nurse.gd" id="4_nurse"]
+[ext_resource type="Script" uid="uid://du1pdsw11fr30" path="res://scripts/interaction/interactable.gd" id="5_interactable"]
+[ext_resource type="Script" uid="uid://c3npfmxwxilum" path="res://scripts/interaction/exit_door.gd" id="6_exit"]
+[ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="7_ps1"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.02, 0.02, 0.04, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.15, 0.18, 0.15, 1)
+ambient_light_energy = 0.3
+fog_enabled = true
+fog_light_color = Color(0.12, 0.14, 0.12, 1)
+fog_density = 0.03
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_floor"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
+albedo_color = Color(0.25, 0.28, 0.25, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ceiling"]
+albedo_color = Color(0.6, 0.62, 0.58, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wall"]
+albedo_color = Color(0.55, 0.58, 0.53, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_desk"]
+albedo_color = Color(0.35, 0.25, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nurse"]
+size = Vector3(0.6, 1.6, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nurse_body"]
+albedo_color = Color(0.8, 0.82, 0.85, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skin"]
+albedo_color = Color(0.7, 0.55, 0.45, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_chair"]
+albedo_color = Color(0.2, 0.22, 0.35, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_patient1"]
+size = Vector3(0.6, 1.4, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_patient1"]
+albedo_color = Color(0.3, 0.35, 0.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_patient2"]
+size = Vector3(0.6, 1.4, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_patient2"]
+albedo_color = Color(0.45, 0.3, 0.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_exit"]
+size = Vector3(2, 2.4, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exit_sign"]
+albedo_color = Color(0.8, 0.1, 0.1, 1)
+emission_enabled = true
+emission = Color(0.8, 0.1, 0.1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 0.3
+height = 1.6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ps1"]
+shader = ExtResource("7_ps1")
+shader_parameter/color_depth = 15.0
+shader_parameter/dither_strength = 0.05
+
+[node name="Hospital" type="Node3D" unique_id=671069329]
+script = ExtResource("1_hospital")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=489686619]
+environment = SubResource("Environment_1")
+
+[node name="CeilingLight1" type="OmniLight3D" parent="." unique_id=1388368032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -3)
+light_color = Color(0.85, 0.9, 0.8, 1)
+light_energy = 0.7
+omni_range = 8.0
+omni_attenuation = 1.5
+
+[node name="CeilingLight2" type="OmniLight3D" parent="." unique_id=1349187744]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -10)
+light_color = Color(0.85, 0.9, 0.8, 1)
+light_energy = 0.6
+omni_range = 8.0
+omni_attenuation = 1.5
+
+[node name="FlickerLight" type="OmniLight3D" parent="." unique_id=1264290542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.8, -6)
+light_color = Color(0.9, 0.95, 0.85, 1)
+light_energy = 0.8
+omni_range = 6.0
+omni_attenuation = 1.5
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1112854686]
+
+[node name="FloorCollision" type="CollisionShape3D" parent="Floor" unique_id=2073114168]
+shape = SubResource("WorldBoundaryShape3D_floor")
+
+[node name="FloorMesh" type="CSGBox3D" parent="Floor" unique_id=154411018]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -8)
+size = Vector3(16, 0.1, 24)
+material = SubResource("StandardMaterial3D_floor")
+
+[node name="Ceiling" type="CSGBox3D" parent="." unique_id=1697261460]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -8)
+size = Vector3(16, 0.1, 24)
+material = SubResource("StandardMaterial3D_ceiling")
+
+[node name="WallLeft" type="CSGBox3D" parent="." unique_id=1882245281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, -8)
+size = Vector3(0.2, 3, 24)
+material = SubResource("StandardMaterial3D_wall")
+
+[node name="WallRight" type="CSGBox3D" parent="." unique_id=749071373]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, -8)
+size = Vector3(0.2, 3, 24)
+material = SubResource("StandardMaterial3D_wall")
+
+[node name="WallBack" type="CSGBox3D" parent="." unique_id=2121754136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -20)
+size = Vector3(10.2, 3, 0.2)
+material = SubResource("StandardMaterial3D_wall")
+
+[node name="WallFrontLeft" type="CSGBox3D" parent="." unique_id=366422363]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 1.5, 4)
+size = Vector3(3.2, 3, 0.2)
+material = SubResource("StandardMaterial3D_wall")
+
+[node name="WallFrontRight" type="CSGBox3D" parent="." unique_id=938555661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.5, 4)
+size = Vector3(3.2, 3, 0.2)
+material = SubResource("StandardMaterial3D_wall")
+
+[node name="CheckoutDesk" type="CSGBox3D" parent="." unique_id=209840804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -17)
+size = Vector3(3, 1, 0.8)
+material = SubResource("StandardMaterial3D_desk")
+
+[node name="CheckoutNurse" type="StaticBody3D" parent="." unique_id=276550239]
+transform = Transform3D(0.99989057, -0.014799852, 0, 0.014799852, 0.99989057, 0, 0, 0, 1, 0, 0, -18)
+script = ExtResource("4_nurse")
+
+[node name="NurseCollision" type="CollisionShape3D" parent="CheckoutNurse" unique_id=1279887845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("BoxShape3D_nurse")
+
+[node name="NurseBody" type="CSGBox3D" parent="CheckoutNurse" unique_id=1469906699]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+size = Vector3(0.5, 1.2, 0.4)
+material = SubResource("StandardMaterial3D_nurse_body")
+
+[node name="NurseHead" type="CSGSphere3D" parent="CheckoutNurse" unique_id=2118273557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+radius = 0.2
+material = SubResource("StandardMaterial3D_skin")
+
+[node name="Chair1" type="CSGBox3D" parent="." unique_id=822423618]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.25, -5)
+size = Vector3(0.6, 0.5, 0.6)
+material = SubResource("StandardMaterial3D_chair")
+
+[node name="Chair2" type="CSGBox3D" parent="." unique_id=968130231]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.25, -6.5)
+size = Vector3(0.6, 0.5, 0.6)
+material = SubResource("StandardMaterial3D_chair")
+
+[node name="Chair3" type="CSGBox3D" parent="." unique_id=687248461]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.25, -8)
+size = Vector3(0.6, 0.5, 0.6)
+material = SubResource("StandardMaterial3D_chair")
+
+[node name="Chair4" type="CSGBox3D" parent="." unique_id=1851260965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.25, -5)
+size = Vector3(0.6, 0.5, 0.6)
+material = SubResource("StandardMaterial3D_chair")
+
+[node name="Chair5" type="CSGBox3D" parent="." unique_id=946100527]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.25, -6.5)
+size = Vector3(0.6, 0.5, 0.6)
+material = SubResource("StandardMaterial3D_chair")
+
+[node name="Patient1" type="StaticBody3D" parent="." unique_id=940541623]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -5)
+script = ExtResource("5_interactable")
+prompt_text = "[E] Talk to Patient"
+dialogue_key = "waiting_room_patient_1"
+
+[node name="Patient1Collision" type="CollisionShape3D" parent="Patient1" unique_id=306448028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("BoxShape3D_patient1")
+
+[node name="Patient1Body" type="CSGBox3D" parent="Patient1" unique_id=1727607564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+size = Vector3(0.4, 0.8, 0.4)
+material = SubResource("StandardMaterial3D_patient1")
+
+[node name="Patient1Head" type="CSGSphere3D" parent="Patient1" unique_id=1091810465]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+radius = 0.18
+material = SubResource("StandardMaterial3D_skin")
+
+[node name="Patient2" type="StaticBody3D" parent="." unique_id=1419199645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -6.5)
+script = ExtResource("5_interactable")
+prompt_text = "[E] Talk to Patient"
+dialogue_key = "waiting_room_patient_2"
+
+[node name="Patient2Collision" type="CollisionShape3D" parent="Patient2" unique_id=538575937]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("BoxShape3D_patient2")
+
+[node name="Patient2Body" type="CSGBox3D" parent="Patient2" unique_id=1345766342]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+size = Vector3(0.4, 0.8, 0.4)
+material = SubResource("StandardMaterial3D_patient2")
+
+[node name="Patient2Head" type="CSGSphere3D" parent="Patient2" unique_id=1090845588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+radius = 0.18
+material = SubResource("StandardMaterial3D_skin")
+
+[node name="ExitDoor" type="StaticBody3D" parent="." unique_id=1426506802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+script = ExtResource("6_exit")
+
+[node name="ExitCollision" type="CollisionShape3D" parent="ExitDoor" unique_id=34965413]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("BoxShape3D_exit")
+
+[node name="ExitSign" type="CSGBox3D" parent="ExitDoor" unique_id=819932008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+size = Vector3(0.8, 0.25, 0.05)
+material = SubResource("StandardMaterial3D_exit_sign")
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=895499971]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -2)
+script = ExtResource("2_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=834719002]
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="Camera3D" type="Camera3D" parent="Player" unique_id=397750879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="InteractRay" type="RayCast3D" parent="Player/Camera3D" unique_id=1446492714]
+target_position = Vector3(0, 0, -2.5)
+
+[node name="UI" type="CanvasLayer" parent="Player" unique_id=1926743298]
+
+[node name="InteractLabel" type="Label" parent="Player/UI" unique_id=1779022210]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -60.0
+offset_right = 100.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "[E] Interact"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DialogueBox" type="CanvasLayer" parent="." unique_id=1476330531]
+layer = 10
+script = ExtResource("3_dialogue")
+
+[node name="Panel" type="PanelContainer" parent="DialogueBox" unique_id=1739129001]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -140.0
+offset_right = -40.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="DialogueBox/Panel" unique_id=869496528]
+layout_mode = 2
+
+[node name="SpeakerLabel" type="Label" parent="DialogueBox/Panel/VBox" unique_id=2028029787]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.2, 0.2, 1)
+text = "Speaker"
+
+[node name="TextLabel" type="RichTextLabel" parent="DialogueBox/Panel/VBox" unique_id=1638698421]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Dialogue text."
+fit_content = true
+
+[node name="PS1Overlay" type="ColorRect" parent="." unique_id=1406659127]
+material = SubResource("ShaderMaterial_ps1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
