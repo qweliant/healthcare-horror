@@ -49,4 +49,112 @@ static var dialogues := {
 		{"speaker": "", "text": "The automatic doors slide open. Cold air hits you."},
 		{"speaker": "", "text": "The parking lot stretches out under flickering lights."},
 	],
+
+	# ========== CAR RIDE ==========
+
+	"car_ride_0": [
+		{"speaker": "", "text": "A black sedan idles at the curb. The back door is already open."},
+		{"speaker": "", "text": "You get in. The driver doesn't turn around."},
+		{"speaker": "", "text": "..."},
+		{"speaker": "", "text": "The streetlights blur past. You don't recognize this part of town."},
+		{"speaker": "Driver", "text": "Almost there."},
+		{"speaker": "", "text": "Those are the only words spoken the entire ride."},
+	],
+
+	# ========== JOB 1: WAREHOUSE ==========
+
+	"job_arrival_0": [
+		{"speaker": "", "text": "The car stops. The driver points toward a warehouse."},
+		{"speaker": "", "text": "No sign. No address. Just a rusted loading dock door, slightly ajar."},
+		{"speaker": "", "text": "Orange light leaks from inside."},
+	],
+
+	"job_meeting_0": [
+		{"speaker": "", "text": "Three figures stand in a loose circle near the back of the warehouse."},
+		{"speaker": "???", "text": "You're the new one."},
+		{"speaker": "You", "text": "I was told there'd be work."},
+		{"speaker": "???", "text": "There is. Simple job. You do what we say, you get paid."},
+		{"speaker": "???", "text": "Don't touch anything unless we tell you to."},
+		{"speaker": "???", "text": "And don't ask what it's for."},
+	],
+
+	# -- Leader dialogue (escalating) --
+	"job0_leader_0": [
+		{"speaker": "Leader", "text": "When we're ready, you stand on the mark."},
+		{"speaker": "Leader", "text": "Hands at your sides. Eyes forward."},
+		{"speaker": "Leader", "text": "Whatever you hear, don't move."},
+	],
+	"job0_leader_1": [
+		{"speaker": "Leader", "text": "You're not here to understand. You're here to stand."},
+		{"speaker": "Leader", "text": "The circle needs a fourth. That's you."},
+		{"speaker": "Leader", "text": "When the shape speaks, let it speak through you."},
+	],
+	"job0_leader_2": [
+		{"speaker": "Leader", "text": "The vessel must be hollow. Hollow and willing."},
+		{"speaker": "Leader", "text": "Your debt makes you hollow. That's why you're here."},
+		{"speaker": "Leader", "text": "Go to the sigil. It's time."},
+	],
+
+	# -- Cult member 1 dialogue --
+	"job0_member1_0": [
+		{"speaker": "Figure", "text": "First time?"},
+		{"speaker": "You", "text": "Yeah."},
+		{"speaker": "Figure", "text": "You get used to it. The ringing stops after a day or two."},
+	],
+	"job0_member1_1": [
+		{"speaker": "Figure", "text": "Don't look at the floor when it starts."},
+		{"speaker": "Figure", "text": "Or do. Some people say it helps them forget faster."},
+	],
+
+	# -- Cult member 2 dialogue --
+	"job0_member2_0": [
+		{"speaker": "Figure", "text": "..."},
+		{"speaker": "Figure", "text": "You smell like a hospital."},
+	],
+	"job0_member2_1": [
+		{"speaker": "Figure", "text": "The red is normal. It washes off."},
+		{"speaker": "Figure", "text": "Most of it washes off."},
+	],
+
+	# -- Ritual --
+	"job_ritual_0": [
+		{"speaker": "", "text": "You step onto the sigil. The concrete is warm."},
+		{"speaker": "", "text": "The three figures begin to hum. Low. Resonant."},
+		{"speaker": "", "text": "The lines on the floor start to glow."},
+		{"speaker": "Leader", "text": "Sta ke'voth. Rha'um din feralis."},
+		{"speaker": "", "text": "You feel your hands go numb."},
+		{"speaker": "", "text": "The humming gets louder. It's inside your skull now."},
+		{"speaker": "Voices", "text": "VER'THAKAN. VER'THAKAN. VER'THAKAN."},
+		{"speaker": "", "text": "The light becomes blinding."},
+	],
+
+	# -- Aftermath --
+	"job_aftermath_0": [
+		{"speaker": "", "text": "..."},
+		{"speaker": "", "text": "You're on the floor. Your hands are wet."},
+		{"speaker": "", "text": "Red. Everything is red."},
+		{"speaker": "", "text": "You don't remember what happened."},
+		{"speaker": "Leader", "text": "Good. Payment will be processed."},
+		{"speaker": "Leader", "text": "Clean yourself up."},
+		{"speaker": "", "text": "The three figures are already leaving."},
+	],
+
+	# -- Post-job phone calls --
+	"job_bill_call_0": [
+		{"speaker": "", "text": "Your phone vibrates."},
+		{"speaker": "Hospital", "text": "This is an automated message from Regional Medical Center."},
+		{"speaker": "Hospital", "text": "A payment of %PAYMENT% has been applied to your account."},
+		{"speaker": "Hospital", "text": "Your remaining balance is %BILL%."},
+		{"speaker": "Hospital", "text": "Thank you for your prompt payment."},
+		{"speaker": "", "text": "[Click]"},
+	],
+
+	"job_next_call_0": [
+		{"speaker": "", "text": "Almost immediately, another call."},
+		{"speaker": "???", "text": "Good work tonight."},
+		{"speaker": "???", "text": "There's more where that came from."},
+		{"speaker": "???", "text": "Same arrangement. Different location."},
+		{"speaker": "???", "text": "The car will be waiting."},
+		{"speaker": "", "text": "[The line goes dead]"},
+	],
 }

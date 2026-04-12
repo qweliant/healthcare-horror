@@ -59,6 +59,7 @@ func _on_dialogue_requested(key: String) -> void:
 	for i in dialogue_lines.size():
 		dialogue_lines[i] = dialogue_lines[i].duplicate()
 		dialogue_lines[i]["text"] = dialogue_lines[i]["text"].replace("%BILL%", GameManager.format_bill())
+		dialogue_lines[i]["text"] = dialogue_lines[i]["text"].replace("%PAYMENT%", GameManager.format_payment())
 
 	current_line = 0
 	is_active = true

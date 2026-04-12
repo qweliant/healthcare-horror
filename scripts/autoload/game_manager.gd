@@ -2,6 +2,7 @@ extends Node
 
 signal state_changed(new_state: GameState)
 signal dialogue_requested(dialogue_key: String)
+signal job_completed(job_index: int)
 
 enum GameState {
 	HOSPITAL_WAKING,
@@ -10,28 +11,25 @@ enum GameState {
 	BILL_REVEAL,
 	HOSPITAL_LEAVING,
 	PHONE_CALL,
-	JOB_SITE,
+	CAR_RIDE,
+	JOB_ARRIVING,
+	JOB_MEETING,
+	JOB_EXPLORING,
+	JOB_RITUAL,
+	JOB_AFTERMATH,
+	JOB_PHONE_CALL,
 }
 
 var current_state: GameState = GameState.HOSPITAL_WAKING
 var player: CharacterBody3D = null
 var bill_amount: int = 247_893
-
-
-func advance_state() -> void:
-	match current_state:
-		GameState.HOSPITAL_WAKING:
-			set_state(GameState.HOSPITAL_EXPLORING)
-		GameState.HOSPITAL_EXPLORING:
-			set_state(GameState.HOSPITAL_CHECKOUT)
-		GameState.HOSPITAL_CHECKOUT:
-			set_state(GameState.BILL_REVEAL)
-		GameState.BILL_REVEAL:
-			set_state(GameState.HOSPITAL_LEAVING)
-		GameState.HOSPITAL_LEAVING:
-			set_state(GameState.PHONE_CALL)
-		GameState.PHONE_CALL:
-			set_state(GameState.JOB_SITE)
+var current_job: int = 0
+var job_payouts: Array[int] = [82_631, 82_631, 82_631]
+var job_scene_paths: Array[String] = [
+	"res://scenes/job1_warehouse/warehouse.tscn",
+	"res://scenes/job2/job2.tscn",
+	"res://scenes/job3/job3.tscn",
+]
 
 
 func set_state(new_state: GameState) -> void:
@@ -39,8 +37,21 @@ func set_state(new_state: GameState) -> void:
 	state_changed.emit(new_state)
 
 
+func complete_job() -> void:
+	bill_amount -= job_payouts[current_job]
+	job_completed.emit(current_job)
+
+
+func advance_job() -> void:
+	current_job += 1
+
+
 func format_bill() -> String:
 	return "$%s" % _format_number(bill_amount)
+
+
+func format_payment() -> String:
+	return "$%s" % _format_number(job_payouts[current_job])
 
 
 func _format_number(n: int) -> String:
@@ -68,3 +79,7 @@ func end_dialogue() -> void:
 
 func transition_to_scene(scene_path: String) -> void:
 	get_tree().change_scene_to_file(scene_path)
+
+
+func has_more_jobs() -> bool:
+	return current_job < job_scene_paths.size() - 1

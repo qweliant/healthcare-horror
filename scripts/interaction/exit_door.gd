@@ -37,7 +37,7 @@ func _on_exit_dialogue_finished() -> void:
 
 
 func _on_phone_finished() -> void:
-	GameManager.set_state(GameManager.GameState.JOB_SITE)
-	# TODO: Transition to job site scene
-	# GameManager.transition_to_scene("res://scenes/job_site/job_site.tscn")
-	print("DEMO END - Job site scene not yet implemented")
+	GameManager.set_state(GameManager.GameState.CAR_RIDE)
+	TransitionOverlay.fade_out(1.5)
+	await TransitionOverlay.fade_out_finished
+	GameManager.transition_to_scene("res://scenes/car_ride/car_ride.tscn")
