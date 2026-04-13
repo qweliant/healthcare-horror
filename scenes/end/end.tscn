@@ -1,21 +1,47 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://hr4gscbid7my"]
 
-[ext_resource type="Script" path="res://scenes/end/end.gd" id="1_end"]
+[ext_resource type="Script" uid="uid://chkjbdmdg5wyf" path="res://scenes/end/end.gd" id="1_end"]
 
-[node name="EndScreen" type="Node"]
+[node name="EndScreen" type="Node" unique_id=605891955]
 script = ExtResource("1_end")
 
-[node name="EndCard" type="CanvasLayer" parent="."]
+[node name="EndCard" type="CanvasLayer" parent="." unique_id=1724549882]
 layer = 10
 
-[node name="Background" type="ColorRect" parent="EndCard"]
+[node name="Background" type="ColorRect" parent="EndCard" unique_id=175007545]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0, 0, 0, 1)
 mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
-[node name="TitleLabel" type="Label" parent="EndCard"]
+[node name="FlashBG" type="ColorRect" parent="EndCard" unique_id=844140859]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="SequenceLabel" type="Label" parent="EndCard" unique_id=230216194]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -80.0
+offset_right = 500.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 64
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleLabel" type="Label" parent="EndCard" unique_id=684971441]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -27,8 +53,8 @@ offset_right = 400.0
 offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 36
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
 text = "HEALTHCARE HORROR
 
 DEBT: $0.00
@@ -37,7 +63,7 @@ Thank you for your prompt payment."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnyKeyLabel" type="Label" parent="EndCard"]
+[node name="AnyKeyLabel" type="Label" parent="EndCard" unique_id=1537384560]
 visible = false
 anchors_preset = 7
 anchor_left = 0.5
@@ -50,8 +76,8 @@ offset_right = 100.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 20
 text = "[ Press any key ]"
 horizontal_alignment = 1
 vertical_alignment = 1

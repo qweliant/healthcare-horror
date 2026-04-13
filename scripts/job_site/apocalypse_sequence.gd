@@ -11,6 +11,7 @@ signal sequence_finished
 @onready var cryptic_label: Label = $"../CrypticOverlay/CrypticLabel"
 @onready var demons_parent: Node3D = $"../Demons"
 @onready var lava_parent: Node3D = $"../LavaGroup"
+@onready var meteors_parent: Node3D = $"../Meteors"
 
 var _camera_shake_active := false
 var _shake_intensity := 0.0
@@ -18,16 +19,16 @@ var _camera_origin := Vector3.ZERO
 
 
 func _ready() -> void:
-	if sigil_light:
-		sigil_light.light_energy = 0.0
-	if sigil_mesh and sigil_mesh.material:
-		sigil_mesh.material.set_shader_parameter("glow_intensity", 0.0)
+	# Don't touch sigil_light or glow_intensity — tscn sets their initial
+	# ambient values so the sigil is visible on arrival. Sequence ramps them up.
 	if cryptic_overlay:
 		cryptic_overlay.visible = false
 	if demons_parent:
 		demons_parent.visible = false
 	if lava_parent:
 		lava_parent.visible = false
+	if meteors_parent:
+		meteors_parent.visible = false
 
 
 func _process(_delta: float) -> void:
@@ -47,6 +48,7 @@ func start_sequence(_job_index: int) -> void:
 	await _phase_cryptic_flashes()
 	await _phase_demons_and_lava()
 	await _phase_final_whiteout()
+	await _phase_world_reveal()
 	sequence_finished.emit()
 
 
@@ -57,7 +59,7 @@ func _phase_glow_buildup() -> void:
 	if sigil_mesh and sigil_mesh.material:
 		tween.tween_method(
 			func(v: float) -> void: sigil_mesh.material.set_shader_parameter("glow_intensity", v),
-			0.0, 6.0, 5.0
+			1.0, 6.0, 5.0
 		)
 	await tween.finished
 
@@ -79,7 +81,7 @@ func _phase_cryptic_flashes() -> void:
 	_camera_shake_active = true
 	_shake_intensity = 0.008
 
-	var messages: Array[Dictionary] = [
+	var messages := [
 		{"text": "YOU CHOSE THIS",              "color": Color(0.9, 0.05, 0.05, 1)},
 		{"text": "THE GATE IS OPEN",            "color": Color(0.7, 0.0,  0.9,  1)},
 		{"text": "THERE IS NO LEAVING",         "color": Color(0.05, 0.05, 0.8, 1)},
@@ -108,6 +110,8 @@ func _phase_cryptic_flashes() -> void:
 func _phase_demons_and_lava() -> void:
 	if demons_parent:
 		demons_parent.visible = true
+	if meteors_parent:
+		meteors_parent.visible = true
 	if lava_parent:
 		lava_parent.visible = true
 		var tween := create_tween().set_parallel(true)
@@ -130,3 +134,12 @@ func _phase_final_whiteout() -> void:
 	await get_tree().create_timer(0.5).timeout
 	TransitionOverlay.fade_out(1.5)
 	await TransitionOverlay.fade_out_finished
+
+
+func _phase_world_reveal() -> void:
+	# Hold on black briefly so the "world ending" moment lands,
+	# then fade back in so the player sees the apocalyptic aftermath
+	# during the aftermath dialogue.
+	await get_tree().create_timer(1.5).timeout
+	TransitionOverlay.fade_in(3.0)
+	await TransitionOverlay.fade_in_finished

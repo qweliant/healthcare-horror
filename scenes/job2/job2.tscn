@@ -11,13 +11,13 @@
 
 [sub_resource type="Environment" id="Environment_wh"]
 background_mode = 1
-background_color = Color(0.02, 0.025, 0.04, 1)
+background_color = Color(0.08, 0.1, 0.15, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.12, 0.14, 0.2, 1)
-ambient_light_energy = 0.35
+ambient_light_color = Color(0.22, 0.26, 0.36, 1)
+ambient_light_energy = 0.60
 fog_enabled = true
-fog_light_color = Color(0.06, 0.08, 0.12, 1)
-fog_density = 0.022
+fog_light_color = Color(0.12, 0.15, 0.22, 1)
+fog_density = 0.016
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_wh_floor"]
 
@@ -86,22 +86,22 @@ environment = SubResource("Environment_wh")
 [node name="MainLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, -8)
 light_color = Color(0.45, 0.55, 0.75, 1)
-light_energy = 1.1
-omni_range = 18.0
+light_energy = 1.8
+omni_range = 22.0
 omni_attenuation = 1.2
 
 [node name="BackLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, -22)
 light_color = Color(0.35, 0.4, 0.55, 1)
-light_energy = 0.9
-omni_range = 16.0
+light_energy = 1.5
+omni_range = 20.0
 omni_attenuation = 1.2
 
 [node name="FlickerLight" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5.5, -15)
 light_color = Color(0.5, 0.55, 0.7, 1)
-light_energy = 1.0
-omni_range = 14.0
+light_energy = 1.6
+omni_range = 18.0
 omni_attenuation = 1.2
 
 ; --- Geometry: Floor, Ceiling, Walls ---

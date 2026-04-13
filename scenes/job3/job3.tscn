@@ -10,13 +10,13 @@
 
 [sub_resource type="Environment" id="Environment_j3"]
 background_mode = 1
-background_color = Color(0.06, 0.01, 0.01, 1)
+background_color = Color(0.1, 0.02, 0.02, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.35, 0.08, 0.08, 1)
-ambient_light_energy = 0.25
+ambient_light_color = Color(0.45, 0.1, 0.08, 1)
+ambient_light_energy = 0.45
 fog_enabled = true
-fog_light_color = Color(0.18, 0.03, 0.03, 1)
-fog_density = 0.045
+fog_light_color = Color(0.22, 0.04, 0.04, 1)
+fog_density = 0.032
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j3"]
 
@@ -27,26 +27,38 @@ albedo_color = Color(0.35, 0.32, 0.30, 1)
 albedo_color = Color(0.3, 0.28, 0.25, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_terrain"]
-albedo_color = Color(0.28, 0.25, 0.22, 1)
+albedo_color = Color(0.22, 0.19, 0.17, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_demon"]
-albedo_color = Color(0.05, 0.02, 0.02, 1)
+albedo_color = Color(0.04, 0.01, 0.01, 1)
 emission_enabled = true
-emission = Color(0.15, 0.02, 0.02, 1)
-emission_energy_multiplier = 0.5
+emission = Color(0.3, 0.03, 0.03, 1)
+emission_energy_multiplier = 1.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lava"]
 albedo_color = Color(1.0, 0.3, 0.0, 1)
 emission_enabled = true
 emission = Color(1.0, 0.3, 0.0, 1)
-emission_energy_multiplier = 6.0
+emission_energy_multiplier = 8.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_torch_flame"]
+albedo_color = Color(1.0, 0.55, 0.05, 1)
+emission_enabled = true
+emission = Color(1.0, 0.5, 0.05, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_meteor"]
+albedo_color = Color(1.0, 0.4, 0.0, 1)
+emission_enabled = true
+emission = Color(1.0, 0.35, 0.0, 1)
+emission_energy_multiplier = 12.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sigil_j3"]
 shader = ExtResource("7_sigil")
-shader_parameter/base_color = Color(0.7, 0.1, 0.15, 1.0)
-shader_parameter/glow_intensity = 0.0
-shader_parameter/pulse_speed = 0.8
-shader_parameter/pulse_amount = 0.4
+shader_parameter/base_color = Color(0.8, 0.1, 0.15, 1.0)
+shader_parameter/glow_intensity = 1.0
+shader_parameter/pulse_speed = 1.2
+shader_parameter/pulse_amount = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ritual_j3"]
 size = Vector3(9.0, 0.5, 9.0)
@@ -78,15 +90,15 @@ environment = SubResource("Environment_j3")
 
 [node name="SkyLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 30, 0)
-light_color = Color(0.4, 0.08, 0.08, 1)
-light_energy = 0.3
+light_color = Color(0.5, 0.08, 0.06, 1)
+light_energy = 0.5
 shadow_enabled = true
 
 [node name="MoonGlow" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, -5)
-light_color = Color(0.5, 0.1, 0.1, 1)
-light_energy = 0.8
-omni_range = 40.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
+light_color = Color(0.6, 0.12, 0.1, 1)
+light_energy = 1.2
+omni_range = 50.0
 
 ; --- Platform ---
 
@@ -146,15 +158,16 @@ transform = Transform3D(0.7071, 0, -0.7071, 0, 1, 0, 0.7071, 0, 0.7071, -5.3, 1.
 size = Vector3(0.8, 3.5, 0.6)
 material = SubResource("StandardMaterial3D_stone")
 
-; --- Terrain Rim (visual cliff below platform) ---
+; --- Terrain (far below the platform so torches are visible) ---
+; Top surface at Y = -12 so torches at Y = -9 float above it
 
 [node name="TerrainRim" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
-size = Vector3(60, 10, 60)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -18, 0)
+size = Vector3(300, 12, 300)
 use_collision = false
 material = SubResource("StandardMaterial3D_terrain")
 
-; --- Invisible Collision Walls ---
+; --- Invisible Collision Walls (keep player on platform) ---
 
 [node name="PlatformWalls" type="Node3D" parent="."]
 
@@ -182,236 +195,331 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.2, 1, 0)
 [node name="WallWestCollision" type="CollisionShape3D" parent="PlatformWalls/WallWest"]
 shape = SubResource("BoxShape3D_wall_ew")
 
-; --- Torch Lights (ten thousand cultists, represented as rings of firelight) ---
+; --- Torch Lights (cultist sea of fire below the platform)
+; Terrain top at Y=-12, torches at Y=-9 are visible looking outward/down from platform
+; Each torch = OmniLight3D + glowing CSGSphere3D flame mesh
 
 [node name="TorchLights" type="Node3D" parent="."]
 
-; Ring 1: 8 lights at radius 25, Y=-15
+; Ring 1: 8 torches at radius 22, Y=-9 — clearly visible looking slightly down
 [node name="Ring1" type="Node3D" parent="TorchLights"]
 
 [node name="Torch0" type="OmniLight3D" parent="TorchLights/Ring1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15, -25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, -22)
 light_color = Color(1.0, 0.5, 0.1, 1)
-light_energy = 0.9
-omni_range = 8.0
+light_energy = 1.5
+omni_range = 12.0
+
+[node name="Flame0" type="CSGSphere3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, -22)
+radius = 0.4
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch1" type="OmniLight3D" parent="TorchLights/Ring1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7, -15, -17.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6, -9, -15.6)
 light_color = Color(1.0, 0.5, 0.1, 1)
-light_energy = 0.9
-omni_range = 8.0
+light_energy = 1.5
+omni_range = 12.0
+
+[node name="Flame1" type="CSGSphere3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6, -9, -15.6)
+radius = 0.4
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch2" type="OmniLight3D" parent="TorchLights/Ring1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -15, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -9, 0)
 light_color = Color(1.0, 0.5, 0.1, 1)
-light_energy = 0.9
-omni_range = 8.0
+light_energy = 1.5
+omni_range = 12.0
+
+[node name="Flame2" type="CSGSphere3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -9, 0)
+radius = 0.4
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch3" type="OmniLight3D" parent="TorchLights/Ring1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7, -15, 17.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6, -9, 15.6)
 light_color = Color(1.0, 0.5, 0.1, 1)
-light_energy = 0.9
-omni_range = 8.0
+light_energy = 1.5
+omni_range = 12.0
+
+[node name="Flame3" type="CSGSphere3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6, -9, 15.6)
+radius = 0.4
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch4" type="OmniLight3D" parent="TorchLights/Ring1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15, 25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 22)
 light_color = Color(1.0, 0.5, 0.1, 1)
-light_energy = 0.9
-omni_range = 8.0
+light_energy = 1.5
+omni_range = 12.0
+
+[node name="Flame4" type="CSGSphere3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 22)
+radius = 0.4
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch5" type="OmniLight3D" parent="TorchLights/Ring1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.7, -15, 17.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6, -9, 15.6)
 light_color = Color(1.0, 0.5, 0.1, 1)
-light_energy = 0.9
-omni_range = 8.0
+light_energy = 1.5
+omni_range = 12.0
+
+[node name="Flame5" type="CSGSphere3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6, -9, 15.6)
+radius = 0.4
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch6" type="OmniLight3D" parent="TorchLights/Ring1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, -15, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, -9, 0)
 light_color = Color(1.0, 0.5, 0.1, 1)
-light_energy = 0.9
-omni_range = 8.0
+light_energy = 1.5
+omni_range = 12.0
+
+[node name="Flame6" type="CSGSphere3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, -9, 0)
+radius = 0.4
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch7" type="OmniLight3D" parent="TorchLights/Ring1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.7, -15, -17.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6, -9, -15.6)
 light_color = Color(1.0, 0.5, 0.1, 1)
-light_energy = 0.9
-omni_range = 8.0
+light_energy = 1.5
+omni_range = 12.0
 
-; Ring 2: 12 lights at radius 45, Y=-30
+[node name="Flame7" type="CSGSphere3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6, -9, -15.6)
+radius = 0.4
+material = SubResource("StandardMaterial3D_torch_flame")
+
+; Ring 2: 12 torches at radius 40, Y=-10 — visible in the middle distance
 [node name="Ring2" type="Node3D" parent="TorchLights"]
 
 [node name="Torch0" type="OmniLight3D" parent="TorchLights/Ring2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, -45)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, -40)
 light_color = Color(1.0, 0.45, 0.08, 1)
-light_energy = 0.7
-omni_range = 10.0
+light_energy = 1.2
+omni_range = 14.0
+
+[node name="Flame0" type="CSGSphere3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, -40)
+radius = 0.5
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch1" type="OmniLight3D" parent="TorchLights/Ring2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, -30, -38.97)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -10, -34.6)
 light_color = Color(1.0, 0.45, 0.08, 1)
-light_energy = 0.7
-omni_range = 10.0
+light_energy = 1.2
+omni_range = 14.0
+
+[node name="Flame1" type="CSGSphere3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -10, -34.6)
+radius = 0.5
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch2" type="OmniLight3D" parent="TorchLights/Ring2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.97, -30, -22.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.6, -10, -20)
 light_color = Color(1.0, 0.45, 0.08, 1)
-light_energy = 0.7
-omni_range = 10.0
+light_energy = 1.2
+omni_range = 14.0
+
+[node name="Flame2" type="CSGSphere3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.6, -10, -20)
+radius = 0.5
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch3" type="OmniLight3D" parent="TorchLights/Ring2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, -30, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, -10, 0)
 light_color = Color(1.0, 0.45, 0.08, 1)
-light_energy = 0.7
-omni_range = 10.0
+light_energy = 1.2
+omni_range = 14.0
+
+[node name="Flame3" type="CSGSphere3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, -10, 0)
+radius = 0.5
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch4" type="OmniLight3D" parent="TorchLights/Ring2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.97, -30, 22.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.6, -10, 20)
 light_color = Color(1.0, 0.45, 0.08, 1)
-light_energy = 0.7
-omni_range = 10.0
+light_energy = 1.2
+omni_range = 14.0
+
+[node name="Flame4" type="CSGSphere3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.6, -10, 20)
+radius = 0.5
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch5" type="OmniLight3D" parent="TorchLights/Ring2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, -30, 38.97)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -10, 34.6)
 light_color = Color(1.0, 0.45, 0.08, 1)
-light_energy = 0.7
-omni_range = 10.0
+light_energy = 1.2
+omni_range = 14.0
+
+[node name="Flame5" type="CSGSphere3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -10, 34.6)
+radius = 0.5
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch6" type="OmniLight3D" parent="TorchLights/Ring2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 45)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 40)
 light_color = Color(1.0, 0.45, 0.08, 1)
-light_energy = 0.7
-omni_range = 10.0
+light_energy = 1.2
+omni_range = 14.0
+
+[node name="Flame6" type="CSGSphere3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 40)
+radius = 0.5
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch7" type="OmniLight3D" parent="TorchLights/Ring2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5, -30, 38.97)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -10, 34.6)
 light_color = Color(1.0, 0.45, 0.08, 1)
-light_energy = 0.7
-omni_range = 10.0
+light_energy = 1.2
+omni_range = 14.0
+
+[node name="Flame7" type="CSGSphere3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -10, 34.6)
+radius = 0.5
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch8" type="OmniLight3D" parent="TorchLights/Ring2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.97, -30, 22.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.6, -10, 20)
 light_color = Color(1.0, 0.45, 0.08, 1)
-light_energy = 0.7
-omni_range = 10.0
+light_energy = 1.2
+omni_range = 14.0
+
+[node name="Flame8" type="CSGSphere3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.6, -10, 20)
+radius = 0.5
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch9" type="OmniLight3D" parent="TorchLights/Ring2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, -30, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, -10, 0)
 light_color = Color(1.0, 0.45, 0.08, 1)
-light_energy = 0.7
-omni_range = 10.0
+light_energy = 1.2
+omni_range = 14.0
+
+[node name="Flame9" type="CSGSphere3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, -10, 0)
+radius = 0.5
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch10" type="OmniLight3D" parent="TorchLights/Ring2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.97, -30, -22.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.6, -10, -20)
 light_color = Color(1.0, 0.45, 0.08, 1)
-light_energy = 0.7
-omni_range = 10.0
+light_energy = 1.2
+omni_range = 14.0
+
+[node name="Flame10" type="CSGSphere3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.6, -10, -20)
+radius = 0.5
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch11" type="OmniLight3D" parent="TorchLights/Ring2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5, -30, -38.97)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -10, -34.6)
 light_color = Color(1.0, 0.45, 0.08, 1)
-light_energy = 0.7
-omni_range = 10.0
+light_energy = 1.2
+omni_range = 14.0
 
-; Ring 3: 16 lights at radius 70, Y=-40
+[node name="Flame11" type="CSGSphere3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -10, -34.6)
+radius = 0.5
+material = SubResource("StandardMaterial3D_torch_flame")
+
+; Ring 3: 8 large torches at radius 65, Y=-11 — distant glow on horizon
 [node name="Ring3" type="Node3D" parent="TorchLights"]
 
 [node name="Torch0" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, -70)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11, -65)
 light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
+light_energy = 2.0
+omni_range = 20.0
+
+[node name="Flame0" type="CSGSphere3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11, -65)
+radius = 0.8
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch1" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8, -40, -64.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, -11, -46)
 light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
+light_energy = 2.0
+omni_range = 20.0
+
+[node name="Flame1" type="CSGSphere3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, -11, -46)
+radius = 0.8
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch2" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, -40, -49.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, -11, 0)
 light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
+light_energy = 2.0
+omni_range = 20.0
+
+[node name="Flame2" type="CSGSphere3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65, -11, 0)
+radius = 0.8
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch3" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.7, -40, -26.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, -11, 46)
 light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
+light_energy = 2.0
+omni_range = 20.0
+
+[node name="Flame3" type="CSGSphere3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, -11, 46)
+radius = 0.8
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch4" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, -40, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11, 65)
 light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
+light_energy = 2.0
+omni_range = 20.0
+
+[node name="Flame4" type="CSGSphere3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11, 65)
+radius = 0.8
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch5" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.7, -40, 26.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, -11, 46)
 light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
+light_energy = 2.0
+omni_range = 20.0
+
+[node name="Flame5" type="CSGSphere3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, -11, 46)
+radius = 0.8
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch6" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, -40, 49.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, -11, 0)
 light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
+light_energy = 2.0
+omni_range = 20.0
+
+[node name="Flame6" type="CSGSphere3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, -11, 0)
+radius = 0.8
+material = SubResource("StandardMaterial3D_torch_flame")
 
 [node name="Torch7" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8, -40, 64.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, -11, -46)
 light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
+light_energy = 2.0
+omni_range = 20.0
 
-[node name="Torch8" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 70)
-light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
-
-[node name="Torch9" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8, -40, 64.7)
-light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
-
-[node name="Torch10" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5, -40, 49.5)
-light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
-
-[node name="Torch11" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.7, -40, 26.8)
-light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
-
-[node name="Torch12" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, -40, 0)
-light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
-
-[node name="Torch13" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.7, -40, -26.8)
-light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
-
-[node name="Torch14" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5, -40, -49.5)
-light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
-
-[node name="Torch15" type="OmniLight3D" parent="TorchLights/Ring3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8, -40, -64.7)
-light_color = Color(1.0, 0.4, 0.06, 1)
-light_energy = 0.5
-omni_range = 12.0
+[node name="Flame7" type="CSGSphere3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, -11, -46)
+radius = 0.8
+material = SubResource("StandardMaterial3D_torch_flame")
 
 ; --- Ritual Sequence (ApocalypseSequence script) ---
+; Sigil starts with glow_intensity=1.0 so it's immediately visible
 
 [node name="RitualSequence" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
@@ -424,10 +532,36 @@ height = 0.02
 sides = 64
 material = SubResource("ShaderMaterial_sigil_j3")
 
+; Pentagram lines — 5 spokes radiating from center, same material as disc = star shape
+[node name="StarLine0" type="CSGBox3D" parent="RitualSequence/Sigil"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+size = Vector3(0.1, 0.04, 4.2)
+material = SubResource("ShaderMaterial_sigil_j3")
+
+[node name="StarLine1" type="CSGBox3D" parent="RitualSequence/Sigil"]
+transform = Transform3D(0.309, 0, 0.951, 0, 1, 0, -0.951, 0, 0.309, 0, 0, 0)
+size = Vector3(0.1, 0.04, 4.2)
+material = SubResource("ShaderMaterial_sigil_j3")
+
+[node name="StarLine2" type="CSGBox3D" parent="RitualSequence/Sigil"]
+transform = Transform3D(-0.809, 0, 0.588, 0, 1, 0, -0.588, 0, -0.809, 0, 0, 0)
+size = Vector3(0.1, 0.04, 4.2)
+material = SubResource("ShaderMaterial_sigil_j3")
+
+[node name="StarLine3" type="CSGBox3D" parent="RitualSequence/Sigil"]
+transform = Transform3D(-0.809, 0, -0.588, 0, 1, 0, 0.588, 0, -0.809, 0, 0, 0)
+size = Vector3(0.1, 0.04, 4.2)
+material = SubResource("ShaderMaterial_sigil_j3")
+
+[node name="StarLine4" type="CSGBox3D" parent="RitualSequence/Sigil"]
+transform = Transform3D(0.309, 0, -0.951, 0, 1, 0, 0.951, 0, 0.309, 0, 0, 0)
+size = Vector3(0.1, 0.04, 4.2)
+material = SubResource("ShaderMaterial_sigil_j3")
+
 [node name="SigilLight" type="OmniLight3D" parent="RitualSequence"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 light_color = Color(0.9, 0.1, 0.1, 1)
-light_energy = 0.0
+light_energy = 0.5
 omni_range = 18.0
 
 [node name="RitualTrigger" type="StaticBody3D" parent="RitualSequence"]
@@ -437,81 +571,142 @@ script = ExtResource("5_ritual_int")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_ritual_j3")
 
-; --- Demons (hidden, revealed during ritual) ---
+; --- Demons (revealed during ritual — CLOSE to platform, MASSIVE) ---
+; Placed just outside the stone ring at radius ~14, very tall
 
 [node name="Demons" type="Node3D" parent="."]
 visible = false
 
 [node name="Demon0" type="CSGCapsule3D" parent="Demons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -22)
-radius = 2.0
-height = 10.0
-material = SubResource("StandardMaterial3D_demon")
-
-[node name="Demon1" type="CSGCapsule3D" parent="Demons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6, 7, -15.6)
-radius = 1.5
-height = 14.0
-material = SubResource("StandardMaterial3D_demon")
-
-[node name="Demon2" type="CSGCapsule3D" parent="Demons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 4, 0)
-radius = 2.0
-height = 8.0
-material = SubResource("StandardMaterial3D_demon")
-
-[node name="Demon3" type="CSGCapsule3D" parent="Demons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6, 6, 15.6)
-radius = 1.8
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -14)
+radius = 3.0
 height = 12.0
 material = SubResource("StandardMaterial3D_demon")
 
-[node name="Demon4" type="CSGCapsule3D" parent="Demons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6, 8, -15.6)
+[node name="Demon1" type="CSGCapsule3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.9, 8, -9.9)
 radius = 2.5
 height = 16.0
 material = SubResource("StandardMaterial3D_demon")
 
-; --- Lava (hidden, activated during ritual) ---
+[node name="Demon2" type="CSGCapsule3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 5, 0)
+radius = 3.0
+height = 10.0
+material = SubResource("StandardMaterial3D_demon")
+
+[node name="Demon3" type="CSGCapsule3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.9, 7, 9.9)
+radius = 2.5
+height = 14.0
+material = SubResource("StandardMaterial3D_demon")
+
+[node name="Demon4" type="CSGCapsule3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.9, 9, -9.9)
+radius = 3.5
+height = 18.0
+material = SubResource("StandardMaterial3D_demon")
+
+[node name="Demon5" type="CSGCapsule3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 6, 0)
+radius = 2.8
+height = 12.0
+material = SubResource("StandardMaterial3D_demon")
+
+; --- Lava (revealed during ritual — widespread fissures in terrain) ---
 
 [node name="LavaGroup" type="Node3D" parent="."]
 visible = false
 
 [node name="LavaCrack0" type="CSGBox3D" parent="LavaGroup"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -8, -8)
-size = Vector3(1.0, 0.1, 8.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -11.5, -10)
+size = Vector3(1.5, 0.1, 30.0)
 use_collision = false
 material = SubResource("StandardMaterial3D_lava")
 
 [node name="LavaCrack1" type="CSGBox3D" parent="LavaGroup"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -8, 6)
-size = Vector3(8.0, 0.1, 1.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -11.5, 12)
+size = Vector3(25.0, 0.1, 1.5)
 use_collision = false
 material = SubResource("StandardMaterial3D_lava")
 
 [node name="LavaCrack2" type="CSGBox3D" parent="LavaGroup"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 14)
-size = Vector3(1.5, 0.1, 6.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -11.5, 22)
+size = Vector3(2.0, 0.1, 20.0)
+use_collision = false
+material = SubResource("StandardMaterial3D_lava")
+
+[node name="LavaCrack3" type="CSGBox3D" parent="LavaGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -11.5, -18)
+size = Vector3(18.0, 0.1, 2.0)
 use_collision = false
 material = SubResource("StandardMaterial3D_lava")
 
 [node name="LavaLight0" type="OmniLight3D" parent="LavaGroup"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -6, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, -9, -10)
 light_color = Color(1.0, 0.3, 0.0, 1)
 light_energy = 0.0
-omni_range = 20.0
+omni_range = 35.0
 
 [node name="LavaLight1" type="OmniLight3D" parent="LavaGroup"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -6, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -9, 12)
 light_color = Color(1.0, 0.3, 0.0, 1)
 light_energy = 0.0
-omni_range = 20.0
+omni_range = 35.0
 
 [node name="LavaLight2" type="OmniLight3D" parent="LavaGroup"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 22)
 light_color = Color(1.0, 0.3, 0.0, 1)
 light_energy = 0.0
-omni_range = 20.0
+omni_range = 35.0
+
+; --- Meteors (revealed during ritual — fireballs falling from the sky) ---
+
+[node name="Meteors" type="Node3D" parent="."]
+visible = false
+
+[node name="Meteor0" type="CSGSphere3D" parent="Meteors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 35, -20)
+radius = 2.5
+material = SubResource("StandardMaterial3D_meteor")
+
+[node name="Meteor1" type="CSGSphere3D" parent="Meteors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 45, 28)
+radius = 1.8
+material = SubResource("StandardMaterial3D_meteor")
+
+[node name="Meteor2" type="CSGSphere3D" parent="Meteors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 25, 10)
+radius = 3.0
+material = SubResource("StandardMaterial3D_meteor")
+
+[node name="Meteor3" type="CSGSphere3D" parent="Meteors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 40, -30)
+radius = 2.0
+material = SubResource("StandardMaterial3D_meteor")
+
+[node name="Meteor4" type="CSGSphere3D" parent="Meteors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 55, 45)
+radius = 2.2
+material = SubResource("StandardMaterial3D_meteor")
+
+[node name="MeteorLight0" type="OmniLight3D" parent="Meteors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 35, -20)
+light_color = Color(1.0, 0.4, 0.0, 1)
+light_energy = 3.0
+omni_range = 40.0
+
+[node name="MeteorLight1" type="OmniLight3D" parent="Meteors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 45, 28)
+light_color = Color(1.0, 0.4, 0.0, 1)
+light_energy = 2.5
+omni_range = 35.0
+
+[node name="MeteorLight2" type="OmniLight3D" parent="Meteors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 25, 10)
+light_color = Color(1.0, 0.4, 0.0, 1)
+light_energy = 4.0
+omni_range = 45.0
 
 ; --- Cryptic Message Overlay ---
 
