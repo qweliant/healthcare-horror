@@ -1,0 +1,612 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/job3/job3.gd" id="1_job3"]
+[ext_resource type="Script" uid="uid://cwbm0t7vgkbus" path="res://scripts/player/player.gd" id="2_player"]
+[ext_resource type="Script" uid="uid://bnyyt0s1a6wbc" path="res://scripts/dialogue/dialogue_box.gd" id="3_dialogue"]
+[ext_resource type="Script" path="res://scripts/job_site/apocalypse_sequence.gd" id="4_apocalypse"]
+[ext_resource type="Script" path="res://scripts/interaction/ritual_interactable.gd" id="5_ritual_int"]
+[ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="6_ps1"]
+[ext_resource type="Shader" path="res://shaders/sigil_glow.gdshader" id="7_sigil"]
+
+[sub_resource type="Environment" id="Environment_j3"]
+background_mode = 1
+background_color = Color(0.06, 0.01, 0.01, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.35, 0.08, 0.08, 1)
+ambient_light_energy = 0.25
+fog_enabled = true
+fog_light_color = Color(0.18, 0.03, 0.03, 1)
+fog_density = 0.045
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_platform"]
+albedo_color = Color(0.35, 0.32, 0.30, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_stone"]
+albedo_color = Color(0.3, 0.28, 0.25, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_terrain"]
+albedo_color = Color(0.28, 0.25, 0.22, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_demon"]
+albedo_color = Color(0.05, 0.02, 0.02, 1)
+emission_enabled = true
+emission = Color(0.15, 0.02, 0.02, 1)
+emission_energy_multiplier = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lava"]
+albedo_color = Color(1.0, 0.3, 0.0, 1)
+emission_enabled = true
+emission = Color(1.0, 0.3, 0.0, 1)
+emission_energy_multiplier = 6.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sigil_j3"]
+shader = ExtResource("7_sigil")
+shader_parameter/base_color = Color(0.7, 0.1, 0.15, 1.0)
+shader_parameter/glow_intensity = 0.0
+shader_parameter/pulse_speed = 0.8
+shader_parameter/pulse_amount = 0.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ritual_j3"]
+size = Vector3(9.0, 0.5, 9.0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_ns"]
+size = Vector3(18.4, 4.0, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_ew"]
+size = Vector3(0.3, 4.0, 18.4)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j3_player"]
+radius = 0.3
+height = 1.6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ps1_j3"]
+shader = ExtResource("6_ps1")
+shader_parameter/color_depth = 15.0
+shader_parameter/dither_strength = 0.05
+
+; --- Scene Tree ---
+
+[node name="Job3" type="Node3D"]
+script = ExtResource("1_job3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_j3")
+
+; --- Lighting ---
+
+[node name="SkyLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 30, 0)
+light_color = Color(0.4, 0.08, 0.08, 1)
+light_energy = 0.3
+shadow_enabled = true
+
+[node name="MoonGlow" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, -5)
+light_color = Color(0.5, 0.1, 0.1, 1)
+light_energy = 0.8
+omni_range = 40.0
+
+; --- Platform ---
+
+[node name="Platform" type="StaticBody3D" parent="."]
+
+[node name="PlatformCollision" type="CollisionShape3D" parent="Platform"]
+shape = SubResource("WorldBoundaryShape3D_j3")
+
+[node name="PlatformMesh" type="CSGCylinder3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+radius = 9.0
+height = 0.1
+sides = 48
+material = SubResource("StandardMaterial3D_platform")
+
+; --- Standing Stones (8 in a ring at radius 7.5) ---
+
+[node name="StoneRing" type="Node3D" parent="."]
+
+[node name="Stone0" type="CSGBox3D" parent="StoneRing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -7.5)
+size = Vector3(0.8, 3.5, 0.6)
+material = SubResource("StandardMaterial3D_stone")
+
+[node name="Stone1" type="CSGBox3D" parent="StoneRing"]
+transform = Transform3D(0.7071, 0, 0.7071, 0, 1, 0, -0.7071, 0, 0.7071, 5.3, 1.75, -5.3)
+size = Vector3(0.8, 3.5, 0.6)
+material = SubResource("StandardMaterial3D_stone")
+
+[node name="Stone2" type="CSGBox3D" parent="StoneRing"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 7.5, 1.75, 0)
+size = Vector3(0.8, 3.5, 0.6)
+material = SubResource("StandardMaterial3D_stone")
+
+[node name="Stone3" type="CSGBox3D" parent="StoneRing"]
+transform = Transform3D(-0.7071, 0, 0.7071, 0, 1, 0, -0.7071, 0, -0.7071, 5.3, 1.75, 5.3)
+size = Vector3(0.8, 3.5, 0.6)
+material = SubResource("StandardMaterial3D_stone")
+
+[node name="Stone4" type="CSGBox3D" parent="StoneRing"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 1.75, 7.5)
+size = Vector3(0.8, 3.5, 0.6)
+material = SubResource("StandardMaterial3D_stone")
+
+[node name="Stone5" type="CSGBox3D" parent="StoneRing"]
+transform = Transform3D(-0.7071, 0, -0.7071, 0, 1, 0, 0.7071, 0, -0.7071, -5.3, 1.75, 5.3)
+size = Vector3(0.8, 3.5, 0.6)
+material = SubResource("StandardMaterial3D_stone")
+
+[node name="Stone6" type="CSGBox3D" parent="StoneRing"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -7.5, 1.75, 0)
+size = Vector3(0.8, 3.5, 0.6)
+material = SubResource("StandardMaterial3D_stone")
+
+[node name="Stone7" type="CSGBox3D" parent="StoneRing"]
+transform = Transform3D(0.7071, 0, -0.7071, 0, 1, 0, 0.7071, 0, 0.7071, -5.3, 1.75, -5.3)
+size = Vector3(0.8, 3.5, 0.6)
+material = SubResource("StandardMaterial3D_stone")
+
+; --- Terrain Rim (visual cliff below platform) ---
+
+[node name="TerrainRim" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+size = Vector3(60, 10, 60)
+use_collision = false
+material = SubResource("StandardMaterial3D_terrain")
+
+; --- Invisible Collision Walls ---
+
+[node name="PlatformWalls" type="Node3D" parent="."]
+
+[node name="WallNorth" type="StaticBody3D" parent="PlatformWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -9.2)
+
+[node name="WallNorthCollision" type="CollisionShape3D" parent="PlatformWalls/WallNorth"]
+shape = SubResource("BoxShape3D_wall_ns")
+
+[node name="WallSouth" type="StaticBody3D" parent="PlatformWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 9.2)
+
+[node name="WallSouthCollision" type="CollisionShape3D" parent="PlatformWalls/WallSouth"]
+shape = SubResource("BoxShape3D_wall_ns")
+
+[node name="WallEast" type="StaticBody3D" parent="PlatformWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.2, 1, 0)
+
+[node name="WallEastCollision" type="CollisionShape3D" parent="PlatformWalls/WallEast"]
+shape = SubResource("BoxShape3D_wall_ew")
+
+[node name="WallWest" type="StaticBody3D" parent="PlatformWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.2, 1, 0)
+
+[node name="WallWestCollision" type="CollisionShape3D" parent="PlatformWalls/WallWest"]
+shape = SubResource("BoxShape3D_wall_ew")
+
+; --- Torch Lights (ten thousand cultists, represented as rings of firelight) ---
+
+[node name="TorchLights" type="Node3D" parent="."]
+
+; Ring 1: 8 lights at radius 25, Y=-15
+[node name="Ring1" type="Node3D" parent="TorchLights"]
+
+[node name="Torch0" type="OmniLight3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15, -25)
+light_color = Color(1.0, 0.5, 0.1, 1)
+light_energy = 0.9
+omni_range = 8.0
+
+[node name="Torch1" type="OmniLight3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7, -15, -17.7)
+light_color = Color(1.0, 0.5, 0.1, 1)
+light_energy = 0.9
+omni_range = 8.0
+
+[node name="Torch2" type="OmniLight3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -15, 0)
+light_color = Color(1.0, 0.5, 0.1, 1)
+light_energy = 0.9
+omni_range = 8.0
+
+[node name="Torch3" type="OmniLight3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7, -15, 17.7)
+light_color = Color(1.0, 0.5, 0.1, 1)
+light_energy = 0.9
+omni_range = 8.0
+
+[node name="Torch4" type="OmniLight3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15, 25)
+light_color = Color(1.0, 0.5, 0.1, 1)
+light_energy = 0.9
+omni_range = 8.0
+
+[node name="Torch5" type="OmniLight3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.7, -15, 17.7)
+light_color = Color(1.0, 0.5, 0.1, 1)
+light_energy = 0.9
+omni_range = 8.0
+
+[node name="Torch6" type="OmniLight3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, -15, 0)
+light_color = Color(1.0, 0.5, 0.1, 1)
+light_energy = 0.9
+omni_range = 8.0
+
+[node name="Torch7" type="OmniLight3D" parent="TorchLights/Ring1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.7, -15, -17.7)
+light_color = Color(1.0, 0.5, 0.1, 1)
+light_energy = 0.9
+omni_range = 8.0
+
+; Ring 2: 12 lights at radius 45, Y=-30
+[node name="Ring2" type="Node3D" parent="TorchLights"]
+
+[node name="Torch0" type="OmniLight3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, -45)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 0.7
+omni_range = 10.0
+
+[node name="Torch1" type="OmniLight3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, -30, -38.97)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 0.7
+omni_range = 10.0
+
+[node name="Torch2" type="OmniLight3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.97, -30, -22.5)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 0.7
+omni_range = 10.0
+
+[node name="Torch3" type="OmniLight3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, -30, 0)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 0.7
+omni_range = 10.0
+
+[node name="Torch4" type="OmniLight3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.97, -30, 22.5)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 0.7
+omni_range = 10.0
+
+[node name="Torch5" type="OmniLight3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, -30, 38.97)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 0.7
+omni_range = 10.0
+
+[node name="Torch6" type="OmniLight3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30, 45)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 0.7
+omni_range = 10.0
+
+[node name="Torch7" type="OmniLight3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5, -30, 38.97)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 0.7
+omni_range = 10.0
+
+[node name="Torch8" type="OmniLight3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.97, -30, 22.5)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 0.7
+omni_range = 10.0
+
+[node name="Torch9" type="OmniLight3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, -30, 0)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 0.7
+omni_range = 10.0
+
+[node name="Torch10" type="OmniLight3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.97, -30, -22.5)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 0.7
+omni_range = 10.0
+
+[node name="Torch11" type="OmniLight3D" parent="TorchLights/Ring2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5, -30, -38.97)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 0.7
+omni_range = 10.0
+
+; Ring 3: 16 lights at radius 70, Y=-40
+[node name="Ring3" type="Node3D" parent="TorchLights"]
+
+[node name="Torch0" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, -70)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch1" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8, -40, -64.7)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch2" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, -40, -49.5)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch3" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.7, -40, -26.8)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch4" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, -40, 0)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch5" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.7, -40, 26.8)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch6" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5, -40, 49.5)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch7" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8, -40, 64.7)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch8" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 70)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch9" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8, -40, 64.7)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch10" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5, -40, 49.5)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch11" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.7, -40, 26.8)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch12" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, -40, 0)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch13" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.7, -40, -26.8)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch14" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5, -40, -49.5)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+[node name="Torch15" type="OmniLight3D" parent="TorchLights/Ring3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8, -40, -64.7)
+light_color = Color(1.0, 0.4, 0.06, 1)
+light_energy = 0.5
+omni_range = 12.0
+
+; --- Ritual Sequence (ApocalypseSequence script) ---
+
+[node name="RitualSequence" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+script = ExtResource("4_apocalypse")
+
+[node name="Sigil" type="CSGCylinder3D" parent="RitualSequence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+radius = 4.5
+height = 0.02
+sides = 64
+material = SubResource("ShaderMaterial_sigil_j3")
+
+[node name="SigilLight" type="OmniLight3D" parent="RitualSequence"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+light_color = Color(0.9, 0.1, 0.1, 1)
+light_energy = 0.0
+omni_range = 18.0
+
+[node name="RitualTrigger" type="StaticBody3D" parent="RitualSequence"]
+script = ExtResource("5_ritual_int")
+
+[node name="TriggerCollision" type="CollisionShape3D" parent="RitualSequence/RitualTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_ritual_j3")
+
+; --- Demons (hidden, revealed during ritual) ---
+
+[node name="Demons" type="Node3D" parent="."]
+visible = false
+
+[node name="Demon0" type="CSGCapsule3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -22)
+radius = 2.0
+height = 10.0
+material = SubResource("StandardMaterial3D_demon")
+
+[node name="Demon1" type="CSGCapsule3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6, 7, -15.6)
+radius = 1.5
+height = 14.0
+material = SubResource("StandardMaterial3D_demon")
+
+[node name="Demon2" type="CSGCapsule3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 4, 0)
+radius = 2.0
+height = 8.0
+material = SubResource("StandardMaterial3D_demon")
+
+[node name="Demon3" type="CSGCapsule3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6, 6, 15.6)
+radius = 1.8
+height = 12.0
+material = SubResource("StandardMaterial3D_demon")
+
+[node name="Demon4" type="CSGCapsule3D" parent="Demons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6, 8, -15.6)
+radius = 2.5
+height = 16.0
+material = SubResource("StandardMaterial3D_demon")
+
+; --- Lava (hidden, activated during ritual) ---
+
+[node name="LavaGroup" type="Node3D" parent="."]
+visible = false
+
+[node name="LavaCrack0" type="CSGBox3D" parent="LavaGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -8, -8)
+size = Vector3(1.0, 0.1, 8.0)
+use_collision = false
+material = SubResource("StandardMaterial3D_lava")
+
+[node name="LavaCrack1" type="CSGBox3D" parent="LavaGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -8, 6)
+size = Vector3(8.0, 0.1, 1.0)
+use_collision = false
+material = SubResource("StandardMaterial3D_lava")
+
+[node name="LavaCrack2" type="CSGBox3D" parent="LavaGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 14)
+size = Vector3(1.5, 0.1, 6.0)
+use_collision = false
+material = SubResource("StandardMaterial3D_lava")
+
+[node name="LavaLight0" type="OmniLight3D" parent="LavaGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -6, -8)
+light_color = Color(1.0, 0.3, 0.0, 1)
+light_energy = 0.0
+omni_range = 20.0
+
+[node name="LavaLight1" type="OmniLight3D" parent="LavaGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -6, 6)
+light_color = Color(1.0, 0.3, 0.0, 1)
+light_energy = 0.0
+omni_range = 20.0
+
+[node name="LavaLight2" type="OmniLight3D" parent="LavaGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 14)
+light_color = Color(1.0, 0.3, 0.0, 1)
+light_energy = 0.0
+omni_range = 20.0
+
+; --- Cryptic Message Overlay ---
+
+[node name="CrypticOverlay" type="CanvasLayer" parent="."]
+layer = 15
+visible = false
+
+[node name="CrypticLabel" type="Label" parent="CrypticOverlay"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -50.0
+offset_right = 300.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 52
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+
+; --- Player ---
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+script = ExtResource("2_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_j3_player")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="InteractRay" type="RayCast3D" parent="Player/Camera3D"]
+target_position = Vector3(0, 0, -2.5)
+
+[node name="UI" type="CanvasLayer" parent="Player"]
+
+[node name="InteractLabel" type="Label" parent="Player/UI"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -60.0
+offset_right = 100.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "[E] Interact"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+; --- Dialogue ---
+
+[node name="DialogueBox" type="CanvasLayer" parent="."]
+layer = 10
+script = ExtResource("3_dialogue")
+
+[node name="Panel" type="PanelContainer" parent="DialogueBox"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -140.0
+offset_right = -40.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="DialogueBox/Panel"]
+layout_mode = 2
+
+[node name="SpeakerLabel" type="Label" parent="DialogueBox/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.2, 0.2, 1)
+text = "Speaker"
+
+[node name="TextLabel" type="RichTextLabel" parent="DialogueBox/Panel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Dialogue text."
+fit_content = true
+
+; --- Post Processing ---
+
+[node name="PS1Overlay" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ps1_j3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
