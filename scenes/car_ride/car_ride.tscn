@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cjcnpcdgj03ka"]
 
-[ext_resource type="Script" path="res://scenes/car_ride/car_ride.gd" id="1_carride"]
+[ext_resource type="Script" uid="uid://cffcsajpgao7h" path="res://scenes/car_ride/car_ride.gd" id="1_carride"]
 [ext_resource type="Script" uid="uid://bnyyt0s1a6wbc" path="res://scripts/dialogue/dialogue_box.gd" id="2_dialogue"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="3_ps1"]
 
@@ -14,17 +14,11 @@ fog_enabled = true
 fog_light_color = Color(0.06, 0.06, 0.1, 1)
 fog_density = 0.015
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_road"]
-albedo_color = Color(0.25, 0.25, 0.28, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dash"]
 albedo_color = Color(0.15, 0.15, 0.15, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_building"]
-albedo_color = Color(0.18, 0.18, 0.22, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tree"]
-albedo_color = Color(0.12, 0.18, 0.12, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_road"]
+albedo_color = Color(0.25, 0.25, 0.28, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_line"]
 albedo_color = Color(0.5, 0.5, 0.2, 1)
@@ -32,115 +26,121 @@ emission_enabled = true
 emission = Color(0.3, 0.3, 0.1, 1)
 emission_energy_multiplier = 0.5
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_building"]
+albedo_color = Color(0.18, 0.18, 0.22, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tree"]
+albedo_color = Color(0.12, 0.18, 0.12, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ps1_car"]
 shader = ExtResource("3_ps1")
 shader_parameter/color_depth = 15.0
 shader_parameter/dither_strength = 0.05
 
-[node name="CarRide" type="Node3D"]
+[node name="CarRide" type="Node3D" unique_id=1735222680]
 script = ExtResource("1_carride")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=357310346]
 environment = SubResource("Environment_car")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+[node name="Camera3D" type="Camera3D" parent="." unique_id=531484183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="Dashboard" type="CSGBox3D" parent="."]
+[node name="Dashboard" type="CSGBox3D" parent="." unique_id=373539022]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.2)
-size = Vector3(2.0, 0.3, 0.8)
+size = Vector3(2, 0.3, 0.8)
 material = SubResource("StandardMaterial3D_dash")
 
-[node name="Windshield" type="CSGBox3D" parent="."]
+[node name="Windshield" type="CSGBox3D" parent="." unique_id=860561037]
 transform = Transform3D(1, 0, 0, 0, 0.95, -0.31, 0, 0.31, 0.95, 0, 1.6, -1.4)
-size = Vector3(2.0, 0.05, 1.2)
+size = Vector3(2, 0.05, 1.2)
 material = SubResource("StandardMaterial3D_dash")
 
-[node name="ScrollingEnvironment" type="Node3D" parent="."]
+[node name="ScrollingEnvironment" type="Node3D" parent="." unique_id=1269960857]
 
-[node name="Road" type="CSGBox3D" parent="ScrollingEnvironment"]
+[node name="Road" type="CSGBox3D" parent="ScrollingEnvironment" unique_id=1712247346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -20)
 size = Vector3(8, 0.1, 80)
 material = SubResource("StandardMaterial3D_road")
 
-[node name="CenterLine1" type="CSGBox3D" parent="ScrollingEnvironment"]
+[node name="CenterLine1" type="CSGBox3D" parent="ScrollingEnvironment" unique_id=1279131864]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, -5)
-size = Vector3(0.1, 0.02, 2.0)
+size = Vector3(0.1, 0.02, 2)
 material = SubResource("StandardMaterial3D_line")
 
-[node name="CenterLine2" type="CSGBox3D" parent="ScrollingEnvironment"]
+[node name="CenterLine2" type="CSGBox3D" parent="ScrollingEnvironment" unique_id=344733095]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, -15)
-size = Vector3(0.1, 0.02, 2.0)
+size = Vector3(0.1, 0.02, 2)
 material = SubResource("StandardMaterial3D_line")
 
-[node name="CenterLine3" type="CSGBox3D" parent="ScrollingEnvironment"]
+[node name="CenterLine3" type="CSGBox3D" parent="ScrollingEnvironment" unique_id=1514916301]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, -25)
-size = Vector3(0.1, 0.02, 2.0)
+size = Vector3(0.1, 0.02, 2)
 material = SubResource("StandardMaterial3D_line")
 
-[node name="CenterLine4" type="CSGBox3D" parent="ScrollingEnvironment"]
+[node name="CenterLine4" type="CSGBox3D" parent="ScrollingEnvironment" unique_id=303119051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, -35)
-size = Vector3(0.1, 0.02, 2.0)
+size = Vector3(0.1, 0.02, 2)
 material = SubResource("StandardMaterial3D_line")
 
-[node name="BuildingL1" type="CSGBox3D" parent="ScrollingEnvironment"]
+[node name="BuildingL1" type="CSGBox3D" parent="ScrollingEnvironment" unique_id=1143092953]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 3, -10)
 size = Vector3(4, 6, 5)
 material = SubResource("StandardMaterial3D_building")
 
-[node name="BuildingL2" type="CSGBox3D" parent="ScrollingEnvironment"]
+[node name="BuildingL2" type="CSGBox3D" parent="ScrollingEnvironment" unique_id=517968983]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 4, -25)
 size = Vector3(5, 8, 6)
 material = SubResource("StandardMaterial3D_building")
 
-[node name="BuildingR1" type="CSGBox3D" parent="ScrollingEnvironment"]
+[node name="BuildingR1" type="CSGBox3D" parent="ScrollingEnvironment" unique_id=1998130503]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2.5, -8)
 size = Vector3(4, 5, 4)
 material = SubResource("StandardMaterial3D_building")
 
-[node name="BuildingR2" type="CSGBox3D" parent="ScrollingEnvironment"]
+[node name="BuildingR2" type="CSGBox3D" parent="ScrollingEnvironment" unique_id=1513207933]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 3.5, -30)
 size = Vector3(5, 7, 5)
 material = SubResource("StandardMaterial3D_building")
 
-[node name="TreeL1" type="CSGCylinder3D" parent="ScrollingEnvironment"]
+[node name="TreeL1" type="CSGCylinder3D" parent="ScrollingEnvironment" unique_id=1383455243]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 1.5, -18)
 radius = 0.15
 height = 3.0
 material = SubResource("StandardMaterial3D_tree")
 
-[node name="TreeR1" type="CSGCylinder3D" parent="ScrollingEnvironment"]
+[node name="TreeR1" type="CSGCylinder3D" parent="ScrollingEnvironment" unique_id=1714035449]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1.5, -12)
 radius = 0.15
 height = 3.0
 material = SubResource("StandardMaterial3D_tree")
 
-[node name="StreetlightL1" type="OmniLight3D" parent="ScrollingEnvironment" groups=["streetlight"]]
+[node name="StreetlightL1" type="OmniLight3D" parent="ScrollingEnvironment" unique_id=1886472323 groups=["streetlight"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4, -8)
 light_color = Color(0.9, 0.8, 0.5, 1)
 light_energy = 1.5
 omni_range = 15.0
 omni_attenuation = 1.2
 
-[node name="StreetlightL2" type="OmniLight3D" parent="ScrollingEnvironment" groups=["streetlight"]]
+[node name="StreetlightL2" type="OmniLight3D" parent="ScrollingEnvironment" unique_id=1258182588 groups=["streetlight"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4, -28)
 light_color = Color(0.9, 0.8, 0.5, 1)
 light_energy = 1.5
 omni_range = 15.0
 omni_attenuation = 1.2
 
-[node name="StreetlightR1" type="OmniLight3D" parent="ScrollingEnvironment" groups=["streetlight"]]
+[node name="StreetlightR1" type="OmniLight3D" parent="ScrollingEnvironment" unique_id=1130693767 groups=["streetlight"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, -18)
 light_color = Color(0.9, 0.8, 0.5, 1)
 light_energy = 1.2
 omni_range = 15.0
 omni_attenuation = 1.2
 
-[node name="DialogueBox" type="CanvasLayer" parent="."]
+[node name="DialogueBox" type="CanvasLayer" parent="." unique_id=876638559]
 layer = 10
 script = ExtResource("2_dialogue")
 
-[node name="Panel" type="PanelContainer" parent="DialogueBox"]
+[node name="Panel" type="PanelContainer" parent="DialogueBox" unique_id=1153056385]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -152,21 +152,21 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="VBox" type="VBoxContainer" parent="DialogueBox/Panel"]
+[node name="VBox" type="VBoxContainer" parent="DialogueBox/Panel" unique_id=862401126]
 layout_mode = 2
 
-[node name="SpeakerLabel" type="Label" parent="DialogueBox/Panel/VBox"]
+[node name="SpeakerLabel" type="Label" parent="DialogueBox/Panel/VBox" unique_id=255744051]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.2, 0.2, 1)
 text = "Speaker"
 
-[node name="TextLabel" type="RichTextLabel" parent="DialogueBox/Panel/VBox"]
+[node name="TextLabel" type="RichTextLabel" parent="DialogueBox/Panel/VBox" unique_id=1818438194]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Dialogue text."
 fit_content = true
 
-[node name="PS1Overlay" type="ColorRect" parent="."]
+[node name="PS1Overlay" type="ColorRect" parent="." unique_id=329043632]
 material = SubResource("ShaderMaterial_ps1_car")
 anchors_preset = 15
 anchor_right = 1.0
