@@ -33,7 +33,7 @@ No extra build step is required; this is a vanilla Godot 4 project.
 ## Project layout (high level)
 
 - `scenes/` — main flow: hospital, car ride, three jobs, ending.
-- `scripts/` — player, interactables, dialogue, job sequences, autoloads (`GameManager`, `TransitionOverlay`).
+- `scripts/` — player, interactables, dialogue, job sequences, game.
 - `ui/` — dialogue box scene.
 - `shaders/` — low-poly / PS1-style post and effects.
 
