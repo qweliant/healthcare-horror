@@ -3,6 +3,8 @@ extends CharacterBody3D
 @export var move_speed := 3.0
 @export var mouse_sensitivity := 0.002
 
+const GRAVITY := 9.8
+
 @onready var camera: Camera3D = $Camera3D
 @onready var interact_ray: RayCast3D = $Camera3D/InteractRay
 @onready var interact_label: Label = $UI/InteractLabel
@@ -33,7 +35,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
-		velocity.y -= 9.8 * delta
+		velocity.y -= GRAVITY * delta
 
 	if can_move:
 		var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -57,11 +59,12 @@ func _check_interaction() -> void:
 	if interact_ray.is_colliding():
 		var collider := interact_ray.get_collider()
 		if collider.has_method("interact"):
-			if current_interactable != collider:
+			var prompt: String = collider.get_interact_prompt() if collider.has_method("get_interact_prompt") else "[E] Interact"
+			if prompt != "":
 				current_interactable = collider
-				interact_label.text = collider.get_interact_prompt() if collider.has_method("get_interact_prompt") else "[E] Interact"
+				interact_label.text = prompt
 				interact_label.visible = true
-			return
+				return
 
 	current_interactable = null
 	interact_label.visible = false
