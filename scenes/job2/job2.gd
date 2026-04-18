@@ -5,6 +5,7 @@ extends JobSiteBase
 @onready var cultist_b: StaticBody3D = $Cultist2
 @onready var dead_cultist_a: Node3D = $DeadCultists/DeadCultist1
 @onready var dead_cultist_b: Node3D = $DeadCultists/DeadCultist2
+@onready var escape_door: StaticBody3D = $EscapeDoor
 
 
 func _process(delta: float) -> void:
@@ -30,6 +31,13 @@ func _apply_cultist_casualties() -> void:
 		dead_cultist_a.visible = true
 	if dead_cultist_b:
 		dead_cultist_b.visible = true
+
+
+func _try_escape_attempt() -> void:
+	# Instead of auto-playing escape dialogue, let the player find the door
+	GameManager.end_dialogue()
+	if escape_door:
+		escape_door.escape_enabled = true
 
 
 func _on_next_call_finished() -> void:

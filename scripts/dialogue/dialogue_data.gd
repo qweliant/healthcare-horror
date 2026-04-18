@@ -104,6 +104,95 @@ static var dialogues := {
 		{"speaker": "", "text": "What are you going to do?"},
 	],
 
+	# ========== PARKING LOT ==========
+
+	"parking_lot_car_enter": [
+		{"speaker": "", "text": "You find your car. Third row. The one with the dent in the bumper."},
+		{"speaker": "", "text": "You slide into the driver's seat. The vinyl is cold."},
+		{"speaker": "", "text": "The check engine light is on. Of course it is."},
+		{"speaker": "", "text": "You glance at the gas gauge. The needle sits below the red line."},
+		{"speaker": "", "text": "Empty."},
+		{"speaker": "", "text": "%BILL%."},
+		{"speaker": "", "text": "That number ate everything. Savings. Checking. The emergency fund that was never enough."},
+		{"speaker": "", "text": "You can't even afford to fill the tank."},
+	],
+
+	"parking_lot_car_start": [
+		{"speaker": "", "text": "You turn the key anyway."},
+		{"speaker": "", "text": "[Click. Click. Click.]"},
+		{"speaker": "", "text": "Nothing. The engine doesn't even try."},
+		{"speaker": "", "text": "You try again."},
+		{"speaker": "", "text": "[Click. Click.]"},
+		{"speaker": "", "text": "Dead battery. No gas. No money. No way home."},
+		{"speaker": "", "text": "You sit there. Hands on the wheel. Staring at nothing."},
+		{"speaker": "", "text": "The parking lot hums under the flickering lights."},
+	],
+
+	"parking_lot_waiting": [
+		{"speaker": "", "text": "You sit in your dead car. Waiting."},
+		{"speaker": "", "text": "The parking lot is empty. The lights flicker."},
+		{"speaker": "", "text": "You don't know what you're waiting for. You don't know what you agreed to."},
+		{"speaker": "", "text": "Headlights sweep across the lot. A black sedan pulls up."},
+		{"speaker": "", "text": "The back door opens. No one gets out."},
+		{"speaker": "", "text": "You get out of your car. You walk toward the sedan."},
+		{"speaker": "", "text": "You don't look back."},
+	],
+
+	# ========== ESCAPE ATTEMPTS ==========
+
+	"job_escape_0": [
+		{"speaker": "", "text": "You need to get out. Now."},
+		{"speaker": "", "text": "You run for the loading dock door. The one you came through."},
+		{"speaker": "", "text": "It doesn't move. It's not locked — it's sealed. Like it was welded shut."},
+		{"speaker": "", "text": "You slam your shoulder into it. Nothing."},
+		{"speaker": "", "text": "You try the side door. The emergency exit. Every handle."},
+		{"speaker": "", "text": "All sealed. Every one."},
+		{"speaker": "", "text": "You look for the car that brought you here."},
+		{"speaker": "", "text": "There's no car. There's no road. Outside the windows, there's just... fog."},
+		{"speaker": "", "text": "Thick. Grey. Like the building is floating in nothing."},
+		{"choices": [
+			{"text": "\"Let me out! Somebody!\"", "response": [
+				{"speaker": "You", "text": "LET ME OUT! SOMEBODY!"},
+				{"speaker": "", "text": "Your voice doesn't echo. The warehouse eats it."},
+				{"speaker": "", "text": "Nobody answers. Nobody is coming."},
+			]},
+			{"text": "[Sit down. Wait.]", "response": [
+				{"speaker": "", "text": "You slide down against the wall. The concrete is warm where it shouldn't be."},
+				{"speaker": "", "text": "You sit. You wait. There's nothing else to do."},
+			]},
+		]},
+		{"speaker": "", "text": "Your phone buzzes."},
+	],
+
+	"stairwell_enter": [
+		{"speaker": "", "text": "The stairs. You need to reach the stairs."},
+		{"speaker": "", "text": "Up. Out. Away from here."},
+	],
+
+	"stairwell_loop": [
+		{"speaker": "", "text": "You've been climbing for too long. Way too long."},
+		{"speaker": "", "text": "The stairs keep going. The same landing. The same cracked step. Over and over."},
+		{"speaker": "", "text": "You stop. You look down."},
+		{"speaker": "", "text": "The bottom is gone. There is no bottom. Just stairs spiraling into dark."},
+		{"speaker": "", "text": "You look up. Same thing."},
+		{"choices": [
+			{"text": "Keep climbing", "response": [
+				{"speaker": "", "text": "You keep climbing. Faster. Desperate."},
+				{"speaker": "", "text": "The same landing. The same cracked step. The same water stain shaped like a hand."},
+				{"speaker": "", "text": "You're not going anywhere. You were never going anywhere."},
+			]},
+			{"text": "Go back down", "response": [
+				{"speaker": "", "text": "You turn around. Down. Back the way you came."},
+				{"speaker": "", "text": "The same landing. The same cracked step. The same water stain shaped like a hand."},
+				{"speaker": "", "text": "Down is up. Up is down. It doesn't matter."},
+			]},
+		]},
+		{"speaker": "", "text": "You stop. You lean against the wall. Breathing hard."},
+		{"speaker": "", "text": "The stairwell is gone. You're back in the basement."},
+		{"speaker": "", "text": "You never left the basement."},
+		{"speaker": "", "text": "Your phone buzzes."},
+	],
+
 	# ========== CAR RIDE ==========
 
 	"car_ride_0": [

@@ -2,7 +2,7 @@ extends Interactable
 
 ## The hospital exit door.
 ## Before checkout: doors won't open, triggers anxiety dialogue.
-## After bill reveal: normal exit flow.
+## After bill reveal: transitions to parking lot scene.
 
 var _tried_early := false
 
@@ -41,17 +41,7 @@ func interact() -> void:
 
 
 func _on_exit_dialogue_finished() -> void:
-	GameManager.set_state(GameManager.GameState.PHONE_CALL)
-	await get_tree().create_timer(1.5).timeout
-	GameManager.start_dialogue("phone_call")
-
-	var dialogue_box := get_tree().get_first_node_in_group("dialogue_box")
-	if dialogue_box:
-		dialogue_box.dialogue_finished.connect(_on_phone_finished, CONNECT_ONE_SHOT)
-
-
-func _on_phone_finished() -> void:
-	GameManager.set_state(GameManager.GameState.CAR_RIDE)
+	GameManager.set_state(GameManager.GameState.PARKING_LOT)
 	TransitionOverlay.fade_out(1.5)
 	await TransitionOverlay.fade_out_finished
-	GameManager.transition_to_scene("res://scenes/car_ride/car_ride.tscn")
+	GameManager.transition_to_scene("res://scenes/parking_lot/parking_lot.tscn")
