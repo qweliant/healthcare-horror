@@ -52,11 +52,12 @@ func _check_interaction() -> void:
 	if interact_ray.is_colliding():
 		var collider := interact_ray.get_collider()
 		if collider.has_method("interact"):
-			if current_interactable != collider:
+			var prompt: String = collider.get_interact_prompt() if collider.has_method("get_interact_prompt") else "[E] Interact"
+			if prompt != "":
 				current_interactable = collider
-				interact_label.text = collider.get_interact_prompt() if collider.has_method("get_interact_prompt") else "[E] Interact"
+				interact_label.text = prompt
 				interact_label.visible = true
-			return
+				return
 
 	current_interactable = null
 	interact_label.visible = false

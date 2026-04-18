@@ -3,24 +3,41 @@ extends Resource
 
 # All game dialogue lives here. Each key maps to an array of dialogue lines.
 # Format: { speaker: String, text: String }
+# Choice format: { choices: [{ text: String, response: Array }] }
 
 static var dialogues := {
+	# ========== HOSPITAL ==========
+
 	"nurse_checkout": [
 		{"speaker": "Nurse", "text": "Alright, you're all set to go."},
 		{"speaker": "Nurse", "text": "Just need to settle the bill before you leave."},
+		{"speaker": "", "text": "Settle the bill. Right. How bad can it be?"},
 		{"speaker": "Nurse", "text": "Let me pull that up for you..."},
 		{"speaker": "", "text": "[The printer whirs for an uncomfortably long time]"},
+		{"speaker": "", "text": "That's a lot of paper."},
 		{"speaker": "Nurse", "text": "Here you are."},
 	],
 	"bill_reveal": [
 		{"speaker": "", "text": "You look at the bill."},
 		{"speaker": "Bill", "text": "TOTAL AMOUNT DUE: %BILL%"},
-		{"speaker": "", "text": "Your vision blurs."},
-		{"speaker": "You", "text": "There has to be... some kind of mistake."},
-		{"speaker": "Nurse", "text": "I'm afraid that's correct. Three nights in the ICU, medications, imaging..."},
+		{"speaker": "", "text": "Your vision blurs. Your ears ring."},
+		{"speaker": "", "text": "That number can't be right. That number can't possibly be right."},
+		{"choices": [
+			{"text": "\"There has to be a mistake.\"", "response": [
+				{"speaker": "You", "text": "There has to be... some kind of mistake."},
+				{"speaker": "Nurse", "text": "I've double-checked. I'm afraid it's accurate."},
+			]},
+			{"text": "\"I'm not paying this.\"", "response": [
+				{"speaker": "You", "text": "I'm not paying this. This is insane. I CAN'T pay this."},
+				{"speaker": "Nurse", "text": "I understand your frustration. But the charges are correct."},
+			]},
+		]},
+		{"speaker": "Nurse", "text": "Three nights in the ICU, medications, imaging..."},
 		{"speaker": "Nurse", "text": "We do offer payment plans."},
+		{"speaker": "", "text": "Payment plans. Sure. Pay it off over the next three lifetimes."},
 		{"speaker": "You", "text": "..."},
 		{"speaker": "Nurse", "text": "You can discuss it with billing. For now, you're free to go."},
+		{"speaker": "", "text": "Free. That's a funny word for someone who just got handed a quarter-million-dollar sentence."},
 	],
 	"waiting_room_patient_1": [
 		{"speaker": "Patient", "text": "Been waiting here six hours. SIX."},
@@ -34,39 +51,79 @@ static var dialogues := {
 	],
 	"phone_call": [
 		{"speaker": "", "text": "Your phone buzzes. Unknown number."},
-		{"speaker": "You", "text": "Hello?"},
+		{"speaker": "", "text": "Unknown number. After midnight. Nothing good comes from unknown numbers after midnight."},
+		{"choices": [
+			{"text": "Answer the phone", "response": [
+				{"speaker": "", "text": "You answer. Your hand is shaking."},
+			]},
+			{"text": "Ignore it", "response": [
+				{"speaker": "", "text": "You let it ring out. Voicemail."},
+				{"speaker": "", "text": "..."},
+				{"speaker": "", "text": "It rings again. Same number."},
+				{"speaker": "", "text": "%BILL%. The number burns behind your eyes like an afterimage."},
+				{"speaker": "", "text": "You answer."},
+			]},
+		]},
 		{"speaker": "???", "text": "I heard you have some... financial difficulties."},
 		{"speaker": "You", "text": "Who is this? How did you get my number?"},
 		{"speaker": "???", "text": "That's not important. What IS important is that I have work."},
 		{"speaker": "???", "text": "Simple job. One night. Enough to make a real dent in that debt."},
 		{"speaker": "You", "text": "What kind of job?"},
 		{"speaker": "???", "text": "The kind where you don't ask questions."},
-		{"speaker": "???", "text": "I'll send you the address. Be there at midnight."},
+		{"choices": [
+			{"text": "\"I'll do it.\"", "response": [
+				{"speaker": "You", "text": "...Fine. I'll do it."},
+				{"speaker": "", "text": "What choice do you have?"},
+			]},
+			{"text": "\"No. Absolutely not.\"", "response": [
+				{"speaker": "You", "text": "No. Absolutely not. I don't even know who you are."},
+				{"speaker": "???", "text": "You owe %BILL%."},
+				{"speaker": "???", "text": "No savings. No family money. No second job that covers that."},
+				{"speaker": "???", "text": "I'm the only call you're getting tonight. Think carefully."},
+				{"speaker": "", "text": "..."},
+				{"speaker": "", "text": "The bill. The apartment you can barely afford. The walls closing in."},
+				{"speaker": "You", "text": "...What time?"},
+			]},
+		]},
+		{"speaker": "???", "text": "A car will come for you. Be outside in twenty minutes."},
 		{"speaker": "", "text": "[The line goes dead]"},
-		{"speaker": "", "text": "A text arrives with an address you don't recognize."},
+		{"speaker": "", "text": "What did you just agree to?"},
+		{"speaker": "", "text": "You stand in the parking lot. Waiting."},
+	],
+	"exit_early": [
+		{"speaker": "", "text": "You step toward the exit. The automatic doors don't move."},
+		{"speaker": "", "text": "A small light on the panel blinks red."},
+		{"speaker": "", "text": "CHECKOUT REQUIRED BEFORE DISCHARGE."},
+		{"speaker": "", "text": "Can't leave until the bill is settled. That's how it works."},
+		{"speaker": "", "text": "That's how it always works."},
 	],
 	"exit_door": [
 		{"speaker": "", "text": "The automatic doors slide open. Cold air hits you."},
+		{"speaker": "", "text": "%BILL%. The number follows you out the door."},
 		{"speaker": "", "text": "The parking lot stretches out under flickering lights."},
+		{"speaker": "", "text": "What are you going to do?"},
 	],
 
 	# ========== CAR RIDE ==========
 
 	"car_ride_0": [
 		{"speaker": "", "text": "A black sedan idles at the curb. The back door is already open."},
+		{"speaker": "", "text": "Every part of you says don't get in that car."},
 		{"speaker": "", "text": "You get in. The driver doesn't turn around."},
 		{"speaker": "", "text": "..."},
 		{"speaker": "", "text": "The streetlights blur past. You don't recognize this part of town."},
+		{"speaker": "", "text": "You should have asked more questions. You should have asked any questions."},
 		{"speaker": "Driver", "text": "Almost there."},
 		{"speaker": "", "text": "Those are the only words spoken the entire ride."},
 	],
 
 	"car_ride_1": [
-		{"speaker": "", "text": "The sedan doesn't slow down for long. You barely have time to breathe."},
+		{"speaker": "", "text": "The sedan is already waiting. Same car. Same silence."},
+		{"speaker": "", "text": "You remember the red on your hands. It took three washes to get it off."},
 		{"speaker": "", "text": "The city thins out. The fog thickens. Streetlights stutter like a failing EKG."},
 		{"speaker": "", "text": "You catch your reflection in the window—pale, hollow. Wrong."},
-		{"speaker": "", "text": "The driver still won't look at you."},
-		{"speaker": "Driver", "text": "Don't be late."},
+		{"speaker": "", "text": "You think about telling the driver to turn around."},
+		{"speaker": "", "text": "You don't."},
 		{"speaker": "", "text": "The car turns down a ramp into somewhere that shouldn't exist."},
 	],
 
@@ -76,6 +133,8 @@ static var dialogues := {
 		{"speaker": "", "text": "The car stops. The driver points toward a warehouse."},
 		{"speaker": "", "text": "No sign. No address. Just a rusted loading dock door, slightly ajar."},
 		{"speaker": "", "text": "Orange light leaks from inside."},
+		{"speaker": "", "text": "You should turn around. You should get back in the car."},
+		{"speaker": "", "text": "But the car is already gone."},
 	],
 
 	"job_meeting_0": [
@@ -85,6 +144,7 @@ static var dialogues := {
 		{"speaker": "???", "text": "There is. Simple job. You do what we say, you get paid."},
 		{"speaker": "???", "text": "Don't touch anything unless we tell you to."},
 		{"speaker": "???", "text": "And don't ask what it's for."},
+		{"speaker": "", "text": "You don't ask what it's for."},
 	],
 
 	# -- Leader dialogue (escalating) --
@@ -132,6 +192,7 @@ static var dialogues := {
 		{"speaker": "", "text": "The lines on the floor start to glow."},
 		{"speaker": "Leader", "text": "Sta ke'voth. Rha'um din feralis."},
 		{"speaker": "", "text": "You feel your hands go numb."},
+		{"speaker": "", "text": "Every instinct screams to run. Your legs won't move."},
 		{"speaker": "", "text": "The humming gets louder. It's inside your skull now."},
 		{"speaker": "Voices", "text": "VER'THAKAN. VER'THAKAN. VER'THAKAN."},
 		{"speaker": "", "text": "The light becomes blinding."},
@@ -142,10 +203,11 @@ static var dialogues := {
 		{"speaker": "", "text": "..."},
 		{"speaker": "", "text": "You're on the floor. Your hands are wet."},
 		{"speaker": "", "text": "Red. Everything is red."},
-		{"speaker": "", "text": "You don't remember what happened."},
+		{"speaker": "", "text": "You don't remember what happened. You don't want to remember."},
 		{"speaker": "Leader", "text": "Good. Payment will be processed."},
 		{"speaker": "Leader", "text": "Clean yourself up."},
 		{"speaker": "", "text": "The three figures are already leaving."},
+		{"speaker": "", "text": "You wipe your hands on your jeans. The red doesn't come off."},
 	],
 
 	# -- Post-job phone calls --
@@ -154,6 +216,7 @@ static var dialogues := {
 		{"speaker": "Hospital", "text": "This is an automated message from Regional Medical Center."},
 		{"speaker": "Hospital", "text": "A payment of %PAYMENT% has been applied to your account."},
 		{"speaker": "Hospital", "text": "Your remaining balance is %BILL%."},
+		{"speaker": "", "text": "Still six figures. One night of... whatever that was. And it barely made a dent."},
 		{"speaker": "Hospital", "text": "Thank you for your prompt payment."},
 		{"speaker": "", "text": "[Click]"},
 	],
@@ -163,6 +226,19 @@ static var dialogues := {
 		{"speaker": "???", "text": "Good work tonight."},
 		{"speaker": "???", "text": "There's more where that came from."},
 		{"speaker": "???", "text": "Same arrangement. Different location."},
+		{"choices": [
+			{"text": "\"I'll be there.\"", "response": [
+				{"speaker": "You", "text": "...I'll be there."},
+				{"speaker": "", "text": "The words come out before you can stop them."},
+			]},
+			{"text": "\"I'm done. Find someone else.\"", "response": [
+				{"speaker": "You", "text": "I'm done. Find someone else."},
+				{"speaker": "???", "text": "Your remaining balance is %BILL%."},
+				{"speaker": "???", "text": "One job doesn't cover that. You know that."},
+				{"speaker": "", "text": "You know that."},
+				{"speaker": "You", "text": "...When?"},
+			]},
+		]},
 		{"speaker": "???", "text": "The car will be waiting."},
 		{"speaker": "", "text": "[The line goes dead]"},
 	],
@@ -172,11 +248,14 @@ static var dialogues := {
 	"job_arrival_1": [
 		{"speaker": "", "text": "The ramp ends in a sump of cracked concrete and rusted rebar."},
 		{"speaker": "", "text": "Water drips somewhere you can't see. The air tastes like wet pennies."},
+		{"speaker": "", "text": "You've been here before. Not this place. But somewhere like it."},
 		{"speaker": "", "text": "Orange candle-flame light flickers ahead—two silhouettes, not three."},
 	],
 
 	"job_meeting_1": [
-		{"speaker": "", "text": "Two cultists wait beside a wide chalk circle. No leader. No instructions on paper."},
+		{"speaker": "", "text": "Two cultists wait beside a wide chalk circle."},
+		{"speaker": "", "text": "The leader from last time isn't here. You don't ask why."},
+		{"speaker": "", "text": "Something tells you the answer would be worse than not knowing."},
 		{"speaker": "Cultist", "text": "You came."},
 		{"speaker": "You", "text": "I was told to."},
 		{"speaker": "Cultist", "text": "Good. Stand when we tell you. Until then—keep your voice down."},
@@ -196,7 +275,7 @@ static var dialogues := {
 
 	"job1_cultist2_0": [
 		{"speaker": "Cultist", "text": "..."},
-		{"speaker": "Cultist", "text": "If your hands shake, press them flat. Like you're already on the floor."},
+		{"speaker": "Cultist", "text": "When it starts, keep your hands still. No matter what."},
 	],
 
 	"job1_cultist2_1": [
@@ -211,6 +290,7 @@ static var dialogues := {
 		{"speaker": "", "text": "The sigil's lines crawl outward, chasing cracks in the concrete."},
 		{"speaker": "Cultist", "text": "Keth'vor. Uln'shar. The mouth opens."},
 		{"speaker": "", "text": "Something pulls at your ribs from the inside."},
+		{"speaker": "", "text": "This is wrong. This is all wrong. But the number— the bill—"},
 		{"speaker": "", "text": "The hum becomes a shriek—then cuts off so fast your ears ring with absence."},
 		{"speaker": "", "text": "The light goes red, then white, then nothing."},
 	],
@@ -232,6 +312,7 @@ static var dialogues := {
 		{"speaker": "Hospital", "text": "This is an automated message from Regional Medical Center."},
 		{"speaker": "Hospital", "text": "A payment of %PAYMENT% has been applied to your account."},
 		{"speaker": "Hospital", "text": "Your remaining balance is %BILL%."},
+		{"speaker": "", "text": "Two people are dead. And the hospital wants to thank you for your payment."},
 		{"speaker": "Hospital", "text": "Thank you for your prompt payment."},
 		{"speaker": "", "text": "[Click]"},
 	],
@@ -243,7 +324,21 @@ static var dialogues := {
 		{"speaker": "???", "text": "Consider the job complete. Payment is already in motion."},
 		{"speaker": "You", "text": "Complete? They— they're dead. I didn't—"},
 		{"speaker": "???", "text": "Irrelevant. What matters is that you were present."},
-		{"speaker": "???", "text": "There's one more contract. One last night. After that, your debt and I are square."},
+		{"speaker": "???", "text": "There's one more contract. One last night. After that, your debt is cleared."},
+		{"choices": [
+			{"text": "\"One more. Then I'm done.\"", "response": [
+				{"speaker": "You", "text": "One more. Then I'm done. Then this is over."},
+				{"speaker": "???", "text": "That's the spirit."},
+			]},
+			{"text": "\"I'm going to the police.\"", "response": [
+				{"speaker": "You", "text": "I'm going to the police. I'm telling them everything."},
+				{"speaker": "???", "text": "And what will you tell them? That you stood in a circle?"},
+				{"speaker": "???", "text": "That you watched people die and did nothing?"},
+				{"speaker": "???", "text": "They won't believe the rest. But they'll believe that part."},
+				{"speaker": "", "text": "Your mouth goes dry."},
+				{"speaker": "???", "text": "One more night. Then you walk away clean."},
+			]},
+		]},
 		{"speaker": "???", "text": "You won't remember getting there. You never do."},
 		{"speaker": "", "text": "[The line goes dead]"},
 		{"speaker": "", "text": "The walls blur. Your hands disappear. Everything goes dark."},
@@ -252,7 +347,7 @@ static var dialogues := {
 	# ========== JOB 3: THE SUMMIT (current_job == 2) ==========
 
 	"job_arrival_2": [
-		{"speaker": "", "text": "Cold stone under your feet. Wind that shouldn't be this high."},
+		{"speaker": "", "text": "Cold stone under your feet. Wind howling from somewhere far below."},
 		{"speaker": "", "text": "You're standing. You don't remember standing up."},
 		{"speaker": "", "text": "Below you — far below — ten thousand points of fire move in slow circles."},
 		{"speaker": "", "text": "You are on a mountain. You are in the center of something ancient."},
