@@ -164,35 +164,6 @@ static var dialogues := {
 		{"speaker": "", "text": "Your phone buzzes."},
 	],
 
-	"stairwell_enter": [
-		{"speaker": "", "text": "The stairs. You need to reach the stairs."},
-		{"speaker": "", "text": "Up. Out. Away from here."},
-	],
-
-	"stairwell_loop": [
-		{"speaker": "", "text": "You've been climbing for too long. Way too long."},
-		{"speaker": "", "text": "The stairs keep going. The same landing. The same cracked step. Over and over."},
-		{"speaker": "", "text": "You stop. You look down."},
-		{"speaker": "", "text": "The bottom is gone. There is no bottom. Just stairs spiraling into dark."},
-		{"speaker": "", "text": "You look up. Same thing."},
-		{"choices": [
-			{"text": "Keep climbing", "response": [
-				{"speaker": "", "text": "You keep climbing. Faster. Desperate."},
-				{"speaker": "", "text": "The same landing. The same cracked step. The same water stain shaped like a hand."},
-				{"speaker": "", "text": "You're not going anywhere. You were never going anywhere."},
-			]},
-			{"text": "Go back down", "response": [
-				{"speaker": "", "text": "You turn around. Down. Back the way you came."},
-				{"speaker": "", "text": "The same landing. The same cracked step. The same water stain shaped like a hand."},
-				{"speaker": "", "text": "Down is up. Up is down. It doesn't matter."},
-			]},
-		]},
-		{"speaker": "", "text": "You stop. You lean against the wall. Breathing hard."},
-		{"speaker": "", "text": "The stairwell is gone. You're back in the basement."},
-		{"speaker": "", "text": "You never left the basement."},
-		{"speaker": "", "text": "Your phone buzzes."},
-	],
-
 	# ========== CAR RIDE ==========
 
 	"car_ride_0": [

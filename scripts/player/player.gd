@@ -15,10 +15,6 @@ var current_interactable: Node = null
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	# Allow the capsule to treat stair-edge contacts as floor (they're ~80° from vertical
-	# for a 0.3-radius capsule on a 0.25m riser). Snap length keeps us glued to step tops.
-	floor_max_angle = 1.5
-	floor_snap_length = 0.3
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://scripts/interaction/ritual_interactable.gd" id="6_ritual_int"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="7_ps1"]
 [ext_resource type="Shader" path="res://shaders/sigil_glow.gdshader" id="8_sigil"]
-[ext_resource type="Script" path="res://scenes/job2/escape_door.gd" id="9_escape_door"]
 
 [sub_resource type="Environment" id="Environment_wh"]
 background_mode = 1
@@ -63,10 +62,7 @@ emission = Color(0.6, 0.1, 0.1, 1)
 emission_energy_multiplier = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door"]
-albedo_color = Color(1, 0.05, 0.05, 1)
-emission_enabled = true
-emission = Color(1, 0.1, 0.1, 1)
-emission_energy_multiplier = 1.5
+albedo_color = Color(0.25, 0.2, 0.18, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_door_frame"]
 albedo_color = Color(0.3, 0.3, 0.34, 1)
@@ -284,13 +280,10 @@ script = ExtResource("6_ritual_int")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_ritual")
 
-; --- Escape Door ---
+; --- Entrance Door (non-interactive, for perspective behind the player spawn) ---
 
 [node name="EscapeDoor" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -31.7)
-script = ExtResource("9_escape_door")
-prompt_text = "[E] Open door"
-one_shot = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
 
 [node name="DoorCollision" type="CollisionShape3D" parent="EscapeDoor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
@@ -302,17 +295,9 @@ size = Vector3(1.0, 2.0, 0.1)
 material = SubResource("StandardMaterial3D_door")
 
 [node name="DoorFrame" type="CSGBox3D" parent="EscapeDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0.05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -0.05)
 size = Vector3(1.3, 2.3, 0.15)
 material = SubResource("StandardMaterial3D_door_frame")
-
-; Bright red lamp above the door — visible from across the warehouse.
-[node name="DoorLight" type="OmniLight3D" parent="EscapeDoor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6, 1.0)
-light_color = Color(1, 0.2, 0.2, 1)
-light_energy = 2.5
-omni_range = 10.0
-omni_attenuation = 1.2
 
 ; --- Player ---
 
