@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://clqqc6fkv7rke"]
+
+[ext_resource type="Script" uid="uid://b1riwn4fcbnij" path="res://scenes/title/title_screen.gd" id="1_5vtrw"]
+
+[node name="TitleScreen" type="Node" unique_id=1010146771]
+script = ExtResource("1_5vtrw")
+
+[node name="TitleCard" type="ColorRect" parent="." unique_id=716043619]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="WarningLabel" type="Label" parent="TitleCard" unique_id=295276420]
+visible = false
+layout_mode = 0
+offset_left = 169.0
+offset_top = 247.0
+offset_right = 1001.0
+offset_bottom = 540.0
+theme_override_font_sizes/font_size = 36
+text = "This game contains bright flashing lights and/or images that may cause discomfort and/or convulsions in people with photosensitvity epilepsy. Players discretion advised."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="WarningTitleLabel" type="Label" parent="TitleCard" unique_id=1153757671]
+visible = false
+layout_mode = 0
+offset_left = 434.0
+offset_top = 163.0
+offset_right = 653.0
+offset_bottom = 237.0
+theme_override_colors/font_color = Color(0.6209133, 0.13071069, 0.17816746, 1)
+theme_override_font_sizes/font_size = 54
+text = "Warning"
+
+[node name="StartGameButton" type="Button" parent="TitleCard" unique_id=1361633371]
+layout_mode = 0
+offset_left = 473.0
+offset_top = 391.0
+offset_right = 677.0
+offset_bottom = 468.0
+theme_override_font_sizes/font_size = 36
+text = "Start Game"
+
+[node name="TitleLabel" type="Label" parent="TitleCard" unique_id=317091826]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -282.5
+offset_top = -44.0
+offset_right = 282.5
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Healthcare Horror"
+
+[node name="AnyKeyLabel" type="Label" parent="TitleCard" unique_id=1221352138]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -135.5
+offset_top = -60.0
+offset_right = 135.5
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 20
+text = "[ Press any key to continue ]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="TitleCard/StartGameButton" to="." method="_on_start_game_button_pressed"]

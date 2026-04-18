@@ -4,7 +4,7 @@ signal fade_out_finished
 signal fade_in_finished
 signal flash_finished
 
-@onready var color_rect: ColorRect = $ColorRect
+var color_rect: ColorRect
 
 var _tween: Tween = null
 
