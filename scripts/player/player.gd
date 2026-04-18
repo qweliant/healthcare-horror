@@ -21,7 +21,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
 		camera.rotation.x = clampf(camera.rotation.x, -PI / 3.0, PI / 3.0)
 
-	if event.is_action_pressed("interact") and current_interactable:
+	if can_move and event.is_action_pressed("interact") and current_interactable:
 		current_interactable.interact()
 
 	if event.is_action_pressed("ui_cancel"):
@@ -45,7 +45,12 @@ func _physics_process(delta: float) -> void:
 		velocity.z = 0.0
 
 	move_and_slide()
-	_check_interaction()
+
+	if can_move:
+		_check_interaction()
+	else:
+		current_interactable = null
+		interact_label.visible = false
 
 
 func _check_interaction() -> void:
