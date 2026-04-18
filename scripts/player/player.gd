@@ -3,6 +3,8 @@ extends CharacterBody3D
 @export var move_speed := 3.0
 @export var mouse_sensitivity := 0.002
 
+const GRAVITY := 9.8
+
 @onready var camera: Camera3D = $Camera3D
 @onready var interact_ray: RayCast3D = $Camera3D/InteractRay
 @onready var interact_label: Label = $UI/InteractLabel
@@ -13,6 +15,10 @@ var current_interactable: Node = null
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Allow the capsule to treat stair-edge contacts as floor (they're ~80° from vertical
+	# for a 0.3-radius capsule on a 0.25m riser). Snap length keeps us glued to step tops.
+	floor_max_angle = 1.5
+	floor_snap_length = 0.3
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -33,7 +39,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
-		velocity.y -= 9.8 * delta
+		velocity.y -= GRAVITY * delta
 
 	if can_move:
 		var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")

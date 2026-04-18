@@ -34,8 +34,7 @@ height = 1.6
 [sub_resource type="BoxShape3D" id="BoxShape3D_teleport"]
 size = Vector3(2.5, 2.0, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ramp"]
-size = Vector3(2.5, 0.2, 4.4231)
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_safety"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ps1"]
 shader = ExtResource("4_ps1")
@@ -71,6 +70,13 @@ light_energy = 1.0
 omni_range = 8.0
 omni_attenuation = 1.2
 
+; --- Safety floor: infinite plane at y=0 so the player can never fall below the stairwell. ---
+
+[node name="SafetyFloor" type="StaticBody3D" parent="."]
+
+[node name="SafetyCollision" type="CollisionShape3D" parent="SafetyFloor"]
+shape = SubResource("WorldBoundaryShape3D_safety")
+
 ; --- Bottom Landing ---
 
 [node name="BottomLanding" type="CSGBox3D" parent="."]
@@ -79,76 +85,79 @@ use_collision = true
 size = Vector3(3.0, 0.1, 2.0)
 material = SubResource("Mat_concrete")
 
-; --- Steps (visual only — walking handled by invisible StairRamp below) ---
+; --- Steps (climbed via step-up logic in player.gd) ---
 
 [node name="Step01" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, -0.35)
+use_collision = true
 size = Vector3(2.5, 0.25, 0.3)
 material = SubResource("Mat_concrete")
 
 [node name="Step02" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, -0.65)
+use_collision = true
 size = Vector3(2.5, 0.25, 0.3)
 material = SubResource("Mat_concrete")
 
 [node name="Step03" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, -0.95)
+use_collision = true
 size = Vector3(2.5, 0.25, 0.3)
 material = SubResource("Mat_concrete")
 
 [node name="Step04" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, -1.25)
+use_collision = true
 size = Vector3(2.5, 0.25, 0.3)
 material = SubResource("Mat_concrete")
 
 [node name="Step05" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, -1.55)
+use_collision = true
 size = Vector3(2.5, 0.25, 0.3)
 material = SubResource("Mat_concrete")
 
 [node name="Step06" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.375, -1.85)
+use_collision = true
 size = Vector3(2.5, 0.25, 0.3)
 material = SubResource("Mat_concrete")
 
 [node name="Step07" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.625, -2.15)
+use_collision = true
 size = Vector3(2.5, 0.25, 0.3)
 material = SubResource("Mat_concrete")
 
 [node name="Step08" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.875, -2.45)
+use_collision = true
 size = Vector3(2.5, 0.25, 0.3)
 material = SubResource("Mat_concrete")
 
 [node name="Step09" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.125, -2.75)
+use_collision = true
 size = Vector3(2.5, 0.25, 0.3)
 material = SubResource("Mat_concrete")
 
 [node name="Step10" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.375, -3.05)
+use_collision = true
 size = Vector3(2.5, 0.25, 0.3)
 material = SubResource("Mat_concrete")
 
 [node name="Step11" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.625, -3.35)
+use_collision = true
 size = Vector3(2.5, 0.25, 0.3)
 material = SubResource("Mat_concrete")
 
 [node name="Step12" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.875, -3.65)
+use_collision = true
 size = Vector3(2.5, 0.25, 0.3)
 material = SubResource("Mat_concrete")
-
-; --- Invisible ramp: the actual walkable surface spanning the stairs ---
-; Slope ~42.7° (under default floor_max_angle), from bottom landing edge to top landing edge.
-
-[node name="StairRamp" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.7346, 0.6785, 0, -0.6785, 0.7346, 0, 1.4265, -2.1929)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StairRamp"]
-shape = SubResource("BoxShape3D_ramp")
 
 ; --- Top Landing ---
 
