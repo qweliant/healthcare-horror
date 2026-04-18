@@ -4,9 +4,9 @@ A short first-person horror game made in Godot for the [Avant Beettle Protest Ga
 
 ## About
 
-You wake in a hospital. Checkout does not go as hoped. When the numbers on the bill stop making sense, another kind of offer arrives—night work that pays enough to chip away at the debt, if you stop asking questions.
+You wake in a hospital. Checkout does not go as hoped. When the numbers on the bill stop making sense, another kind of offer arrives. Night work that pays enough to chip away at the debt, if you stop asking questions.
 
-The game moves between the hospital, scripted rides between sites, and three job locations, with dialogue-driven beats and a PS1-inspired render pass (vertex snap + post shader).
+The game moves between the hospital, scripted rides between sites, and three job locations. This game is dialogue driven with a PS1-inspired visual style.
 
 ## Requirements
 
