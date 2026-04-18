@@ -94,7 +94,28 @@ func _start_aftermath() -> void:
 
 func _on_aftermath_finished() -> void:
 	await get_tree().create_timer(1.5).timeout
+	_try_escape_attempt()
+
+
+func _try_escape_attempt() -> void:
+	var key := _get_escape_dialogue_key()
+	if key != "" and DialogueData.dialogues.has(key):
+		GameManager.set_state(GameManager.GameState.JOB_ESCAPE_ATTEMPT)
+		GameManager.start_dialogue(key)
+		dialogue_box.dialogue_finished.connect(_on_escape_finished, CONNECT_ONE_SHOT)
+	else:
+		_start_bill_call()
+
+
+func _on_escape_finished() -> void:
+	await get_tree().create_timer(1.5).timeout
 	_start_bill_call()
+
+
+func _get_escape_dialogue_key() -> String:
+	if job_index <= 1:
+		return "job_escape_%d" % job_index
+	return ""
 
 
 func _start_bill_call() -> void:
