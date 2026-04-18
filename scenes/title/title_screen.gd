@@ -1,16 +1,13 @@
 extends Node
 
 func _on_start_game_button_pressed() -> void:
-	$TitleCard/TitleLabel.visible = false
-	$TitleCard/StartGameButton.visible = false
-	$TitleCard/WarningTitleLabel.visible = true
-	$TitleCard/WarningLabel.visible = true
-	$TitleCard/AnyKeyLabel.visible = true
-
-func _input(event):
-	if $TitleCard/AnyKeyLabel.visible and event is InputEventMouseButton and event.pressed:
+	$MarginContainer/TitleContainer.visible = false
+	$MarginContainer/WarningContainer.visible = true
+	
+func _input(_event):
+	if $MarginContainer/WarningContainer.visible and _event is InputEventMouseButton and _event.pressed:
 		get_tree().change_scene_to_file("res://scenes/hospital/hospital.tscn")
 
 func _unhandled_input(_event: InputEvent) -> void:
-	if $TitleCard/AnyKeyLabel.visible:
+	if $MarginContainer/WarningContainer.visible and _event is InputEventKey and _event.pressed:
 		get_tree().change_scene_to_file("res://scenes/hospital/hospital.tscn")
