@@ -1,13 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ba0lohmku8tce"]
 
-[ext_resource type="Script" path="res://scenes/job1_warehouse/warehouse.gd" id="1_warehouse"]
+[ext_resource type="Script" uid="uid://dffme0pe245cy" path="res://scenes/job1_warehouse/warehouse.gd" id="1_warehouse"]
 [ext_resource type="Script" uid="uid://cwbm0t7vgkbus" path="res://scripts/player/player.gd" id="2_player"]
 [ext_resource type="Script" uid="uid://bnyyt0s1a6wbc" path="res://scripts/dialogue/dialogue_box.gd" id="3_dialogue"]
-[ext_resource type="Script" path="res://scripts/interaction/job_npc.gd" id="4_jobnpc"]
-[ext_resource type="Script" path="res://scripts/job_site/ritual_sequence.gd" id="5_ritual"]
-[ext_resource type="Script" path="res://scripts/interaction/ritual_interactable.gd" id="6_ritual_int"]
+[ext_resource type="Script" uid="uid://drd72ea65usl0" path="res://scripts/interaction/job_npc.gd" id="4_jobnpc"]
+[ext_resource type="Script" uid="uid://ca15jit37idpd" path="res://scripts/job_site/ritual_sequence.gd" id="5_ritual"]
+[ext_resource type="Script" uid="uid://cyd7cli8d3s4u" path="res://scripts/interaction/ritual_interactable.gd" id="6_ritual_int"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="7_ps1"]
-[ext_resource type="Shader" path="res://shaders/sigil_glow.gdshader" id="8_sigil"]
 
 [sub_resource type="Environment" id="Environment_wh"]
 background_mode = 1
@@ -30,30 +29,23 @@ albedo_color = Color(0.2, 0.2, 0.2, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wh_wall"]
 albedo_color = Color(0.35, 0.3, 0.28, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crate"]
-albedo_color = Color(0.4, 0.3, 0.2, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shelf"]
 albedo_color = Color(0.35, 0.35, 0.38, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_npc_body"]
-albedo_color = Color(0.3, 0.3, 0.35, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_npc_head"]
-albedo_color = Color(0.7, 0.55, 0.45, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leader_body"]
-albedo_color = Color(0.2, 0.2, 0.25, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crate"]
+albedo_color = Color(0.4, 0.3, 0.2, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_npc"]
 size = Vector3(0.6, 1.6, 0.6)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sigil"]
-shader = ExtResource("8_sigil")
-shader_parameter/base_color = Color(0.6, 0.1, 0.1, 1.0)
-shader_parameter/glow_intensity = 0.0
-shader_parameter/pulse_speed = 1.5
-shader_parameter/pulse_amount = 0.3
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_leader_body"]
+albedo_color = Color(0.2, 0.2, 0.25, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_npc_head"]
+albedo_color = Color(0.7, 0.55, 0.45, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_npc_body"]
+albedo_color = Color(0.3, 0.3, 0.35, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sigil_emit"]
 albedo_color = Color(0.4, 0.05, 0.05, 1)
@@ -73,221 +65,216 @@ shader = ExtResource("7_ps1")
 shader_parameter/color_depth = 15.0
 shader_parameter/dither_strength = 0.05
 
-; --- Scene Tree ---
-
-[node name="Warehouse" type="Node3D"]
+[node name="Warehouse" type="Node3D" unique_id=1586419904]
 script = ExtResource("1_warehouse")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=791320203]
 environment = SubResource("Environment_wh")
 
-; --- Lighting ---
-
-[node name="MainLight" type="OmniLight3D" parent="."]
+[node name="MainLight" type="OmniLight3D" parent="." unique_id=577429250]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, -8)
 light_color = Color(0.8, 0.6, 0.4, 1)
 light_energy = 2.2
 omni_range = 22.0
 omni_attenuation = 1.2
 
-[node name="BackLight" type="OmniLight3D" parent="."]
+[node name="BackLight" type="OmniLight3D" parent="." unique_id=1096470165]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, -22)
 light_color = Color(0.7, 0.5, 0.35, 1)
 light_energy = 1.9
 omni_range = 20.0
 omni_attenuation = 1.2
 
-[node name="FlickerLight" type="OmniLight3D" parent="."]
+[node name="FlickerLight" type="OmniLight3D" parent="." unique_id=22281386]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5.5, -15)
 light_color = Color(0.85, 0.65, 0.4, 1)
 light_energy = 2.0
 omni_range = 18.0
 omni_attenuation = 1.2
 
-; --- Geometry: Floor, Ceiling, Walls ---
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1509561658]
 
-[node name="Floor" type="StaticBody3D" parent="."]
-
-[node name="FloorCollision" type="CollisionShape3D" parent="Floor"]
+[node name="FloorCollision" type="CollisionShape3D" parent="Floor" unique_id=1762456801]
 shape = SubResource("WorldBoundaryShape3D_wh_floor")
 
-[node name="FloorMesh" type="CSGBox3D" parent="Floor"]
+[node name="FloorMesh" type="CSGBox3D" parent="Floor" unique_id=30272274]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -14)
 size = Vector3(20, 0.1, 36)
 material = SubResource("StandardMaterial3D_wh_floor")
 
-[node name="Ceiling" type="CSGBox3D" parent="."]
+[node name="Ceiling" type="CSGBox3D" parent="." unique_id=2074986754]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -14)
 size = Vector3(20, 0.1, 36)
 material = SubResource("StandardMaterial3D_wh_ceiling")
 
-[node name="WallLeft" type="CSGBox3D" parent="."]
+[node name="WallLeft" type="CSGBox3D" parent="." unique_id=420309940]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, -14)
+use_collision = true
 size = Vector3(0.3, 6, 36)
 material = SubResource("StandardMaterial3D_wh_wall")
 
-[node name="WallRight" type="CSGBox3D" parent="."]
+[node name="WallRight" type="CSGBox3D" parent="." unique_id=881443819]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -14)
+use_collision = true
 size = Vector3(0.3, 6, 36)
 material = SubResource("StandardMaterial3D_wh_wall")
 
-[node name="WallBack" type="CSGBox3D" parent="."]
+[node name="WallBack" type="CSGBox3D" parent="." unique_id=963500759]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -32)
+use_collision = true
 size = Vector3(20.3, 6, 0.3)
 material = SubResource("StandardMaterial3D_wh_wall")
 
-[node name="WallFront" type="CSGBox3D" parent="."]
+[node name="WallFront" type="CSGBox3D" parent="." unique_id=43762565]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 4)
+use_collision = true
 size = Vector3(20.3, 6, 0.3)
 material = SubResource("StandardMaterial3D_wh_wall")
 
-; --- Props: Shelves and Crates ---
-
-[node name="ShelfL1" type="CSGBox3D" parent="."]
+[node name="ShelfL1" type="CSGBox3D" parent="." unique_id=1438481635]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, -6)
+use_collision = true
 size = Vector3(1.5, 4, 6)
 material = SubResource("StandardMaterial3D_shelf")
 
-[node name="ShelfL2" type="CSGBox3D" parent="."]
+[node name="ShelfL2" type="CSGBox3D" parent="." unique_id=37229272]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, -20)
+use_collision = true
 size = Vector3(1.5, 4, 6)
 material = SubResource("StandardMaterial3D_shelf")
 
-[node name="ShelfR1" type="CSGBox3D" parent="."]
+[node name="ShelfR1" type="CSGBox3D" parent="." unique_id=1176446647]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 2, -8)
+use_collision = true
 size = Vector3(1.5, 4, 5)
 material = SubResource("StandardMaterial3D_shelf")
 
-[node name="Crate1" type="CSGBox3D" parent="."]
+[node name="Crate1" type="CSGBox3D" parent="." unique_id=323487923]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.5, -4)
-size = Vector3(1.2, 1.0, 1.2)
+use_collision = true
+size = Vector3(1.2, 1, 1.2)
 material = SubResource("StandardMaterial3D_crate")
 
-[node name="Crate2" type="CSGBox3D" parent="."]
+[node name="Crate2" type="CSGBox3D" parent="." unique_id=2056796873]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.5, -5.5)
-size = Vector3(1.0, 1.0, 1.0)
+use_collision = true
 material = SubResource("StandardMaterial3D_crate")
 
-[node name="Crate3" type="CSGBox3D" parent="."]
+[node name="Crate3" type="CSGBox3D" parent="." unique_id=239268362]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, -18)
-size = Vector3(1.4, 1.0, 1.4)
+use_collision = true
+size = Vector3(1.4, 1, 1.4)
 material = SubResource("StandardMaterial3D_crate")
 
-[node name="CrateStack" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1.0, -18)
-size = Vector3(1.0, 2.0, 1.0)
+[node name="CrateStack" type="CSGBox3D" parent="." unique_id=42298721]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1, -18)
+use_collision = true
+size = Vector3(1, 2, 1)
 material = SubResource("StandardMaterial3D_crate")
 
-; --- NPCs ---
-
-[node name="GroupLeader" type="StaticBody3D" parent="."]
+[node name="GroupLeader" type="StaticBody3D" parent="." unique_id=688354607]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26)
 script = ExtResource("4_jobnpc")
-prompt_text = "[E] Talk to the Leader"
 npc_id = "leader"
-max_talks = 3
+prompt_text = "[E] Talk to the Leader"
 
-[node name="LeaderCollision" type="CollisionShape3D" parent="GroupLeader"]
+[node name="LeaderCollision" type="CollisionShape3D" parent="GroupLeader" unique_id=1390966424]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("BoxShape3D_npc")
 
-[node name="LeaderBody" type="CSGBox3D" parent="GroupLeader"]
+[node name="LeaderBody" type="CSGBox3D" parent="GroupLeader" unique_id=452206016]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 size = Vector3(0.5, 1.3, 0.4)
 material = SubResource("StandardMaterial3D_leader_body")
 
-[node name="LeaderHead" type="CSGSphere3D" parent="GroupLeader"]
+[node name="LeaderHead" type="CSGSphere3D" parent="GroupLeader" unique_id=198476189]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
 radius = 0.22
 material = SubResource("StandardMaterial3D_npc_head")
 
-[node name="CultMember1" type="StaticBody3D" parent="."]
+[node name="CultMember1" type="StaticBody3D" parent="." unique_id=726876144]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -27)
 script = ExtResource("4_jobnpc")
-prompt_text = "[E] Talk"
 npc_id = "member1"
 max_talks = 2
+prompt_text = "[E] Talk"
 
-[node name="Member1Collision" type="CollisionShape3D" parent="CultMember1"]
+[node name="Member1Collision" type="CollisionShape3D" parent="CultMember1" unique_id=473672670]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("BoxShape3D_npc")
 
-[node name="Member1Body" type="CSGBox3D" parent="CultMember1"]
+[node name="Member1Body" type="CSGBox3D" parent="CultMember1" unique_id=277583974]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 size = Vector3(0.5, 1.2, 0.4)
 material = SubResource("StandardMaterial3D_npc_body")
 
-[node name="Member1Head" type="CSGSphere3D" parent="CultMember1"]
+[node name="Member1Head" type="CSGSphere3D" parent="CultMember1" unique_id=125337592]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 radius = 0.2
 material = SubResource("StandardMaterial3D_npc_head")
 
-[node name="CultMember2" type="StaticBody3D" parent="."]
+[node name="CultMember2" type="StaticBody3D" parent="." unique_id=1763944634]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -27.5)
 script = ExtResource("4_jobnpc")
-prompt_text = "[E] Talk"
 npc_id = "member2"
 max_talks = 2
+prompt_text = "[E] Talk"
 
-[node name="Member2Collision" type="CollisionShape3D" parent="CultMember2"]
+[node name="Member2Collision" type="CollisionShape3D" parent="CultMember2" unique_id=2047931200]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("BoxShape3D_npc")
 
-[node name="Member2Body" type="CSGBox3D" parent="CultMember2"]
+[node name="Member2Body" type="CSGBox3D" parent="CultMember2" unique_id=1127035230]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 size = Vector3(0.5, 1.2, 0.4)
 material = SubResource("StandardMaterial3D_npc_body")
 
-[node name="Member2Head" type="CSGSphere3D" parent="CultMember2"]
+[node name="Member2Head" type="CSGSphere3D" parent="CultMember2" unique_id=373698721]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 radius = 0.2
 material = SubResource("StandardMaterial3D_npc_head")
 
-; --- Ritual Area ---
-
-[node name="RitualSequence" type="Node3D" parent="."]
+[node name="RitualSequence" type="Node3D" parent="." unique_id=525903021]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -28)
 script = ExtResource("5_ritual")
 
-[node name="Sigil" type="CSGCylinder3D" parent="RitualSequence"]
+[node name="Sigil" type="CSGCylinder3D" parent="RitualSequence" unique_id=1628928588]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
 radius = 1.5
 height = 0.02
 sides = 32
 material = SubResource("StandardMaterial3D_sigil_emit")
 
-[node name="SigilLight" type="OmniLight3D" parent="RitualSequence"]
+[node name="SigilLight" type="OmniLight3D" parent="RitualSequence" unique_id=123512502]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 light_color = Color(0.8, 0.1, 0.1, 1)
 light_energy = 0.0
 omni_range = 6.0
 omni_attenuation = 1.2
 
-[node name="RitualTrigger" type="StaticBody3D" parent="RitualSequence"]
+[node name="RitualTrigger" type="StaticBody3D" parent="RitualSequence" unique_id=1485247943]
 script = ExtResource("6_ritual_int")
 
-[node name="TriggerCollision" type="CollisionShape3D" parent="RitualSequence/RitualTrigger"]
+[node name="TriggerCollision" type="CollisionShape3D" parent="RitualSequence/RitualTrigger" unique_id=1882386872]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_ritual")
 
-; --- Player ---
-
-[node name="Player" type="CharacterBody3D" parent="."]
+[node name="Player" type="CharacterBody3D" parent="." unique_id=424941730]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 script = ExtResource("2_player")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=2043816139]
 shape = SubResource("CapsuleShape3D_wh_player")
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
+[node name="Camera3D" type="Camera3D" parent="Player" unique_id=554822453]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
-[node name="InteractRay" type="RayCast3D" parent="Player/Camera3D"]
+[node name="InteractRay" type="RayCast3D" parent="Player/Camera3D" unique_id=1920295959]
 target_position = Vector3(0, 0, -2.5)
 
-[node name="UI" type="CanvasLayer" parent="Player"]
+[node name="UI" type="CanvasLayer" parent="Player" unique_id=1493746248]
 
-[node name="InteractLabel" type="Label" parent="Player/UI"]
+[node name="InteractLabel" type="Label" parent="Player/UI" unique_id=1613126486]
 visible = false
 anchors_preset = 7
 anchor_left = 0.5
@@ -303,13 +290,11 @@ text = "[E] Interact"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-; --- Dialogue ---
-
-[node name="DialogueBox" type="CanvasLayer" parent="."]
+[node name="DialogueBox" type="CanvasLayer" parent="." unique_id=1504185988]
 layer = 10
 script = ExtResource("3_dialogue")
 
-[node name="Panel" type="PanelContainer" parent="DialogueBox"]
+[node name="Panel" type="PanelContainer" parent="DialogueBox" unique_id=1877221067]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -321,23 +306,21 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="VBox" type="VBoxContainer" parent="DialogueBox/Panel"]
+[node name="VBox" type="VBoxContainer" parent="DialogueBox/Panel" unique_id=1561462323]
 layout_mode = 2
 
-[node name="SpeakerLabel" type="Label" parent="DialogueBox/Panel/VBox"]
+[node name="SpeakerLabel" type="Label" parent="DialogueBox/Panel/VBox" unique_id=478342533]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.2, 0.2, 1)
 text = "Speaker"
 
-[node name="TextLabel" type="RichTextLabel" parent="DialogueBox/Panel/VBox"]
+[node name="TextLabel" type="RichTextLabel" parent="DialogueBox/Panel/VBox" unique_id=840846902]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Dialogue text."
 fit_content = true
 
-; --- Post Processing ---
-
-[node name="PS1Overlay" type="ColorRect" parent="."]
+[node name="PS1Overlay" type="ColorRect" parent="." unique_id=609190310]
 material = SubResource("ShaderMaterial_ps1_wh")
 anchors_preset = 15
 anchor_right = 1.0
