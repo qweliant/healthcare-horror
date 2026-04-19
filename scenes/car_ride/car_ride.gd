@@ -60,9 +60,15 @@ func _process(delta: float) -> void:
 
 func _start_dialogue() -> void:
 	var key := "car_ride_%d" % GameManager.pending_job_index
-	GameManager.start_dialogue(key)
-
-	dialogue_box.dialogue_finished.connect(_on_dialogue_finished, CONNECT_ONE_SHOT)
+	if DialogueData.dialogues.has(key):
+		GameManager.start_dialogue(key)
+		dialogue_box.dialogue_finished.connect(_on_dialogue_finished, CONNECT_ONE_SHOT)
+	else:
+		# No dialogue for this leg; let the ride play out and continue anyway
+		# so the player never gets softlocked here.
+		push_warning("car_ride: no dialogue for key '%s', skipping" % key)
+		await get_tree().create_timer(3.0).timeout
+		_on_dialogue_finished()
 
 
 func _on_dialogue_finished() -> void:
