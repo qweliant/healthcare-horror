@@ -25,7 +25,6 @@ var ritual_triggered := false
 
 func _ready() -> void:
 	add_to_group("job_site")
-	job_index = GameManager.current_job
 	GameManager.player = player
 	dialogue_box.add_to_group("dialogue_box")
 	_setup_environment()
