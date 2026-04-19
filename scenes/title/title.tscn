@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://clqqc6fkv7rke"]
 
 [ext_resource type="Script" uid="uid://b1riwn4fcbnij" path="res://scenes/title/title_screen.gd" id="1_5vtrw"]
+[ext_resource type="AudioStream" uid="uid://d1etx8r3sr3w8" path="res://audio/Bass-Invaders.ogg" id="2_title"]
 
 [node name="TitleScreen" type="Node" unique_id=1010146771]
 script = ExtResource("1_5vtrw")
@@ -67,5 +68,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 36
 text = "Start Game"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_title")
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="MarginContainer/TitleContainer/StartGameButton" to="." method="_on_start_game_button_pressed"]
