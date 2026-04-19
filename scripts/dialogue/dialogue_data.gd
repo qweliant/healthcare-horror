@@ -303,7 +303,7 @@ static var dialogues := {
 		{"speaker": "", "text": "[The line goes dead]"},
 	],
 
-	# ========== JOB 2: BASEMENT SITE (current_job == 1) ==========
+	# ========== JOB 2: BASEMENT SITE (job_index == 1) ==========
 
 	"job_arrival_1": [
 		{"speaker": "", "text": "The ramp ends in a sump of cracked concrete and rusted rebar."},
@@ -404,7 +404,7 @@ static var dialogues := {
 		{"speaker": "", "text": "The walls blur. Your hands disappear. Everything goes dark."},
 	],
 
-	# ========== JOB 3: THE SUMMIT (current_job == 2) ==========
+	# ========== JOB 3: THE SUMMIT (job_index == 2) ==========
 
 	"job_arrival_2": [
 		{"speaker": "", "text": "Cold stone under your feet. Wind howling from somewhere far below."},

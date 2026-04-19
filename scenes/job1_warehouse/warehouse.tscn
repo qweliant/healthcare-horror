@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://ca15jit37idpd" path="res://scripts/job_site/ritual_sequence.gd" id="5_ritual"]
 [ext_resource type="Script" uid="uid://cyd7cli8d3s4u" path="res://scripts/interaction/ritual_interactable.gd" id="6_ritual_int"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="7_ps1"]
+[ext_resource type="PackedScene" uid="uid://cjcnpcdgj03ka" path="res://scenes/car_ride/car_ride.tscn" id="8_carride"]
+[ext_resource type="PackedScene" uid="uid://2pmmh104ttnm" path="res://scenes/job2/job2.tscn" id="9_job2"]
 
 [sub_resource type="Environment" id="Environment_wh"]
 background_mode = 1
@@ -67,6 +69,8 @@ shader_parameter/dither_strength = 0.05
 
 [node name="Warehouse" type="Node3D" unique_id=1586419904]
 script = ExtResource("1_warehouse")
+next_scene = ExtResource("8_carride")
+next_job_scene = ExtResource("9_job2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=791320203]
 environment = SubResource("Environment_wh")

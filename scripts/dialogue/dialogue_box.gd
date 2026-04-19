@@ -71,10 +71,13 @@ func _on_dialogue_requested(key: String) -> void:
 
 
 func _replace_placeholders(lines: Array) -> void:
+	var job := get_tree().get_first_node_in_group("job_site") as JobSiteBase
+	var payout = job.payout if job else 0
+	var payment_text := GameManager.format_payment(payout)
 	for i in lines.size():
 		if lines[i].has("text"):
 			lines[i]["text"] = lines[i]["text"].replace("%BILL%", GameManager.format_bill())
-			lines[i]["text"] = lines[i]["text"].replace("%PAYMENT%", GameManager.format_payment())
+			lines[i]["text"] = lines[i]["text"].replace("%PAYMENT%", payment_text)
 		if lines[i].has("choices"):
 			for choice in lines[i]["choices"]:
 				if choice.has("response"):
