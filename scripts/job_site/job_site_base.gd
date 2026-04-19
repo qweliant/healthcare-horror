@@ -91,7 +91,7 @@ func _on_ritual_finished() -> void:
 
 func _start_aftermath() -> void:
 	GameManager.set_state(GameManager.GameState.JOB_AFTERMATH)
-	GameManager.complete_job()
+	GameManager.complete_job(payout)
 
 	var key := _get_aftermath_dialogue_key()
 	if DialogueData.dialogues.has(key):
@@ -138,7 +138,7 @@ func _start_bill_call() -> void:
 
 
 func _on_bill_call_finished() -> void:
-	if GameManager.has_more_jobs():
+	if next_job_scene:
 		await get_tree().create_timer(2.0).timeout
 		_start_next_job_call()
 	else:
@@ -162,10 +162,6 @@ func _on_next_call_finished() -> void:
 	if next_job_scene:
 		GameManager.pending_job_scene = next_job_scene
 		GameManager.pending_job_index = _read_job_index_from_packed(next_job_scene)
-
-	# Belt-and-suspenders: keep the legacy counter in sync until step 9
-	# removes it. Other consumers (car_ride, job_npc) still read current_job.
-	GameManager.advance_job()
 
 	GameManager.set_state(GameManager.GameState.CAR_RIDE)
 	TransitionOverlay.fade_out(1.5)
