@@ -141,26 +141,8 @@ static var dialogues := {
 	# ========== ESCAPE ATTEMPTS ==========
 
 	"job_escape_0": [
-		{"speaker": "", "text": "You need to get out. Now."},
-		{"speaker": "", "text": "You run for the loading dock door. The one you came through."},
-		{"speaker": "", "text": "It doesn't move. It's not locked — it's sealed. Like it was welded shut."},
-		{"speaker": "", "text": "You slam your shoulder into it. Nothing."},
-		{"speaker": "", "text": "You try the side door. The emergency exit. Every handle."},
-		{"speaker": "", "text": "All sealed. Every one."},
-		{"speaker": "", "text": "You look for the car that brought you here."},
-		{"speaker": "", "text": "There's no car. There's no road. Outside the windows, there's just... fog."},
-		{"speaker": "", "text": "Thick. Grey. Like the building is floating in nothing."},
-		{"choices": [
-			{"text": "\"Let me out! Somebody!\"", "response": [
-				{"speaker": "You", "text": "LET ME OUT! SOMEBODY!"},
-				{"speaker": "", "text": "Your voice doesn't echo. The warehouse eats it."},
-				{"speaker": "", "text": "Nobody answers. Nobody is coming."},
-			]},
-			{"text": "[Sit down. Wait.]", "response": [
-				{"speaker": "", "text": "You slide down against the wall. The concrete is warm where it shouldn't be."},
-				{"speaker": "", "text": "You sit. You wait. There's nothing else to do."},
-			]},
-		]},
+		{"speaker": "", "text": "You try the doors. All sealed."},
+		{"speaker": "", "text": "Outside the windows — just fog. No car. No road."},
 		{"speaker": "", "text": "Your phone buzzes."},
 	],
 
