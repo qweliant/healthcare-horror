@@ -107,9 +107,9 @@ static var dialogues := {
 	# ========== PARKING LOT ==========
 
 	"parking_lot_car_enter": [
-		{"speaker": "", "text": "You sink into the driver's seat of your Saturn Ion. The one with the dent in the bumper"},
+		{"speaker": "", "text": "You sink into the driver's seat of your 2005 Saturn Ion. The one with the dent in the bumper"},
 		{"speaker": "", "text": "Your eyes drift to the gas gauge."},
-		{"speaker": "", "text": "Empty."},
+		{"speaker": "", "text": "Almost empty."},
 		{"speaker": "", "text": "And they want you to pay %BILL%."},
 		{"speaker": "", "text": "You can't even afford to fill the tank."},
 	],
@@ -154,11 +154,11 @@ static var dialogues := {
 	],
 
 	"car_ride_1": [
-		{"speaker": "", "text": "As fast as you blink you notice you are in the same sedan. It's the same driver."},
-		{"speaker": "", "text": "The same Silence. This time you catch them looking at you from time to time. Noticing something you can't quite register"},
+		{"speaker": "", "text": "You blink then notice you are in the same sedan. It's the same driver."},
+		{"speaker": "", "text": "The same silence. This time you catch them looking at you from time to time. Noticing something you can't quite register"},
 		{"speaker": "", "text": "You remember the blood on your hands. Somehow it's gone."},
 		{"speaker": "", "text": "The city thins out. The fog thickens. Streetlights stutter like a failing EKG."},
-		{"speaker": "", "text": "You catch your reflection in the window. You notice what the driver notices A pale, hollow reflection. Something's wrong."},
+		{"speaker": "", "text": "You catch your reflection in the window. You notice what the driver notices. A pale, hollow reflection. Something's wrong."},
 		{"speaker": "", "text": "You think about telling the driver to turn around."},
 		{"speaker": "", "text": "%BILL%"},
 		{"speaker": "", "text": "You don't."},
@@ -196,7 +196,7 @@ static var dialogues := {
 		{"speaker": "Leader", "text": "When you hear it speak, let it speak through you."},
 	],
 	"job0_leader_2": [
-		{"speaker": "Leader", "text": "The vessel must be hollowand willing."},
+		{"speaker": "Leader", "text": "The vessel must be hollow and willing."},
 		{"speaker": "Leader", "text": "Your debt makes you hollow. If you want that debt solved show us you're willing"},
 		{"speaker": "Leader", "text": "Go to the sigil. It's time."},
 	],
@@ -300,7 +300,7 @@ static var dialogues := {
 	"job1_cultist1_0": [
 		{"speaker": "Cultist", "text": "You look worse than last time."},
 		{"speaker": "You", "text": "This will be the last time for me."},
-		{"speaker": "Cultist", "text": "Mm. It might feel like it."},
+		{"speaker": "Cultist", "text": "Mm. We'll see."},
 	],
 
 	"job1_cultist1_1": [
@@ -334,7 +334,7 @@ static var dialogues := {
 		{"speaker": "", "text": "You wake tasting copper."},
 		{"speaker": "You", "text": "What... what happened?"},
 		{"speaker": "", "text": "Your hands shake so hard you can barely push yourself up."},
-		{"speaker": "You", "text": "They were just standing there. They were fine."},
+		{"speaker": "", "text": "Looking around, you see them still standing, now covered in blood."},
 		{"speaker": "You", "text": "Why aren't they moving?"},
 		{"speaker": "", "text": "You notice their missing heads."},
 		{"speaker": "You", "text": "This wasn't the deal. This wasn't— I didn't—"},
@@ -370,8 +370,8 @@ static var dialogues := {
 				{"speaker": "You", "text": "I'm going to the police. I'm telling them everything."},
 				{"speaker": "???", "text": "And what will you tell them? That you stood in a circle?"},
 				{"speaker": "???", "text": "That you watched people die and did nothing?"},
-				{"speaker": "???", "text": "They won't believe you're magic sigil crap. But they'll believe that part about the bodies in front of you. You'll have a permananet hospital stay if you say anything!"},
-				{"speaker": "???", "text": "You'll have a permananet hospital stay if you say anything!"},
+				{"speaker": "???", "text": "They won't believe you're cultist sigil crap. But they'll believe that part about the bodies in front of you."},
+				{"speaker": "???", "text": "You'll have a permanent stay in a psych ward if you say anything!"},
 				{"speaker": "", "text": "Your mouth goes dry."},
 				{"speaker": "???", "text": "One more night. Then you walk away clean."},
 				{"speaker": "???", "text": "Or we can make sure you die alone in a small padded cell."},
@@ -396,14 +396,14 @@ static var dialogues := {
 		{"speaker": "???", "text": "You're awake. Good."},
 		{"speaker": "You", "text": "Where am I? How did I get here?"},
 		{"speaker": "???", "text": "The third site. The final contract."},
-		{"speaker": "You", "text": "Why am I on a mountain? I didn't agree to this. People DIED."},
-		{"speaker": "???", "text": "Hey, you agreed when you took the first call."},
+		{"speaker": "You", "text": "I didn't agree to this. People DIED. I didn't know what I was—"},
+		{"speaker": "???", "text": "You agreed when you answered the first call."},
 		{"speaker": "You", "text": "That's not— I'm broke I can't eat! I needed money! I'm sick for God's sake! I needed to pay my bills. I didn't know what—"},
 		{"speaker": "???", "text": "You knew enough to keep showing up. You enough to forsake God."},
 		{"speaker": "You", "text": "I'm not doing this. I'm leaving."},
 		{"speaker": "???", "text": "Look down."},
 		{"speaker": "", "text": "You look down. You remember you are on a mountain"},
-		{"speaker": "", "text": "Torches stretch to every horizon, a second sky filling the space below you."},
+		{"speaker": "", "text": "Fires stretch to every horizon, a second sky filling the space below you."},
 		{"speaker": "???", "text": "There is no path down."},
 		{"speaker": "You", "text": "What happens if I do it?"},
 		{"speaker": "???", "text": "Your debt is cleared and you walk away."},
@@ -429,8 +429,7 @@ static var dialogues := {
 	],
 
 	"job_aftermath_2": [
-		{"speaker": "You", "text": "Well, i'm still standing."},
-		{"speaker": "You", "text": "I'm...Okay....I'm still standing."},
+		{"speaker": "You", "text": "I'm...Okay...I'm...Still standing."},
 		{"speaker": "", "text": "The torches below have gone still but you hear screaming. You lookup to see why"},
 		{"speaker": "You", "text": "Is that a demon."},
 		{"speaker": "You", "text": "That is definitely a demon."},
