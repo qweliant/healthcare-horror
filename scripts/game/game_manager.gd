@@ -33,6 +33,13 @@ var job_scene_paths: Array[String] = [
 	"res://scenes/job3/job3.tscn",
 ]
 
+## Transient state used between an outgoing job and the car ride.
+## The outgoing job (or the parking lot for the first ride) sets these
+## before transitioning to car_ride.tscn so the car ride knows which job
+## comes next without consulting a global counter.
+var pending_job_scene: PackedScene = null
+var pending_job_index: int = 0
+
 
 func set_state(new_state: GameState) -> void:
 	current_state = new_state
@@ -81,6 +88,10 @@ func end_dialogue() -> void:
 
 func transition_to_scene(scene_path: String) -> void:
 	get_tree().change_scene_to_file(scene_path)
+
+
+func transition_to_packed_scene(scene: PackedScene) -> void:
+	get_tree().change_scene_to_packed(scene)
 
 
 func has_more_jobs() -> bool:

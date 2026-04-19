@@ -157,11 +157,37 @@ func _start_next_job_call() -> void:
 
 
 func _on_next_call_finished() -> void:
+	# Hand off the next job to the car ride (or whatever next_scene is) via
+	# transient state on GameManager. car_ride.gd consumes pending_job_*.
+	if next_job_scene:
+		GameManager.pending_job_scene = next_job_scene
+		GameManager.pending_job_index = _read_job_index_from_packed(next_job_scene)
+
+	# Belt-and-suspenders: keep the legacy counter in sync until step 9
+	# removes it. Other consumers (car_ride, job_npc) still read current_job.
 	GameManager.advance_job()
+
 	GameManager.set_state(GameManager.GameState.CAR_RIDE)
 	TransitionOverlay.fade_out(1.5)
 	await TransitionOverlay.fade_out_finished
-	GameManager.transition_to_scene("res://scenes/car_ride/car_ride.tscn")
+
+	if next_scene:
+		GameManager.transition_to_packed_scene(next_scene)
+	else:
+		push_warning("JobSiteBase: no next_scene set on '%s'" % name)
+
+
+## Reads the exported `job_index` off a PackedScene's root node without
+## instantiating the scene. Returns 0 if the property isn't set (which is
+## the script default).
+func _read_job_index_from_packed(scene: PackedScene) -> int:
+	if scene == null:
+		return 0
+	var state := scene.get_state()
+	for i in range(state.get_node_property_count(0)):
+		if state.get_node_property_name(0, i) == "job_index":
+			return state.get_node_property_value(0, i)
+	return 0
 
 
 # -- Dialogue key hooks (override for custom naming) --
