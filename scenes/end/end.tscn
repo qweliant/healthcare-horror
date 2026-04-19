@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://hr4gscbid7my"]
 
 [ext_resource type="Script" uid="uid://chkjbdmdg5wyf" path="res://scenes/end/end.gd" id="1_end"]
+[ext_resource type="AudioStream" uid="uid://d1etx8r3sr3w8" path="res://audio/Bass-Invaders.ogg" id="2_8srqk"]
 
 [node name="EndScreen" type="Node" unique_id=605891955]
 script = ExtResource("1_end")
@@ -79,3 +80,8 @@ theme_override_font_sizes/font_size = 20
 text = "[ Press any key to quit ]"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1819480865]
+stream = ExtResource("2_8srqk")
+autoplay = true
+parameters/looping = true

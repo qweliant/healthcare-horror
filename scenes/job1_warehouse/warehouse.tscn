@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ca15jit37idpd" path="res://scripts/job_site/ritual_sequence.gd" id="5_ritual"]
 [ext_resource type="Script" uid="uid://cyd7cli8d3s4u" path="res://scripts/interaction/ritual_interactable.gd" id="6_ritual_int"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="7_ps1"]
+[ext_resource type="AudioStream" uid="uid://0yjnaqiiv6t6" path="res://audio/Inept-70s-Crooks_Looping.ogg" id="8_lj36k"]
 
 [sub_resource type="Environment" id="Environment_wh"]
 background_mode = 1
@@ -326,3 +327,8 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=505213034]
+stream = ExtResource("8_lj36k")
+autoplay = true
+parameters/looping = true

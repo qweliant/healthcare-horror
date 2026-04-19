@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://du1pdsw11fr30" path="res://scripts/interaction/interactable.gd" id="5_interactable"]
 [ext_resource type="Script" uid="uid://c3npfmxwxilum" path="res://scripts/interaction/exit_door.gd" id="6_exit"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="7_ps1"]
+[ext_resource type="AudioStream" uid="uid://0yjnaqiiv6t6" path="res://audio/Inept-70s-Crooks_Looping.ogg" id="8_wa418"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -315,3 +316,8 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=881422002]
+stream = ExtResource("8_wa418")
+autoplay = true
+parameters/looping = true

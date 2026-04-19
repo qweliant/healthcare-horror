@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cffcsajpgao7h" path="res://scenes/car_ride/car_ride.gd" id="1_carride"]
 [ext_resource type="Script" uid="uid://bnyyt0s1a6wbc" path="res://scripts/dialogue/dialogue_box.gd" id="2_dialogue"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="3_ps1"]
+[ext_resource type="AudioStream" uid="uid://bs2sbrughdemu" path="res://audio/8-Bit-Indigestion_Looping.ogg" id="4_ae3y5"]
 
 [sub_resource type="Environment" id="Environment_car"]
 background_mode = 1
@@ -172,3 +173,8 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1720469682]
+stream = ExtResource("4_ae3y5")
+autoplay = true
+parameters/looping = true

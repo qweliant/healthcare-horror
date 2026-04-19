@@ -37,6 +37,18 @@ No extra build step is required; this is a vanilla Godot 4 project.
 - `ui/` — dialogue box scene.
 - `shaders/` — low-poly / PS1-style post and effects.
 
+## Credits
+### Music 
+“8-Bit Indigestion”
+
+“Bass Invaders ”
+
+“Inept ’70s Crooks ”
+
+by Eric Matyas
+
+[www.soundimage.org](http://www.soundimage.org/)
+
 ## Author
 
 [Damali Boyd](https://github.com/damaliboyd)
