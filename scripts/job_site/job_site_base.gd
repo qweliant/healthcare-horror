@@ -9,12 +9,22 @@ extends Node3D
 @onready var ps1_overlay: ColorRect = $PS1Overlay
 @onready var ritual_sequence: Node3D = $RitualSequence
 
-var job_index: int = 0
+## Which job this scene represents (0-indexed). Set per scene in the inspector.
+@export var job_index: int = 0
+## How much this job pays toward the bill.
+@export var payout: int = 82_631
+## Scene to transition to after the bill call finishes (typically car_ride.tscn,
+## or the end scene for the final job).
+@export var next_scene: PackedScene
+## The job scene that the car ride should load next. Leave null for the final job.
+@export var next_job_scene: PackedScene
+
 var meeting_complete := false
 var ritual_triggered := false
 
 
 func _ready() -> void:
+	add_to_group("job_site")
 	job_index = GameManager.current_job
 	GameManager.player = player
 	dialogue_box.add_to_group("dialogue_box")
