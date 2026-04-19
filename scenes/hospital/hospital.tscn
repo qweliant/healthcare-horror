@@ -81,23 +81,24 @@ script = ExtResource("1_hospital")
 environment = SubResource("Environment_1")
 
 [node name="CeilingLight1" type="OmniLight3D" parent="." unique_id=1388368032]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 1.6731472)
 light_color = Color(0.85, 0.9, 0.8, 1)
-light_energy = 1.8
+light_energy = 0.5
 omni_range = 10.0
 omni_attenuation = 1.2
 
 [node name="CeilingLight2" type="OmniLight3D" parent="." unique_id=1349187744]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -10)
-light_color = Color(0.85, 0.9, 0.8, 1)
-light_energy = 1.7
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, -11.169061)
+light_color = Color(0.8509804, 0.9019608, 0.8, 1)
+light_energy = 0.1
+light_indirect_energy = 0.5
 omni_range = 10.0
 omni_attenuation = 1.2
 
 [node name="FlickerLight" type="OmniLight3D" parent="." unique_id=1264290542]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.8, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01768303, 2.8, -5.378)
 light_color = Color(0.9, 0.95, 0.85, 1)
-light_energy = 1.8
+light_energy = 0.3
 omni_range = 8.0
 omni_attenuation = 1.2
 
@@ -185,6 +186,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.25, -8)
 size = Vector3(0.6, 0.5, 0.6)
 material = SubResource("StandardMaterial3D_chair")
 
+[node name="Chair7" type="CSGBox3D" parent="." unique_id=1229555826]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.25, -9.247612)
+size = Vector3(0.6, 0.5, 0.6)
+material = SubResource("StandardMaterial3D_chair")
+
+[node name="Chair8" type="CSGBox3D" parent="." unique_id=1571679219]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.25, -10.747612)
+size = Vector3(0.6, 0.5, 0.6)
+material = SubResource("StandardMaterial3D_chair")
+
+[node name="Chair9" type="CSGBox3D" parent="." unique_id=1972623090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0212588, 0.25, -9.247612)
+size = Vector3(0.6, 0.5, 0.6)
+material = SubResource("StandardMaterial3D_chair")
+
+[node name="Chair10" type="CSGBox3D" parent="." unique_id=1475444440]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0212588, 0.25, -10.747612)
+size = Vector3(0.6, 0.5, 0.6)
+material = SubResource("StandardMaterial3D_chair")
+
 [node name="Chair4" type="CSGBox3D" parent="." unique_id=1851260965]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.25, -5)
 size = Vector3(0.6, 0.5, 0.6)
@@ -192,6 +213,11 @@ material = SubResource("StandardMaterial3D_chair")
 
 [node name="Chair5" type="CSGBox3D" parent="." unique_id=946100527]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.25, -6.5)
+size = Vector3(0.6, 0.5, 0.6)
+material = SubResource("StandardMaterial3D_chair")
+
+[node name="Chair6" type="CSGBox3D" parent="." unique_id=623558851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.25, -7.9250464)
 size = Vector3(0.6, 0.5, 0.6)
 material = SubResource("StandardMaterial3D_chair")
 
@@ -216,7 +242,7 @@ radius = 0.18
 material = SubResource("StandardMaterial3D_skin")
 
 [node name="Patient2" type="StaticBody3D" parent="." unique_id=1419199645]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -9.264008)
 script = ExtResource("5_interactable")
 prompt_text = "[E] Talk to Patient"
 dialogue_key = "waiting_room_patient_2"
@@ -247,6 +273,12 @@ shape = SubResource("BoxShape3D_exit")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 size = Vector3(0.8, 0.25, 0.05)
 material = SubResource("StandardMaterial3D_exit_sign")
+
+[node name="Label3D" type="Label3D" parent="ExitDoor/ExitSign" unique_id=843475763]
+transform = Transform3D(-0.99933344, 0, -0.036504194, 0, 1, 0, 0.036504194, 0, -0.99933344, 0, 0.005443096, -0.034350395)
+modulate = Color(0.97792345, 0.73674107, 0.6833342, 1)
+outline_modulate = Color(1, 1, 1, 0.7607843)
+text = "EXIT"
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=895499971]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -2)
