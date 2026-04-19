@@ -64,7 +64,7 @@ static var dialogues := {
 				{"speaker": "", "text": "You answer."},
 			]},
 		]},
-		{"speaker": "???", "text": "I heard you wnated to try the payment plan."},
+		{"speaker": "???", "text": "I heard you wanted to try the payment plan."},
 		{"speaker": "You", "text": "Who is this? How did you get my number?"},
 		{"speaker": "???", "text": "That's not important. What IS important is that I have work."},
 		{"speaker": "???", "text": "It's a simple job. A few hours. Enough to make a real dent in that debt."},
@@ -78,7 +78,7 @@ static var dialogues := {
 			{"text": "\"No. Absolutely not.\"", "response": [
 				{"speaker": "You", "text": "No. Absolutely not. I don't even know who you are."},
 				{"speaker": "???", "text": "You owe %BILL%."},
-				{"speaker": "???", "text": "You got no savings. No family money. You're sick. And most imprtantly you're BROKE!"},
+				{"speaker": "???", "text": "You got no savings. No family money. You're sick. And most importantly you're BROKE!"},
 				{"speaker": "???", "text": "I'm the only call you're getting tonight. Think carefully."},
 				{"speaker": "", "text": "..."},
 				{"speaker": "", "text": "The bill. The apartment you can barely afford. The walls closing in."},
@@ -107,25 +107,22 @@ static var dialogues := {
 	# ========== PARKING LOT ==========
 
 	"parking_lot_car_enter": [
-		{"speaker": "", "text": "You find your car. Silver Saturn Ion. The one with the dent in the bumper."},
-		{"speaker": "", "text": "You slide into the driver's seat and turn your key."},
-		{"speaker": "", "text": "The check engine light is on. Of course it is."},
-		{"speaker": "", "text": "You glance at the gas gauge."},
+		{"speaker": "", "text": "You sink into the driver's seat of your Saturn Ion. The one with the dent in the bumper"},
+		{"speaker": "", "text": "Your eyes drift to the gas gauge."},
 		{"speaker": "", "text": "Empty."},
-		{"speaker": "", "text": ""},
 		{"speaker": "", "text": "And they want you to pay %BILL%."},
 		{"speaker": "", "text": "You can't even afford to fill the tank."},
 	],
 
 	"parking_lot_car_start": [
-		{"speaker": "", "text": "You continue turning the key anyway."},
+		{"speaker": "", "text": "You turn the key anyway."},
+		{"speaker": "", "text": "The check engine light glares at you."},
 		{"speaker": "", "text": "[Click. Click. Click.]"},
 		{"speaker": "", "text": "Nothing. The engine doesn't even try."},
-		{"speaker": "", "text": "You try again. The lights reminding you of your poverty go off"},
-		{"speaker": "", "text": "[Click. Click.]"},
+		{"speaker": "", "text": "You try again. The dashboard lights sputter, then die."},
+		{"speaker": "", "text": "[Click.]"},
 		{"speaker": "", "text": "Dead battery."},
-		{"speaker": "", "text": "You sit there. Hands on the wheel. Staring at nothing."},
-		{"speaker": "", "text": "The parking lot hums under the flickering lights."},
+		{"speaker": "", "text": "You sit there in the dark. Hands on the wheel. Staring at nothing."},
 	],
 
 	"parking_lot_waiting": [
@@ -133,8 +130,7 @@ static var dialogues := {
 		{"speaker": "", "text": "%BILL%... Damn. You don't know what you agreed to but you wonder how much work can put a dent in %BILL%."},
 		{"speaker": "", "text": "Headlights sweep across the lot. A black sedan pulls up."},
 		{"speaker": "", "text": "The back door opens. No one gets out."},
-		{"speaker": "", "text": "You get out of your car. You walk toward the sedan."},
-		{"speaker": "", "text": "You don't look back."},
+		{"speaker": "", "text": "You get in. You don't look back."},
 	],
 
 	# ========== ESCAPE ATTEMPTS ==========
@@ -152,7 +148,7 @@ static var dialogues := {
 		{"speaker": "", "text": "You get in. The driver doesn't turn around."},
 		{"speaker": "", "text": "..."},
 		{"speaker": "", "text": "The streetlights blur past. You don't recognize this part of town."},
-		{"speaker": "", "text": "You should have asked more questions. You could have asked any question. Instead you remian silent"},
+		{"speaker": "", "text": "You should have asked more questions. You could have asked any question. Instead you remain silent."},
 		{"speaker": "Driver", "text": "Almost there."},
 		{"speaker": "", "text": "Those are the only words spoken the entire ride."},
 	],
