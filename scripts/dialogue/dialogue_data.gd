@@ -154,7 +154,7 @@ static var dialogues := {
 	],
 
 	"car_ride_1": [
-		{"speaker": "", "text": "You blink then notice you are in the same sedan. It's the same driver."},
+		{"speaker": "", "text": "You blink and notice you are in the same sedan. It's the same driver."},
 		{"speaker": "", "text": "The same silence. This time you catch them looking at you from time to time. Noticing something you can't quite register"},
 		{"speaker": "", "text": "You remember the blood on your hands. Somehow it's gone."},
 		{"speaker": "", "text": "The city thins out. The fog thickens. Streetlights stutter like a failing EKG."},
