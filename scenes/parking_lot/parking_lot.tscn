@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bnyyt0s1a6wbc" path="res://scripts/dialogue/dialogue_box.gd" id="3_dialogue"]
 [ext_resource type="Script" uid="uid://cqelsuww3h2sd" path="res://scenes/parking_lot/parking_lot_car.gd" id="4_car"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="5_ps1"]
+[ext_resource type="PackedScene" uid="uid://ba0lohmku8tce" path="res://scenes/job1_warehouse/warehouse.tscn" id="6_warehouse"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -71,6 +72,7 @@ shader_parameter/dither_strength = 0.05
 
 [node name="ParkingLot" type="Node3D" unique_id=1022806193]
 script = ExtResource("1_lot")
+first_job_scene = ExtResource("6_warehouse")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=460923727]
 environment = SubResource("Environment_1")

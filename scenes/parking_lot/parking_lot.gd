@@ -6,6 +6,11 @@ extends Node3D
 @onready var lamp1: OmniLight3D = $Lamp1/LampLight
 @onready var lamp2: OmniLight3D = $Lamp2/LampLight
 
+## The first job to play after the opening car ride. Seeds the pending_*
+## state on GameManager so car_ride.gd knows which scene to load.
+@export var first_job_scene: PackedScene
+@export var first_job_index: int = 0
+
 var car_interacted := false
 
 
@@ -59,6 +64,11 @@ func _on_phone_finished() -> void:
 func _on_waiting_finished() -> void:
 	await get_tree().create_timer(2.0).timeout
 	GameManager.set_state(GameManager.GameState.CAR_RIDE)
+
+	if first_job_scene:
+		GameManager.pending_job_scene = first_job_scene
+		GameManager.pending_job_index = first_job_index
+
 	TransitionOverlay.fade_out(1.5)
 	await TransitionOverlay.fade_out_finished
 	GameManager.transition_to_scene("res://scenes/car_ride/car_ride.tscn")
