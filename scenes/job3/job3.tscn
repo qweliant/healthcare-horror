@@ -751,3 +751,84 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+
+[node name="PlatformWalls2" type="Node3D" parent="." unique_id=965526102]
+transform = Transform3D(0.7056119, 0, 0.7085985, 0, 1, 0, -0.7085985, 0, 0.7056119, 0, 0, 0)
+
+[node name="WallNorth" type="StaticBody3D" parent="PlatformWalls2" unique_id=1867941417]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -9.2)
+
+[node name="WallNorthCollision" type="CollisionShape3D" parent="PlatformWalls2/WallNorth" unique_id=1283438674]
+shape = SubResource("BoxShape3D_wall_ns")
+
+[node name="WallSouth" type="StaticBody3D" parent="PlatformWalls2" unique_id=144708958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 9.2)
+
+[node name="WallSouthCollision" type="CollisionShape3D" parent="PlatformWalls2/WallSouth" unique_id=2093385535]
+shape = SubResource("BoxShape3D_wall_ns")
+
+[node name="WallEast" type="StaticBody3D" parent="PlatformWalls2" unique_id=162389462]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.2, 1, 0)
+
+[node name="WallEastCollision" type="CollisionShape3D" parent="PlatformWalls2/WallEast" unique_id=877353984]
+shape = SubResource("BoxShape3D_wall_ew")
+
+[node name="WallWest" type="StaticBody3D" parent="PlatformWalls2" unique_id=1252809307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.2, 1, 0)
+
+[node name="WallWestCollision" type="CollisionShape3D" parent="PlatformWalls2/WallWest" unique_id=866916593]
+shape = SubResource("BoxShape3D_wall_ew")
+
+[node name="PlatformWalls3" type="Node3D" parent="." unique_id=698512449]
+transform = Transform3D(0.9211718, 0, 0.3891561, 0, 1, 0, -0.3891561, 0, 0.9211718, 0, 0, 0)
+
+[node name="WallNorth" type="StaticBody3D" parent="PlatformWalls3" unique_id=858294475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -9.2)
+
+[node name="WallNorthCollision" type="CollisionShape3D" parent="PlatformWalls3/WallNorth" unique_id=1468100645]
+shape = SubResource("BoxShape3D_wall_ns")
+
+[node name="WallSouth" type="StaticBody3D" parent="PlatformWalls3" unique_id=479669645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 9.2)
+
+[node name="WallSouthCollision" type="CollisionShape3D" parent="PlatformWalls3/WallSouth" unique_id=371975905]
+shape = SubResource("BoxShape3D_wall_ns")
+
+[node name="WallEast" type="StaticBody3D" parent="PlatformWalls3" unique_id=1065879145]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.2, 1, 0)
+
+[node name="WallEastCollision" type="CollisionShape3D" parent="PlatformWalls3/WallEast" unique_id=658106833]
+shape = SubResource("BoxShape3D_wall_ew")
+
+[node name="WallWest" type="StaticBody3D" parent="PlatformWalls3" unique_id=566620837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.2, 1, 0)
+
+[node name="WallWestCollision" type="CollisionShape3D" parent="PlatformWalls3/WallWest" unique_id=1255133671]
+shape = SubResource("BoxShape3D_wall_ew")
+
+[node name="PlatformWalls4" type="Node3D" parent="." unique_id=324278330]
+transform = Transform3D(0.93414855, 0, -0.35688475, 0, 1, 0, 0.35688475, 0, 0.93414855, 0, 0, 0)
+
+[node name="WallNorth" type="StaticBody3D" parent="PlatformWalls4" unique_id=1751463240]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -9.2)
+
+[node name="WallNorthCollision" type="CollisionShape3D" parent="PlatformWalls4/WallNorth" unique_id=336894850]
+shape = SubResource("BoxShape3D_wall_ns")
+
+[node name="WallSouth" type="StaticBody3D" parent="PlatformWalls4" unique_id=863677913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 9.2)
+
+[node name="WallSouthCollision" type="CollisionShape3D" parent="PlatformWalls4/WallSouth" unique_id=710876466]
+shape = SubResource("BoxShape3D_wall_ns")
+
+[node name="WallEast" type="StaticBody3D" parent="PlatformWalls4" unique_id=953557896]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.2, 1, 0)
+
+[node name="WallEastCollision" type="CollisionShape3D" parent="PlatformWalls4/WallEast" unique_id=2126444070]
+shape = SubResource("BoxShape3D_wall_ew")
+
+[node name="WallWest" type="StaticBody3D" parent="PlatformWalls4" unique_id=1856582641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.2, 1, 0)
+
+[node name="WallWestCollision" type="CollisionShape3D" parent="PlatformWalls4/WallWest" unique_id=1842670694]
+shape = SubResource("BoxShape3D_wall_ew")
