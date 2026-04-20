@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cth8yjxkudj6t" path="res://scenes/hospital/hospital.gd" id="1_hospital"]
 [ext_resource type="Script" uid="uid://cwbm0t7vgkbus" path="res://scripts/player/player.gd" id="2_player"]
-[ext_resource type="Script" uid="uid://bnyyt0s1a6wbc" path="res://scripts/dialogue/dialogue_box.gd" id="3_dialogue"]
 [ext_resource type="Script" uid="uid://d2y53qg2j8mr2" path="res://scripts/interaction/checkout_nurse.gd" id="4_nurse"]
 [ext_resource type="Script" uid="uid://du1pdsw11fr30" path="res://scripts/interaction/interactable.gd" id="5_interactable"]
 [ext_resource type="Script" uid="uid://c3npfmxwxilum" path="res://scripts/interaction/exit_door.gd" id="6_exit"]
+[ext_resource type="PackedScene" uid="uid://c1dialog0001" path="res://ui/dialogue_box.tscn" id="7_amdvu"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="7_ps1"]
 
 [sub_resource type="Environment" id="Environment_1"]
@@ -279,35 +279,7 @@ text = "[E] Interact"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DialogueBox" type="CanvasLayer" parent="." unique_id=1476330531]
-layer = 10
-script = ExtResource("3_dialogue")
-
-[node name="Panel" type="PanelContainer" parent="DialogueBox" unique_id=1739129001]
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = -140.0
-offset_right = -40.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="VBox" type="VBoxContainer" parent="DialogueBox/Panel" unique_id=869496528]
-layout_mode = 2
-
-[node name="SpeakerLabel" type="Label" parent="DialogueBox/Panel/VBox" unique_id=2028029787]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.2, 0.2, 1)
-text = "Speaker"
-
-[node name="TextLabel" type="RichTextLabel" parent="DialogueBox/Panel/VBox" unique_id=1638698421]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Dialogue text."
-fit_content = true
+[node name="DialogueBox" parent="." unique_id=1742646807 instance=ExtResource("7_amdvu")]
 
 [node name="PS1Overlay" type="ColorRect" parent="." unique_id=1406659127]
 material = SubResource("ShaderMaterial_ps1")

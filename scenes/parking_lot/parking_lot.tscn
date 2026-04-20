@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://duf1jpynjmd4u" path="res://scenes/parking_lot/parking_lot.gd" id="1_lot"]
 [ext_resource type="Script" uid="uid://cwbm0t7vgkbus" path="res://scripts/player/player.gd" id="2_player"]
-[ext_resource type="Script" uid="uid://bnyyt0s1a6wbc" path="res://scripts/dialogue/dialogue_box.gd" id="3_dialogue"]
 [ext_resource type="Script" uid="uid://cqelsuww3h2sd" path="res://scenes/parking_lot/parking_lot_car.gd" id="4_car"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="5_ps1"]
 [ext_resource type="PackedScene" uid="uid://ba0lohmku8tce" path="res://scenes/job1_warehouse/warehouse.tscn" id="6_warehouse"]
+[ext_resource type="PackedScene" uid="uid://c1dialog0001" path="res://ui/dialogue_box.tscn" id="6_ytejt"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -420,3 +420,5 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+
+[node name="DialogueBox" parent="." unique_id=1742646807 instance=ExtResource("6_ytejt")]

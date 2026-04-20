@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://c4hq8n2k7m0wp" path="res://scenes/job2/job2.gd" id="1_job2"]
 [ext_resource type="Script" uid="uid://cwbm0t7vgkbus" path="res://scripts/player/player.gd" id="2_player"]
-[ext_resource type="Script" uid="uid://bnyyt0s1a6wbc" path="res://scripts/dialogue/dialogue_box.gd" id="3_dialogue"]
 [ext_resource type="Script" uid="uid://drd72ea65usl0" path="res://scripts/interaction/job_npc.gd" id="4_jobnpc"]
 [ext_resource type="Script" uid="uid://ca15jit37idpd" path="res://scripts/job_site/ritual_sequence.gd" id="5_ritual"]
 [ext_resource type="Script" uid="uid://cyd7cli8d3s4u" path="res://scripts/interaction/ritual_interactable.gd" id="6_ritual_int"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="7_ps1"]
+[ext_resource type="PackedScene" uid="uid://c1dialog0001" path="res://ui/dialogue_box.tscn" id="8_pmyil"]
 [ext_resource type="PackedScene" uid="uid://ccpjger886tna" path="res://scenes/job3/job3.tscn" id="9_job3"]
 
 [sub_resource type="Environment" id="Environment_wh"]
@@ -320,39 +320,11 @@ text = "[E] Interact"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DialogueBox" type="CanvasLayer" parent="." unique_id=1999174226]
-layer = 10
-script = ExtResource("3_dialogue")
-
-[node name="Panel" type="PanelContainer" parent="DialogueBox" unique_id=443766160]
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = -140.0
-offset_right = -40.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="VBox" type="VBoxContainer" parent="DialogueBox/Panel" unique_id=527320408]
-layout_mode = 2
-
-[node name="SpeakerLabel" type="Label" parent="DialogueBox/Panel/VBox" unique_id=1483101863]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.2, 0.2, 1)
-text = "Speaker"
-
-[node name="TextLabel" type="RichTextLabel" parent="DialogueBox/Panel/VBox" unique_id=1046171414]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Dialogue text."
-fit_content = true
-
 [node name="PS1Overlay" type="ColorRect" parent="." unique_id=720840963]
 material = SubResource("ShaderMaterial_ps1_wh")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+
+[node name="DialogueBox" parent="." unique_id=1742646807 instance=ExtResource("8_pmyil")]

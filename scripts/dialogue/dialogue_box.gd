@@ -5,6 +5,7 @@ signal dialogue_finished
 @onready var panel: PanelContainer = $Panel
 @onready var speaker_label: Label = $Panel/VBox/SpeakerLabel
 @onready var text_label: RichTextLabel = $Panel/VBox/TextLabel
+@onready var dialogue_audio: AudioStreamPlayer = $DialogueAudio
 
 var dialogue_lines: Array = []
 var current_line := 0
