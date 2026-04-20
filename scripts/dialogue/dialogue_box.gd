@@ -42,6 +42,7 @@ func _process(delta: float) -> void:
 			text_label.visible_characters = _visible_chars
 			if _visible_chars >= text_label.get_total_character_count():
 				is_typing = false
+				_stop_typing_audio()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -52,6 +53,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_typing:
 			is_typing = false
 			text_label.visible_characters = -1
+			_stop_typing_audio()
 		else:
 			_advance()
 		get_viewport().set_input_as_handled()
@@ -96,13 +98,16 @@ func _show_line() -> void:
 	_showing_choices = false
 	text_label.visible = true
 
-	speaker_label.text = line["speaker"]
-	speaker_label.visible = line["speaker"] != ""
+	var speaker: String = str(line.get("speaker", ""))
+	speaker_label.text = speaker
+	speaker_label.visible = speaker != ""
 	text_label.text = line["text"]
 	text_label.visible_characters = 0
 	_visible_chars = 0
 	_type_timer = 0.0
 	is_typing = true
+	if speaker != "" and speaker != "You" and text_label.get_total_character_count() > 0:
+		dialogue_audio.play()
 
 
 func _show_choices(choices: Array) -> void:
@@ -163,9 +168,14 @@ func _advance() -> void:
 
 
 func _close() -> void:
+	_stop_typing_audio()
 	is_active = false
 	_showing_choices = false
 	panel.visible = false
 	choice_container.visible = false
 	dialogue_finished.emit()
 	GameManager.end_dialogue()
+
+
+func _stop_typing_audio() -> void:
+	dialogue_audio.stop()
