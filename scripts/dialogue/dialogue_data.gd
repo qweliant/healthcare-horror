@@ -34,7 +34,7 @@ static var dialogues := {
 		]},
 		{"speaker": "Nurse", "text": "Three nights in the ICU, intravenous medications, CT imaging. The kind of help you needed is quite expensive"},
 		{"speaker": "Nurse", "text": "We do however offer payment plans."},
-		{"speaker": "", "text": "Payment plans. Sure. Pay it off over the next six decades."},
+		{"speaker": "", "text": "Payment plans. Sure. Pay it off over the next three lifetimes."},
 		{"speaker": "You", "text": "..."},
 		{"speaker": "Nurse", "text": "You can discuss it with billing. For now, you're free to go."},
 		{"speaker": "", "text": "Free. That's a funny word for someone who just got handed a quarter-million-dollar sentence."},
