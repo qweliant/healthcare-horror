@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scripts/game/game_manager.gd"
 TransitionOverlay="*res://scripts/game/transition_overlay.gd"
-AudioManager="*res://scripts/game/audio_manager.gd"
 
 [display]
 

@@ -21,14 +21,8 @@ func _ready() -> void:
 
 
 func start_sequence(job_index: int) -> void:
-	AudioManager.play_sfx("sigil_glow", -2.0)
 	await _glow_sigil(3.0)
-	if job_index == 0:
-		AudioManager.play_ambient("chanting", 0.5, -6.0)
-	elif job_index == 1:
-		AudioManager.play_sfx("hum_to_shriek", -2.0)
 	await _play_ritual_dialogue(job_index)
-	AudioManager.stop_ambient(0.4)
 	await _blood_flash()
 	await _blackout(3.0)
 	await _fade_back()

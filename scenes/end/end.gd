@@ -22,8 +22,6 @@ func _ready() -> void:
 	$EndCard/SequenceLabel.visible = false
 	$EndCard/TitleLabel.visible = false
 	$EndCard/AnyKeyLabel.visible = false
-	AudioManager.stop_all()
-	AudioManager.play_music("party_time", -4.0)
 	TransitionOverlay.fade_in(0.3)
 	await TransitionOverlay.fade_in_finished
 	await _run_flash_sequence()

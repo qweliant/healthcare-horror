@@ -33,7 +33,6 @@ const GAS_LIGHT_ON := 0.6
 var car_interacted := false
 var _click_tween: Tween = null
 var _phone_pulse_tween: Tween = null
-var _phone_vibrate_timer: Timer = null
 
 
 func _ready() -> void:
@@ -42,8 +41,6 @@ func _ready() -> void:
 	GameManager.set_state(GameManager.GameState.PARKING_LOT)
 
 	player_camera.make_current()
-	AudioManager.stop_ambient(0.5)
-	AudioManager.stop_layer(0.5)
 
 	TransitionOverlay.hold_black()
 	TransitionOverlay.fade_in(2.0)
@@ -136,13 +133,6 @@ func _on_car_start_finished() -> void:
 
 func _start_phone_pulse() -> void:
 	phone_screen.visible = true
-	AudioManager.play_sfx("phone_vibrate", -4.0)
-	_phone_vibrate_timer = Timer.new()
-	_phone_vibrate_timer.wait_time = 0.8
-	_phone_vibrate_timer.one_shot = false
-	_phone_vibrate_timer.timeout.connect(func() -> void: AudioManager.play_sfx("phone_vibrate", -4.0))
-	add_child(_phone_vibrate_timer)
-	_phone_vibrate_timer.start()
 	_phone_pulse_tween = create_tween().set_loops()
 	_phone_pulse_tween.tween_property(phone_light, "light_energy", 2.2, 0.4)
 	_phone_pulse_tween.tween_property(phone_light, "light_energy", 0.2, 0.4)
@@ -151,10 +141,6 @@ func _start_phone_pulse() -> void:
 func _stop_phone_pulse() -> void:
 	if _phone_pulse_tween and _phone_pulse_tween.is_valid():
 		_phone_pulse_tween.kill()
-	if _phone_vibrate_timer:
-		_phone_vibrate_timer.stop()
-		_phone_vibrate_timer.queue_free()
-		_phone_vibrate_timer = null
 	phone_light.light_energy = 0.0
 	phone_screen.visible = false
 
