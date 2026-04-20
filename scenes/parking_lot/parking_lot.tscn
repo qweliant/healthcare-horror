@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c1parklot001"]
 
 [ext_resource type="Script" uid="uid://duf1jpynjmd4u" path="res://scenes/parking_lot/parking_lot.gd" id="1_lot"]
-[ext_resource type="Script" uid="uid://cwbm0t7vgkbus" path="res://scripts/player/player.gd" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://c1player0001" path="res://scenes/player.tscn" id="2_player"]
 [ext_resource type="Script" uid="uid://bnyyt0s1a6wbc" path="res://scripts/dialogue/dialogue_box.gd" id="3_dialogue"]
 [ext_resource type="Script" uid="uid://cqelsuww3h2sd" path="res://scenes/parking_lot/parking_lot_car.gd" id="4_car"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="5_ps1"]
@@ -67,19 +67,23 @@ albedo_color = Color(0.08, 0.08, 0.09, 1)
 [sub_resource type="StandardMaterial3D" id="Mat_steering"]
 albedo_color = Color(0.12, 0.12, 0.13, 1)
 
+[sub_resource type="TorusMesh" id="Mesh_wheel"]
+inner_radius = 0.12
+outer_radius = 0.16
+
 [sub_resource type="StandardMaterial3D" id="Mat_hood"]
 albedo_color = Color(0.18, 0.22, 0.36, 1)
 
 [sub_resource type="StandardMaterial3D" id="Mat_gas_warning"]
 albedo_color = Color(0.9, 0.15, 0.05, 1)
 emission_enabled = true
-emission = Color(1.0, 0.2, 0.1, 1)
+emission = Color(1, 0.2, 0.1, 1)
 emission_energy_multiplier = 2.5
 
 [sub_resource type="StandardMaterial3D" id="Mat_dash_gauge"]
 albedo_color = Color(0.9, 0.6, 0.2, 1)
 emission_enabled = true
-emission = Color(1.0, 0.7, 0.3, 1)
+emission = Color(1, 0.7, 0.3, 1)
 emission_energy_multiplier = 1.8
 
 [sub_resource type="StandardMaterial3D" id="Mat_phone_body"]
@@ -88,22 +92,11 @@ albedo_color = Color(0.05, 0.05, 0.06, 1)
 [sub_resource type="StandardMaterial3D" id="Mat_phone_screen"]
 albedo_color = Color(0.4, 0.9, 0.5, 1)
 emission_enabled = true
-emission = Color(0.5, 1.0, 0.6, 1)
+emission = Color(0.5, 1, 0.6, 1)
 emission_energy_multiplier = 2.2
 
 [sub_resource type="StandardMaterial3D" id="Mat_sedan"]
 albedo_color = Color(0.04, 0.04, 0.05, 1)
-
-[sub_resource type="TorusMesh" id="Mesh_wheel"]
-inner_radius = 0.12
-outer_radius = 0.16
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_car"]
-size = Vector3(2.0, 1.2, 3.5)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
-radius = 0.3
-height = 1.6
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ps1"]
 shader = ExtResource("5_ps1")
@@ -118,7 +111,7 @@ first_job_scene = ExtResource("6_warehouse")
 environment = SubResource("Environment_1")
 
 [node name="Lamp1" type="Node3D" parent="." unique_id=1312052361]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.114008, 0, -7.912429)
 
 [node name="LampPost" type="CSGCylinder3D" parent="Lamp1" unique_id=951867962]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -127,19 +120,19 @@ height = 4.0
 material = SubResource("Mat_lamp_post")
 
 [node name="LampHead" type="CSGBox3D" parent="Lamp1" unique_id=638031562]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.089284, 0.14088535)
 size = Vector3(0.4, 0.15, 0.4)
 material = SubResource("Mat_lamp_head")
 
 [node name="LampLight" type="OmniLight3D" parent="Lamp1" unique_id=313720115]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0.12887287)
 light_color = Color(0.9, 0.8, 0.5, 1)
 light_energy = 1.5
 omni_range = 12.0
-omni_attenuation = 2.022
+omni_attenuation = 2.324
 
 [node name="Lamp2" type="Node3D" parent="." unique_id=159886492]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2945824, 0, -7.9197454)
 
 [node name="LampPost" type="CSGCylinder3D" parent="Lamp2" unique_id=503540926]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -148,16 +141,16 @@ height = 4.0
 material = SubResource("Mat_lamp_post")
 
 [node name="LampHead" type="CSGBox3D" parent="Lamp2" unique_id=1578693217]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0984373, 0.14898491)
 size = Vector3(0.4, 0.15, 0.4)
 material = SubResource("Mat_lamp_head")
 
 [node name="LampLight" type="OmniLight3D" parent="Lamp2" unique_id=1697041710]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0.26333904)
 light_color = Color(0.9, 0.8, 0.5, 1)
 light_energy = 1.5
 omni_range = 12.0
-omni_attenuation = 1.2
+omni_attenuation = 1.079
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1440436757]
 
@@ -170,18 +163,18 @@ size = Vector3(24, 0.1, 20)
 material = SubResource("Mat_asphalt")
 
 [node name="ParkingLine1" type="CSGBox3D" parent="." unique_id=940654958]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.01, -6)
-size = Vector3(0.08, 0.02, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.01, -7.683838)
+size = Vector3(0.08, 0.02, 7.367676)
 material = SubResource("Mat_parking_line")
 
 [node name="ParkingLine2" type="CSGBox3D" parent="." unique_id=1601106830]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, -6)
-size = Vector3(0.08, 0.02, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, -7.7041016)
+size = Vector3(0.08, 0.02, 7.408203)
 material = SubResource("Mat_parking_line")
 
 [node name="ParkingLine3" type="CSGBox3D" parent="." unique_id=234732904]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.01, -6)
-size = Vector3(0.08, 0.02, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.01, -7.7041016)
+size = Vector3(0.08, 0.02, 7.408203)
 material = SubResource("Mat_parking_line")
 
 [node name="FenceLeft" type="CSGBox3D" parent="." unique_id=347543011]
@@ -215,13 +208,13 @@ size = Vector3(1.8, 1.2, 3.5)
 material = SubResource("Mat_car_dark")
 
 [node name="OtherCar2" type="CSGBox3D" parent="." unique_id=348444644]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.65, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5233364, 0.65, -11.365674)
 use_collision = true
 size = Vector3(2, 1.3, 3.8)
 material = SubResource("Mat_car_white")
 
 [node name="OtherCar3" type="CSGBox3D" parent="." unique_id=1585384953]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.55, -11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.675791, 0.55, -9.956685)
 use_collision = true
 size = Vector3(1.7, 1.1, 3.2)
 material = SubResource("Mat_car_green")
@@ -249,144 +242,84 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.8, -1.4)
 size = Vector3(0.08, 0.04, 0.02)
 material = SubResource("Mat_check_engine")
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=650307960]
-[node name="Interior" type="Node3D" parent="PlayerCar"]
+[node name="Interior" type="Node3D" parent="PlayerCar" unique_id=831628340]
 
-[node name="InteriorCamera" type="Camera3D" parent="PlayerCar/Interior"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0.6)
-current = false
-fov = 75.0
+[node name="InteriorCamera" type="Camera3D" parent="PlayerCar/Interior" unique_id=464093036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.6)
 
-[node name="Dashboard" type="CSGBox3D" parent="PlayerCar/Interior"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, -1.0)
+[node name="Dashboard" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=167223297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, -1)
 size = Vector3(1.5, 0.22, 0.4)
 material = SubResource("Mat_dash")
 
-[node name="SteeringColumn" type="CSGBox3D" parent="PlayerCar/Interior"]
+[node name="SteeringColumn" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=2030920982]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0.85, -0.6)
 size = Vector3(0.06, 0.06, 0.35)
 material = SubResource("Mat_steering")
 
-[node name="SteeringWheel" type="MeshInstance3D" parent="PlayerCar/Interior"]
+[node name="SteeringWheel" type="MeshInstance3D" parent="PlayerCar/Interior" unique_id=1318468863]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.35, 0.9, -0.45)
 mesh = SubResource("Mesh_wheel")
 surface_material_override/0 = SubResource("Mat_steering")
 
-[node name="Hood" type="CSGBox3D" parent="PlayerCar/Interior"]
+[node name="Hood" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=506324689]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -2.1)
 size = Vector3(1.6, 0.08, 1.2)
 material = SubResource("Mat_hood")
 
-[node name="GasWarning" type="CSGBox3D" parent="PlayerCar/Interior"]
+[node name="GasWarning" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=324520515]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.95, -0.82)
 size = Vector3(0.08, 0.025, 0.02)
 material = SubResource("Mat_gas_warning")
 
-[node name="GasWarningLight" type="OmniLight3D" parent="PlayerCar/Interior"]
+[node name="GasWarningLight" type="OmniLight3D" parent="PlayerCar/Interior" unique_id=1653926452]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.95, -0.8)
-light_color = Color(1.0, 0.3, 0.15, 1)
+light_color = Color(1, 0.3, 0.15, 1)
 light_energy = 0.6
 omni_range = 0.8
 omni_attenuation = 1.6
 
-[node name="BatteryGauge" type="CSGBox3D" parent="PlayerCar/Interior"]
+[node name="BatteryGauge" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=2047336580]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.95, -0.82)
 size = Vector3(0.08, 0.025, 0.02)
 material = SubResource("Mat_dash_gauge")
 
-[node name="CheckEngineInterior" type="CSGBox3D" parent="PlayerCar/Interior"]
+[node name="CheckEngineInterior" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=578892761]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.95, -0.82)
 size = Vector3(0.08, 0.025, 0.02)
 material = SubResource("Mat_check_engine")
 
-[node name="DashLight" type="OmniLight3D" parent="PlayerCar/Interior"]
+[node name="DashLight" type="OmniLight3D" parent="PlayerCar/Interior" unique_id=1835900940]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0.2)
-light_color = Color(1.0, 0.75, 0.45, 1)
+light_color = Color(1, 0.75, 0.45, 1)
 light_energy = 0.9
 omni_range = 2.2
 omni_attenuation = 1.4
 
-[node name="Phone" type="CSGBox3D" parent="PlayerCar/Interior"]
+[node name="Phone" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=1474490442]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0.85, -0.55)
 size = Vector3(0.07, 0.02, 0.14)
 material = SubResource("Mat_phone_body")
 
-[node name="PhoneScreen" type="CSGBox3D" parent="PlayerCar/Interior/Phone"]
+[node name="PhoneScreen" type="CSGBox3D" parent="PlayerCar/Interior/Phone" unique_id=1313156272]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.011, 0)
-size = Vector3(0.055, 0.002, 0.11)
 visible = false
+size = Vector3(0.055, 0.002, 0.11)
 material = SubResource("Mat_phone_screen")
 
-[node name="PhoneLight" type="OmniLight3D" parent="PlayerCar/Interior/Phone"]
+[node name="PhoneLight" type="OmniLight3D" parent="PlayerCar/Interior/Phone" unique_id=1380212902]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-light_color = Color(0.5, 1.0, 0.6, 1)
+light_color = Color(0.5, 1, 0.6, 1)
 light_energy = 0.0
 omni_range = 1.5
 omni_attenuation = 1.4
 
-[node name="Player" type="CharacterBody3D" parent="."]
+[node name="Player" parent="." unique_id=1203909306 instance=ExtResource("2_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 2)
-script = ExtResource("2_player")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=870864412]
-shape = SubResource("CapsuleShape3D_player")
-
-[node name="Camera3D" type="Camera3D" parent="Player" unique_id=358061649]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
-
-[node name="InteractRay" type="RayCast3D" parent="Player/Camera3D" unique_id=1399450591]
-target_position = Vector3(0, 0, -2.5)
-
-[node name="UI" type="CanvasLayer" parent="Player" unique_id=641866883]
-
-[node name="InteractLabel" type="Label" parent="Player/UI" unique_id=2069710968]
-visible = false
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -60.0
-offset_right = 100.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "[E] Interact"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="DialogueBox" type="CanvasLayer" parent="." unique_id=636980411]
 layer = 10
 script = ExtResource("3_dialogue")
-
-[node name="Sedan" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.5, -13)
-visible = false
-
-[node name="SedanBody" type="CSGBox3D" parent="Sedan"]
-size = Vector3(2.0, 1.0, 4.0)
-material = SubResource("Mat_sedan")
-
-[node name="SedanRoof" type="CSGBox3D" parent="Sedan"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.3)
-size = Vector3(1.6, 0.5, 2.2)
-material = SubResource("Mat_sedan")
-
-[node name="HeadlightL" type="SpotLight3D" parent="Sedan"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.6, 0, 2.0)
-light_color = Color(1.0, 0.95, 0.85, 1)
-light_energy = 0.0
-spot_range = 25.0
-spot_angle = 28.0
-spot_angle_attenuation = 1.2
-
-[node name="HeadlightR" type="SpotLight3D" parent="Sedan"]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.6, 0, 2.0)
-light_color = Color(1.0, 0.95, 0.85, 1)
-light_energy = 0.0
-spot_range = 25.0
-spot_angle = 28.0
-spot_angle_attenuation = 1.2
 
 [node name="Panel" type="PanelContainer" parent="DialogueBox" unique_id=2051270192]
 anchors_preset = 12
@@ -413,6 +346,35 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Dialogue text."
 fit_content = true
+
+[node name="Sedan" type="Node3D" parent="." unique_id=691498845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.5, -13)
+visible = false
+
+[node name="SedanBody" type="CSGBox3D" parent="Sedan" unique_id=1320973966]
+size = Vector3(2, 1, 4)
+material = SubResource("Mat_sedan")
+
+[node name="SedanRoof" type="CSGBox3D" parent="Sedan" unique_id=993362283]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.3)
+size = Vector3(1.6, 0.5, 2.2)
+material = SubResource("Mat_sedan")
+
+[node name="HeadlightL" type="SpotLight3D" parent="Sedan" unique_id=1200986263]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.6, 0, 2)
+light_color = Color(1, 0.95, 0.85, 1)
+light_energy = 0.0
+spot_range = 25.0
+spot_angle = 28.0
+spot_angle_attenuation = 1.2
+
+[node name="HeadlightR" type="SpotLight3D" parent="Sedan" unique_id=1269267825]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.6, 0, 2)
+light_color = Color(1, 0.95, 0.85, 1)
+light_energy = 0.0
+spot_range = 25.0
+spot_angle = 28.0
+spot_angle_attenuation = 1.2
 
 [node name="PS1Overlay" type="ColorRect" parent="." unique_id=1281773481]
 material = SubResource("ShaderMaterial_ps1")
