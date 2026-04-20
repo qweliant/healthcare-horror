@@ -76,21 +76,21 @@ next_job_scene = ExtResource("9_job2")
 environment = SubResource("Environment_wh")
 
 [node name="MainLight" type="OmniLight3D" parent="." unique_id=577429250]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, -1.8558064)
 light_color = Color(0.8, 0.6, 0.4, 1)
 light_energy = 2.2
 omni_range = 22.0
 omni_attenuation = 1.2
 
 [node name="BackLight" type="OmniLight3D" parent="." unique_id=1096470165]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, -22)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, -23.515007)
 light_color = Color(0.7, 0.5, 0.35, 1)
 light_energy = 1.9
 omni_range = 20.0
 omni_attenuation = 1.2
 
 [node name="FlickerLight" type="OmniLight3D" parent="." unique_id=22281386]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5.5, -15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03414154, 5.5, -10.132448)
 light_color = Color(0.85, 0.65, 0.4, 1)
 light_energy = 2.0
 omni_range = 18.0
@@ -99,6 +99,7 @@ omni_attenuation = 1.2
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1509561658]
 
 [node name="FloorCollision" type="CollisionShape3D" parent="Floor" unique_id=1762456801]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.1598043)
 shape = SubResource("WorldBoundaryShape3D_wh_floor")
 
 [node name="FloorMesh" type="CSGBox3D" parent="Floor" unique_id=30272274]
@@ -112,15 +113,15 @@ size = Vector3(20, 0.1, 36)
 material = SubResource("StandardMaterial3D_wh_ceiling")
 
 [node name="WallLeft" type="CSGBox3D" parent="." unique_id=420309940]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.474178, 3, -14)
 use_collision = true
 size = Vector3(0.3, 6, 36)
 material = SubResource("StandardMaterial3D_wh_wall")
 
 [node name="WallRight" type="CSGBox3D" parent="." unique_id=881443819]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 3, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.869766, 1024.4243, -14)
 use_collision = true
-size = Vector3(0.3, 6, 36)
+size = Vector3(0.3, 2048.8486, 36)
 material = SubResource("StandardMaterial3D_wh_wall")
 
 [node name="WallBack" type="CSGBox3D" parent="." unique_id=963500759]

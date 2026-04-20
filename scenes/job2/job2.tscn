@@ -94,12 +94,19 @@ omni_attenuation = 1.2
 [node name="BackLight" type="OmniLight3D" parent="." unique_id=564802716]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, -22)
 light_color = Color(0.35, 0.4, 0.55, 1)
-light_energy = 1.5
+light_energy = 1.9
 omni_range = 20.0
 omni_attenuation = 1.2
 
 [node name="FlickerLight" type="OmniLight3D" parent="." unique_id=1536347010]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5.5, -15)
+light_color = Color(0.5, 0.55, 0.7, 1)
+light_energy = 2.0
+omni_range = 18.0
+omni_attenuation = 1.2
+
+[node name="FlickerLight2" type="OmniLight3D" parent="." unique_id=1991930945]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3736343, 5.5, -15)
 light_color = Color(0.5, 0.55, 0.7, 1)
 light_energy = 1.6
 omni_range = 18.0
@@ -151,15 +158,15 @@ size = Vector3(1.5, 4, 6)
 material = SubResource("StandardMaterial3D_shelf")
 
 [node name="ShelfL2" type="CSGBox3D" parent="." unique_id=261378581]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, -20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, -13.540945)
 use_collision = true
 size = Vector3(1.5, 4, 6)
 material = SubResource("StandardMaterial3D_shelf")
 
 [node name="ShelfR1" type="CSGBox3D" parent="." unique_id=1534048873]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 2, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 2, -9.462813)
 use_collision = true
-size = Vector3(1.5, 4, 5)
+size = Vector3(1.5, 4, 6.849121)
 material = SubResource("StandardMaterial3D_shelf")
 
 [node name="Crate1" type="CSGBox3D" parent="." unique_id=1097490824]
@@ -174,13 +181,13 @@ use_collision = true
 material = SubResource("StandardMaterial3D_crate")
 
 [node name="Crate3" type="CSGBox3D" parent="." unique_id=1346462417]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, -18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9724197, 0.5, -12.421723)
 use_collision = true
 size = Vector3(1.4, 1, 1.4)
 material = SubResource("StandardMaterial3D_crate")
 
 [node name="CrateStack" type="CSGBox3D" parent="." unique_id=2124518149]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1, -18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4724197, 1, -12.421723)
 use_collision = true
 size = Vector3(1, 2, 1)
 material = SubResource("StandardMaterial3D_crate")
@@ -193,16 +200,16 @@ max_talks = 2
 prompt_text = "[E] Talk to cultist"
 
 [node name="Cultist1Collision" type="CollisionShape3D" parent="Cultist1" unique_id=980831187]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 1.419035)
 shape = SubResource("BoxShape3D_npc")
 
 [node name="Cultist1Body" type="CSGBox3D" parent="Cultist1" unique_id=798263465]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1.419035)
 size = Vector3(0.5, 1.2, 0.4)
 material = SubResource("StandardMaterial3D_npc_body")
 
 [node name="Cultist1Head" type="CSGSphere3D" parent="Cultist1" unique_id=1279448928]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.419035)
 radius = 0.2
 material = SubResource("StandardMaterial3D_npc_head")
 
@@ -214,16 +221,16 @@ max_talks = 2
 prompt_text = "[E] Talk to cultist"
 
 [node name="Cultist2Collision" type="CollisionShape3D" parent="Cultist2" unique_id=1389627195]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 1.419035)
 shape = SubResource("BoxShape3D_npc")
 
 [node name="Cultist2Body" type="CSGBox3D" parent="Cultist2" unique_id=1277242616]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1.419035)
 size = Vector3(0.5, 1.2, 0.4)
 material = SubResource("StandardMaterial3D_npc_body")
 
 [node name="Cultist2Head" type="CSGSphere3D" parent="Cultist2" unique_id=884975452]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.419035)
 radius = 0.2
 material = SubResource("StandardMaterial3D_npc_head")
 
@@ -252,14 +259,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -28)
 script = ExtResource("5_ritual")
 
 [node name="Sigil" type="CSGCylinder3D" parent="RitualSequence" unique_id=601458789]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 1.419035)
 radius = 2.8
 height = 0.02
 sides = 48
 material = SubResource("StandardMaterial3D_sigil_emit")
 
 [node name="SigilLight" type="OmniLight3D" parent="RitualSequence" unique_id=1910649509]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1.419035)
 light_color = Color(0.8, 0.1, 0.1, 1)
 light_energy = 0.0
 omni_range = 10.0
@@ -269,7 +276,7 @@ omni_attenuation = 1.2
 script = ExtResource("6_ritual_int")
 
 [node name="TriggerCollision" type="CollisionShape3D" parent="RitualSequence/RitualTrigger" unique_id=1495921310]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 1.419035)
 shape = SubResource("BoxShape3D_ritual")
 
 [node name="EscapeDoor" type="StaticBody3D" parent="." unique_id=661731319]
