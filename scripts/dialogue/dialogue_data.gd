@@ -460,7 +460,6 @@ static var dialogues := {
 		{"speaker": "Hospital", "text": "Thank you for choosing Regional Medical Center for your healthcare needs."},
 		{"speaker": "", "text": "[Click]"},
 		{"speaker": "You", "text": "I ended the world."},
-		{"speaker": "You", "text": "But the account is paid in full."},
-		{"speaker": "You", "text": "I feel. I feel totally fine."},
+		{"speaker": "You", "text": "But at least my debt is paid."},
 	],
 }
