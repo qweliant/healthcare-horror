@@ -127,7 +127,7 @@ material = SubResource("Mat_lamp_head")
 [node name="LampLight" type="OmniLight3D" parent="Lamp1" unique_id=313720115]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0.12887287)
 light_color = Color(0.9, 0.8, 0.5, 1)
-light_energy = 1.5
+light_energy = 0.582
 omni_range = 12.0
 omni_attenuation = 2.324
 
@@ -146,11 +146,11 @@ size = Vector3(0.4, 0.15, 0.4)
 material = SubResource("Mat_lamp_head")
 
 [node name="LampLight" type="OmniLight3D" parent="Lamp2" unique_id=1697041710]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0.26333904)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8679404, 0.26333904)
 light_color = Color(0.9, 0.8, 0.5, 1)
-light_energy = 1.5
+light_energy = 3.433
 omni_range = 12.0
-omni_attenuation = 1.079
+omni_attenuation = 1.321
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1440436757]
 
