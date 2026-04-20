@@ -4,8 +4,7 @@ extends JobSiteBase
 
 
 func _setup_environment() -> void:
-	# Warehouse-specific setup handled in scene, but we can tweak here
-	pass
+	AudioManager.play_ambient("people_hum", 2.0, -14.0)
 
 
 func _process(delta: float) -> void:

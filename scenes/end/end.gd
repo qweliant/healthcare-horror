@@ -22,6 +22,11 @@ func _ready() -> void:
 	$EndCard/SequenceLabel.visible = false
 	$EndCard/TitleLabel.visible = false
 	$EndCard/AnyKeyLabel.visible = false
+	AudioManager.stop_ambient(0.2)
+	AudioManager.stop_layer(0.2)
+	# Defer the music so it lands after the prior scene's stop tweens settle.
+	await get_tree().process_frame
+	AudioManager.play_music("party_time", -4.0)
 	TransitionOverlay.fade_in(0.3)
 	await TransitionOverlay.fade_in_finished
 	await _run_flash_sequence()

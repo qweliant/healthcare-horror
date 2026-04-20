@@ -7,6 +7,10 @@ extends JobSiteBase
 @onready var dead_cultist_b: Node3D = $DeadCultists/DeadCultist2
 
 
+func _setup_environment() -> void:
+	AudioManager.play_ambient("people_hum", 2.0, -16.0)
+
+
 func _process(delta: float) -> void:
 	if flicker_light:
 		if randf() < 0.035:
@@ -17,6 +21,7 @@ func _process(delta: float) -> void:
 
 func _on_ritual_finished() -> void:
 	_apply_cultist_casualties()
+	AudioManager.play_sfx("ambient_scrape", -2.0)
 	super._on_ritual_finished()
 
 

@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal dialogue_finished
+signal line_shown(line: Dictionary)
 
 @onready var panel: PanelContainer = $Panel
 @onready var speaker_label: Label = $Panel/VBox/SpeakerLabel
@@ -19,6 +20,8 @@ var _visible_chars := 0
 
 var choice_container: VBoxContainer
 var _default_voice_stream: AudioStream
+var _current_voice: String = ""
+var _current_voice_player: AudioStreamPlayer = null
 
 
 func _ready() -> void:
@@ -101,6 +104,10 @@ func _show_line() -> void:
 	_showing_choices = false
 	text_label.visible = true
 
+	var sfx_cue: String = str(line.get("sfx", ""))
+	if sfx_cue != "":
+		AudioManager.play_sfx(sfx_cue)
+
 	var speaker: String = str(line.get("speaker", ""))
 	speaker_label.text = speaker
 	speaker_label.visible = speaker != ""
@@ -109,14 +116,23 @@ func _show_line() -> void:
 	_visible_chars = 0
 	_type_timer = 0.0
 	is_typing = true
-	if dialogue_audio and speaker != "" and speaker != "You" and text_label.get_total_character_count() > 0:
-		var voice: String = str(line.get("voice", ""))
-		if voice != "":
-			var override := AudioManager.get_stream(voice)
-			dialogue_audio.stream = override if override else _default_voice_stream
-		else:
+
+	var voice: String = str(line.get("voice", ""))
+	if voice != "":
+		# Voice cue: route to its own player so the typing-stop doesn't
+		# truncate it. Dedupe consecutive lines with the same voice — bill
+		# calls reuse one long file across multiple Hospital lines.
+		if voice != _current_voice or _current_voice_player == null or not _current_voice_player.playing:
+			_stop_voice()
+			_current_voice = voice
+			_current_voice_player = AudioManager.play_voice(voice)
+	else:
+		_stop_voice()
+		if dialogue_audio and speaker != "" and speaker != "You" and text_label.get_total_character_count() > 0:
 			dialogue_audio.stream = _default_voice_stream
-		dialogue_audio.play()
+			dialogue_audio.play()
+
+	line_shown.emit(line)
 
 
 func _show_choices(choices: Array) -> void:
@@ -178,6 +194,7 @@ func _advance() -> void:
 
 func _close() -> void:
 	_stop_typing_audio()
+	_stop_voice()
 	is_active = false
 	_showing_choices = false
 	panel.visible = false
@@ -189,3 +206,10 @@ func _close() -> void:
 func _stop_typing_audio() -> void:
 	if dialogue_audio:
 		dialogue_audio.stop()
+
+
+func _stop_voice() -> void:
+	if _current_voice_player and _current_voice_player.playing:
+		_current_voice_player.stop()
+	_current_voice = ""
+	_current_voice_player = null

@@ -34,7 +34,8 @@ const STREAMS := {
 
 # Tracks that should loop when used as ambient/layer (loop_mode set on load).
 const LOOPABLE := [
-	"light_buzz", "people_hum", "wind", "void_absence", "void_emptiness",
+	"light_buzz", "people_hum", "wind",
+	"void_absence", "void_emptiness",
 	"chanting", "heartbeats",
 ]
 
@@ -109,15 +110,16 @@ func play_sfx(track: String, volume_db: float = 0.0, pitch: float = 1.0) -> void
 	player.play()
 
 
-func play_voice(track: String, volume_db: float = 0.0) -> void:
+func play_voice(track: String, volume_db: float = 0.0) -> AudioStreamPlayer:
 	var stream: AudioStream = _resolve(track)
 	if stream == null:
-		return
+		return null
 	var player := _free_player(_voice_pool)
 	player.stream = stream
 	player.volume_db = volume_db
 	player.pitch_scale = 1.0
 	player.play()
+	return player
 
 
 func get_stream(track: String) -> AudioStream:
