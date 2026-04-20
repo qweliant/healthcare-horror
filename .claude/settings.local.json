@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(grep -E \"\\\\.\\(gd|tscn|gdshader\\)$\")"
+      "Bash(grep -E \"\\\\.\\(gd|tscn|gdshader\\)$\")",
+      "Bash(git *)"
     ]
   }
 }

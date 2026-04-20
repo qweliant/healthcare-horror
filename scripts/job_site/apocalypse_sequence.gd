@@ -53,6 +53,8 @@ func start_sequence(_job_index: int) -> void:
 
 
 func _phase_glow_buildup() -> void:
+	AudioManager.play_sfx("sigil_glow", -2.0)
+	AudioManager.play_layer("chanting", 3.0, -8.0)
 	var tween := create_tween().set_parallel(true)
 	if sigil_light:
 		tween.tween_property(sigil_light, "light_energy", 8.0, 5.0)

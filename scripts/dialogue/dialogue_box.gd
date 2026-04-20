@@ -18,10 +18,13 @@ var _type_timer := 0.0
 var _visible_chars := 0
 
 var choice_container: VBoxContainer
+var _default_voice_stream: AudioStream
 
 
 func _ready() -> void:
 	panel.visible = false
+	if dialogue_audio:
+		_default_voice_stream = dialogue_audio.stream
 	GameManager.dialogue_requested.connect(_on_dialogue_requested)
 
 	choice_container = VBoxContainer.new()
@@ -98,6 +101,10 @@ func _show_line() -> void:
 	_showing_choices = false
 	text_label.visible = true
 
+	var sfx_cue: String = str(line.get("sfx", ""))
+	if sfx_cue != "":
+		AudioManager.play_sfx(sfx_cue)
+
 	var speaker: String = str(line.get("speaker", ""))
 	speaker_label.text = speaker
 	speaker_label.visible = speaker != ""
@@ -106,7 +113,13 @@ func _show_line() -> void:
 	_visible_chars = 0
 	_type_timer = 0.0
 	is_typing = true
-	if speaker != "" and speaker != "You" and text_label.get_total_character_count() > 0:
+	if dialogue_audio and speaker != "" and speaker != "You" and text_label.get_total_character_count() > 0:
+		var voice: String = str(line.get("voice", ""))
+		if voice != "":
+			var override := AudioManager.get_stream(voice)
+			dialogue_audio.stream = override if override else _default_voice_stream
+		else:
+			dialogue_audio.stream = _default_voice_stream
 		dialogue_audio.play()
 
 
@@ -178,4 +191,5 @@ func _close() -> void:
 
 
 func _stop_typing_audio() -> void:
-	dialogue_audio.stop()
+	if dialogue_audio:
+		dialogue_audio.stop()

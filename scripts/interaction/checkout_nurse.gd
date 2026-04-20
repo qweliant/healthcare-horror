@@ -28,6 +28,7 @@ func _on_checkout_finished() -> void:
 	# Small delay, then bill reveal
 	await get_tree().create_timer(1.0).timeout
 	GameManager.set_state(GameManager.GameState.BILL_REVEAL)
+	AudioManager.play_sfx("panic_attack", -3.0)
 	GameManager.start_dialogue("bill_reveal")
 
 	var dialogue_box := get_tree().get_first_node_in_group("dialogue_box")

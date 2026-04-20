@@ -129,6 +129,7 @@ func _get_escape_dialogue_key() -> String:
 
 func _start_bill_call() -> void:
 	GameManager.set_state(GameManager.GameState.JOB_PHONE_CALL)
+	AudioManager.play_sfx("phone_vibrate", -4.0)
 	var key := "job_bill_call_%d" % job_index
 	if DialogueData.dialogues.has(key):
 		GameManager.start_dialogue(key)
@@ -150,6 +151,7 @@ func _on_bill_call_finished() -> void:
 func _start_next_job_call() -> void:
 	var key := "job_next_call_%d" % job_index
 	if DialogueData.dialogues.has(key):
+		AudioManager.play_sfx("phone_vibrate", -6.0)
 		GameManager.start_dialogue(key)
 		dialogue_box.dialogue_finished.connect(_on_next_call_finished, CONNECT_ONE_SHOT)
 	else:
