@@ -30,11 +30,3 @@ func _apply_cultist_casualties() -> void:
 		dead_cultist_a.visible = true
 	if dead_cultist_b:
 		dead_cultist_b.visible = true
-
-
-func _on_next_call_finished() -> void:
-	GameManager.advance_job()
-	TransitionOverlay.fade_out(1.5)
-	await TransitionOverlay.fade_out_finished
-	await get_tree().create_timer(3.0).timeout
-	GameManager.transition_to_scene("res://scenes/job3/job3.tscn")
