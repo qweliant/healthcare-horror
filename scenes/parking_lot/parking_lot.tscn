@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://c1parklot001"]
 
 [ext_resource type="Script" uid="uid://duf1jpynjmd4u" path="res://scenes/parking_lot/parking_lot.gd" id="1_lot"]
-[ext_resource type="PackedScene" uid="uid://c1player0001" path="res://scenes/player.tscn" id="2_player"]
-[ext_resource type="Script" uid="uid://bnyyt0s1a6wbc" path="res://scripts/dialogue/dialogue_box.gd" id="3_dialogue"]
 [ext_resource type="Script" uid="uid://cqelsuww3h2sd" path="res://scenes/parking_lot/parking_lot_car.gd" id="4_car"]
 [ext_resource type="Shader" uid="uid://105ko3d7h3mx" path="res://shaders/ps1_post.gdshader" id="5_ps1"]
 [ext_resource type="PackedScene" uid="uid://ba0lohmku8tce" path="res://scenes/job1_warehouse/warehouse.tscn" id="6_warehouse"]
+[ext_resource type="PackedScene" uid="uid://c1dialog0001" path="res://ui/dialogue_box.tscn" id="6_ytejt"]
+[ext_resource type="PackedScene" uid="uid://c1player0001" path="res://scenes/player.tscn" id="7_3rf24"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -242,32 +242,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.8, -1.4)
 size = Vector3(0.08, 0.04, 0.02)
 material = SubResource("Mat_check_engine")
 
-[node name="Interior" type="Node3D" parent="PlayerCar" unique_id=831628340]
+[node name="Interior" type="Node3D" parent="PlayerCar" unique_id=2119481136]
 
-[node name="InteriorCamera" type="Camera3D" parent="PlayerCar/Interior" unique_id=464093036]
+[node name="InteriorCamera" type="Camera3D" parent="PlayerCar/Interior" unique_id=920265282]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.6)
 
-[node name="Dashboard" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=167223297]
+[node name="Dashboard" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=2108658113]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, -1)
 size = Vector3(1.5, 0.22, 0.4)
 material = SubResource("Mat_dash")
 
-[node name="SteeringColumn" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=2030920982]
+[node name="SteeringColumn" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=1529569378]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0.85, -0.6)
 size = Vector3(0.06, 0.06, 0.35)
 material = SubResource("Mat_steering")
 
-[node name="SteeringWheel" type="MeshInstance3D" parent="PlayerCar/Interior" unique_id=1318468863]
+[node name="SteeringWheel" type="MeshInstance3D" parent="PlayerCar/Interior" unique_id=1617815557]
+
+[node name="SteeringWheel2" type="MeshInstance3D" parent="PlayerCar/Interior" unique_id=1318468863]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.35, 0.9, -0.45)
 mesh = SubResource("Mesh_wheel")
 surface_material_override/0 = SubResource("Mat_steering")
 
-[node name="Hood" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=506324689]
+[node name="Hood" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=2108619595]
+
+[node name="Hood2" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=506324689]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -2.1)
 size = Vector3(1.6, 0.08, 1.2)
 material = SubResource("Mat_hood")
 
-[node name="GasWarning" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=324520515]
+[node name="GasWarning" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=1791149646]
+
+[node name="GasWarning2" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=324520515]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.95, -0.82)
 size = Vector3(0.08, 0.025, 0.02)
 material = SubResource("Mat_gas_warning")
@@ -279,7 +285,7 @@ light_energy = 0.6
 omni_range = 0.8
 omni_attenuation = 1.6
 
-[node name="BatteryGauge" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=2047336580]
+[node name="BatteryGauge" type="CSGBox3D" parent="PlayerCar/Interior" unique_id=2064708794]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.95, -0.82)
 size = Vector3(0.08, 0.025, 0.02)
 material = SubResource("Mat_dash_gauge")
@@ -313,39 +319,6 @@ light_color = Color(0.5, 1, 0.6, 1)
 light_energy = 0.0
 omni_range = 1.5
 omni_attenuation = 1.4
-
-[node name="Player" parent="." unique_id=1203909306 instance=ExtResource("2_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 2)
-
-[node name="DialogueBox" type="CanvasLayer" parent="." unique_id=636980411]
-layer = 10
-script = ExtResource("3_dialogue")
-
-[node name="Panel" type="PanelContainer" parent="DialogueBox" unique_id=2051270192]
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = -140.0
-offset_right = -40.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="VBox" type="VBoxContainer" parent="DialogueBox/Panel" unique_id=1121887139]
-layout_mode = 2
-
-[node name="SpeakerLabel" type="Label" parent="DialogueBox/Panel/VBox" unique_id=542596695]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.2, 0.2, 1)
-text = "Speaker"
-
-[node name="TextLabel" type="RichTextLabel" parent="DialogueBox/Panel/VBox" unique_id=990154692]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Dialogue text."
-fit_content = true
 
 [node name="Sedan" type="Node3D" parent="." unique_id=691498845]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.5, -13)
@@ -382,3 +355,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+
+[node name="DialogueBox" parent="." unique_id=1742646807 instance=ExtResource("6_ytejt")]
+
+[node name="Player" parent="." unique_id=1490399829 instance=ExtResource("7_3rf24")]

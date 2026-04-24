@@ -12,8 +12,6 @@ const _SEQUENCE = [
 	{"bg": Color(1, 1, 1, 1),        "text": "it was worth it...",        "fg": Color(0, 0, 0, 1),   "hold": 2.5},
 	{"bg": Color(0, 0, 0, 1),        "text": "",                        "fg": Color(0, 0, 0, 1),   "hold": 1.5},
 	{"bg": Color(0.7, 0.0, 0.0, 1),  "text": "YOU FEEL VERY CLEAN.",    "fg": Color(1, 1, 1, 1),   "hold": 2.0},
-	{"bg": Color(0, 0, 0, 1),        "text": "",                        "fg": Color(0, 0, 0, 1),   "hold": 0.6},
-	{"bg": Color(1, 1, 1, 1),        "text": "CONGRATULATIONS.",        "fg": Color(0, 0, 0, 1),   "hold": 3.0},
 ]
 
 
@@ -22,6 +20,11 @@ func _ready() -> void:
 	$EndCard/SequenceLabel.visible = false
 	$EndCard/TitleLabel.visible = false
 	$EndCard/AnyKeyLabel.visible = false
+	AudioManager.stop_ambient(0.2)
+	AudioManager.stop_layer(0.2)
+	# Defer the music so it lands after the prior scene's stop tweens settle.
+	await get_tree().process_frame
+	AudioManager.play_music("party_time", -4.0)
 	TransitionOverlay.fade_in(0.3)
 	await TransitionOverlay.fade_in_finished
 	await _run_flash_sequence()

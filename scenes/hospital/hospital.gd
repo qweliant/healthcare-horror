@@ -10,6 +10,7 @@ func _ready() -> void:
 	GameManager.player = player
 	dialogue_box.add_to_group("dialogue_box")
 	GameManager.set_state(GameManager.GameState.HOSPITAL_EXPLORING)
+	AudioManager.play_ambient("light_buzz", 1.5, -12.0)
 
 
 func _process(delta: float) -> void:

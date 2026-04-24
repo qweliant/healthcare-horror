@@ -53,6 +53,8 @@ func start_sequence(_job_index: int) -> void:
 
 
 func _phase_glow_buildup() -> void:
+	AudioManager.play_sfx("sigil_glow", -2.0)
+	AudioManager.play_layer("chanting", 3.0, -8.0)
 	var tween := create_tween().set_parallel(true)
 	if sigil_light:
 		tween.tween_property(sigil_light, "light_energy", 8.0, 5.0)
@@ -71,6 +73,7 @@ func _phase_ritual_dialogue() -> void:
 	var db := get_tree().get_first_node_in_group("dialogue_box")
 	if db:
 		await db.dialogue_finished
+		AudioManager.stop_layer()
 
 
 func _phase_cryptic_flashes() -> void:
@@ -84,11 +87,8 @@ func _phase_cryptic_flashes() -> void:
 	var messages := [
 		{"text": "YOU CHOSE THIS",              "color": Color(0.9, 0.05, 0.05, 1)},
 		{"text": "THE GATE IS OPEN",            "color": Color(0.7, 0.0,  0.9,  1)},
-		{"text": "THERE IS NO LEAVING",         "color": Color(0.05, 0.05, 0.8, 1)},
-		{"text": "$247,893",                    "color": Color(1.0,  1.0,  1.0,  1)},
+		{"text": "THIS IS THE END",         "color": Color(0.05, 0.05, 0.8, 1)},
 		{"text": "THIS IS WHAT YOU AGREED TO",  "color": Color(0.9, 0.05, 0.05, 1)},
-		{"text": "IT REMEMBERS YOUR NAME",      "color": Color(0.7, 0.0,  0.9,  1)},
-		{"text": "THE DEBT IS PAID",            "color": Color(0.05, 0.8,  0.05, 1)},
 	]
 
 	cryptic_overlay.visible = true

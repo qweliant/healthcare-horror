@@ -1,10 +1,12 @@
 extends CanvasLayer
 
 signal dialogue_finished
+signal line_shown(line: Dictionary)
 
 @onready var panel: PanelContainer = $Panel
 @onready var speaker_label: Label = $Panel/VBox/SpeakerLabel
 @onready var text_label: RichTextLabel = $Panel/VBox/TextLabel
+@onready var dialogue_audio: AudioStreamPlayer = $DialogueAudio
 
 var dialogue_lines: Array = []
 var current_line := 0
@@ -17,10 +19,15 @@ var _type_timer := 0.0
 var _visible_chars := 0
 
 var choice_container: VBoxContainer
+var _default_voice_stream: AudioStream
+var _current_voice: String = ""
+var _current_voice_player: AudioStreamPlayer = null
 
 
 func _ready() -> void:
 	panel.visible = false
+	if dialogue_audio:
+		_default_voice_stream = dialogue_audio.stream
 	GameManager.dialogue_requested.connect(_on_dialogue_requested)
 
 	choice_container = VBoxContainer.new()
@@ -41,6 +48,7 @@ func _process(delta: float) -> void:
 			text_label.visible_characters = _visible_chars
 			if _visible_chars >= text_label.get_total_character_count():
 				is_typing = false
+				_stop_typing_audio()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -51,6 +59,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_typing:
 			is_typing = false
 			text_label.visible_characters = -1
+			_stop_typing_audio()
 		else:
 			_advance()
 		get_viewport().set_input_as_handled()
@@ -95,13 +104,35 @@ func _show_line() -> void:
 	_showing_choices = false
 	text_label.visible = true
 
-	speaker_label.text = line["speaker"]
-	speaker_label.visible = line["speaker"] != ""
+	var sfx_cue: String = str(line.get("sfx", ""))
+	if sfx_cue != "":
+		AudioManager.play_sfx(sfx_cue)
+
+	var speaker: String = str(line.get("speaker", ""))
+	speaker_label.text = speaker
+	speaker_label.visible = speaker != ""
 	text_label.text = line["text"]
 	text_label.visible_characters = 0
 	_visible_chars = 0
 	_type_timer = 0.0
 	is_typing = true
+
+	var voice: String = str(line.get("voice", ""))
+	if voice != "":
+		# Voice cue: route to its own player so the typing-stop doesn't
+		# truncate it. Dedupe consecutive lines with the same voice — bill
+		# calls reuse one long file across multiple Hospital lines.
+		if voice != _current_voice or _current_voice_player == null or not _current_voice_player.playing:
+			_stop_voice()
+			_current_voice = voice
+			_current_voice_player = AudioManager.play_voice(voice)
+	else:
+		_stop_voice()
+		if dialogue_audio and speaker != "" and speaker != "You" and text_label.get_total_character_count() > 0:
+			dialogue_audio.stream = _default_voice_stream
+			dialogue_audio.play()
+
+	line_shown.emit(line)
 
 
 func _show_choices(choices: Array) -> void:
@@ -162,9 +193,23 @@ func _advance() -> void:
 
 
 func _close() -> void:
+	_stop_typing_audio()
+	_stop_voice()
 	is_active = false
 	_showing_choices = false
 	panel.visible = false
 	choice_container.visible = false
 	dialogue_finished.emit()
 	GameManager.end_dialogue()
+
+
+func _stop_typing_audio() -> void:
+	if dialogue_audio:
+		dialogue_audio.stop()
+
+
+func _stop_voice() -> void:
+	if _current_voice_player and _current_voice_player.playing:
+		_current_voice_player.stop()
+	_current_voice = ""
+	_current_voice_player = null
