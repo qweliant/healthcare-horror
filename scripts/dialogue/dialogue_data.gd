@@ -250,11 +250,11 @@ static var dialogues := {
 	# -- Post-job phone calls --
 	"job_bill_call_0": [
 		{"speaker": "", "text": "Your phone vibrates."},
-		{"speaker": "Hospital", "text": "This is an automated message from Regional Medical Center.", "voice": "bill_auto_voice_1"},
-		{"speaker": "Hospital", "text": "A payment of %PAYMENT% has been applied to your account.", "voice": "bill_auto_voice_1"},
-		{"speaker": "Hospital", "text": "Your remaining balance is %BILL%.", "voice": "bill_auto_voice_1"},
+		{"speaker": "Hospital", "text": "This is an automated message from Regional Medical Center.", "voice": "bill_auto_voice_1_1"},
+		{"speaker": "Hospital", "text": "A payment of %PAYMENT% has been applied to your account.", "voice": "bill_auto_voice_1_2"},
+		{"speaker": "Hospital", "text": "Your remaining balance is %BILL%.", "voice": "bill_auto_voice_1_3"},
 		{"speaker": "", "text": "Still six figures. One night of... whatever that was. And it barely made a dent."},
-		{"speaker": "Hospital", "text": "Thank you for your prompt payment.", "voice": "bill_auto_voice_1"},
+		{"speaker": "Hospital", "text": "Thank you for your prompt payment.", "voice": "bill_auto_voice_1_4"},
 		{"speaker": "", "text": "[Click]"},
 	],
 
@@ -288,44 +288,44 @@ static var dialogues := {
 	],
 
 	"job_meeting_1": [
-		{"speaker": "", "text": "Two cultists wait beside a wide chalk circle."},
+		{"speaker": "", "text": "Two figures wait beside a wide chalk circle."},
 		{"speaker": "", "text": "The leader from last time isn't here. You don't ask why."},
 		{"speaker": "", "text": "Something tells you the answer would be worse than not knowing."},
-		{"speaker": "Cultist", "text": "You came."},
+		{"speaker": "Figure", "text": "You came."},
 		{"speaker": "You", "text": "I was told to."},
-		{"speaker": "Cultist", "text": "Good. Stand in the sigil when you're ready. Until then, keep your voice down. You drove us crazy last time freaking out about the blood. It's all gone now isn't it"},
+		{"speaker": "Figure", "text": "Good. Stand in the sigil when you're ready. Until then, keep your voice down. You drove us crazy last time freaking out about the blood. It's all gone now isn't it"},
 		{"speaker": "", "text": "The second figure doesn't speak. Their eyes don't leave the sigil."},
 	],
 
 	"job1_cultist1_0": [
-		{"speaker": "Cultist", "text": "You look worse than last time."},
+		{"speaker": "Figure", "text": "You look worse than last time."},
 		{"speaker": "You", "text": "This will be the last time for me."},
-		{"speaker": "Cultist", "text": "Mm. We'll see."},
+		{"speaker": "Figure", "text": "Mm. We'll see."},
 	],
 
 	"job1_cultist1_1": [
-		{"speaker": "Cultist", "text": "The circle is bigger here. That means it's hungrier."},
-		{"speaker": "Cultist", "text": "Try not to think about what it eats."},
+		{"speaker": "Figure", "text": "The circle is bigger here. That means it's hungrier."},
+		{"speaker": "Figure", "text": "Try not to think about what it eats."},
 	],
 
 	"job1_cultist2_0": [
-		{"speaker": "Cultist", "text": "..."},
-		{"speaker": "Cultist", "text": "When it starts, keep your hands still. No matter what."},
+		{"speaker": "Figure", "text": "..."},
+		{"speaker": "Figure", "text": "When it starts, keep your hands still. No matter what."},
 	],
 
 	"job1_cultist2_1": [
-		{"speaker": "Cultist", "text": "Don't run when it starts. Running makes it curious."},
+		{"speaker": "Figure", "text": "Don't run when it starts. Running makes it curious."},
 		{"speaker": "You", "text": "Curious about what?"},
-		{"speaker": "Cultist", "text": "About you."},
+		{"speaker": "Figure", "text": "About you."},
 	],
 
 	"job_ritual_1": [
 		{"speaker": "", "text": "You step into the circle. The chalk grinds under your shoes like teeth."},
 		{"speaker": "", "text": "The two cultists begin to hum. Different notes that shouldn't harmonize, but do."},
 		{"speaker": "", "text": "The sigil's lines crawl outward, chasing cracks in the concrete."},
-		{"speaker": "Cultist", "text": "Keth'vor. Uln'shar. The mouth opens."},
+		{"speaker": "Figure", "text": "Keth'vor. Uln'shar. The mouth opens."},
 		{"speaker": "", "text": "Something pulls at your ribs from the inside."},
-		{"speaker": "", "text": "This is wrong. This is all wrong."},
+		{"speaker": "", "text": "This is wrong. This is all wrong.",},
 		{"speaker": "", "text": "The hum becomes a shriek that cuts off so fast your ears ring with absence."},
 		{"speaker": "", "text": "The light goes red, then white, then nothing."},
 	],
@@ -344,11 +344,11 @@ static var dialogues := {
 
 	"job_bill_call_1": [
 		{"speaker": "", "text": "Your phone vibrates."},
-		{"speaker": "Hospital", "text": "This is an automated message from Regional Medical Center.", "voice": "bill_auto_voice_2"},
-		{"speaker": "Hospital", "text": "A payment of %PAYMENT% has been applied to your account.", "voice": "bill_auto_voice_2"},
-		{"speaker": "Hospital", "text": "Your remaining balance is %BILL%.", "voice": "bill_auto_voice_2"},
+		{"speaker": "Hospital", "text": "This is an automated message from Regional Medical Center.", "voice": "bill_auto_voice_2_1"},
+		{"speaker": "Hospital", "text": "A payment of %PAYMENT% has been applied to your account.", "voice": "bill_auto_voice_2_2"},
+		{"speaker": "Hospital", "text": "Your remaining balance is %BILL%.", "voice": "bill_auto_voice_2_3"},
 		{"speaker": "", "text": "Two people are dead. And the hospital wants to thank you for your payment."},
-		{"speaker": "Hospital", "text": "Thank you for your prompt payment.", "voice": "bill_auto_voice_2"},
+		{"speaker": "Hospital", "text": "Thank you for your prompt payment.", "voice": "bill_auto_voice_2_4"},
 		{"speaker": "", "text": "[Click]"},
 	],
 
@@ -450,14 +450,14 @@ static var dialogues := {
 	"job_bill_call_2": [
 		{"speaker": "You", "text": "Oh. That's my phone."},
 		{"speaker": "You", "text": "Of course it's my phone right now."},
-		{"speaker": "Hospital", "text": "This is an automated message from Regional Medical Center.", "voice": "bill_auto_voice_3"},
+		{"speaker": "Hospital", "text": "This is an automated message from Regional Medical Center.", "voice": "bill_auto_voice_3_1"},
 		{"speaker": "You", "text": "Ha."},
-		{"speaker": "Hospital", "text": "A payment of %PAYMENT% has been applied to your account.", "voice": "bill_auto_voice_3"},
-		{"speaker": "Hospital", "text": "Your remaining balance is %BILL%.", "voice": "bill_auto_voice_3"},
+		{"speaker": "Hospital", "text": "A payment of %PAYMENT% has been applied to your account.", "voice": "bill_auto_voice_3_2"},
+		{"speaker": "Hospital", "text": "Your remaining balance is %BILL%.", "voice": "bill_auto_voice_3_3"},
 		{"speaker": "You", "text": "Haha."},
-		{"speaker": "Hospital", "text": "Congratulations! Your account is now paid in full.", "voice": "bill_auto_voice_3"},
-		{"speaker": "Hospital", "text": "We hope you have a wonderful day.", "voice": "bill_auto_voice_3"},
-		{"speaker": "Hospital", "text": "Thank you for choosing Regional Medical Center for your healthcare needs.", "voice": "bill_auto_voice_3"},
+		{"speaker": "Hospital", "text": "Congratulations! Your account is now paid in full.", "voice": "bill_auto_voice_3_4"},
+		{"speaker": "Hospital", "text": "Thank you for choosing Regional Medical Center for your healthcare needs.", "voice": "bill_auto_voice_3_5"},
+		{"speaker": "Hospital", "text": "We hope you have a wonderful day.", "voice": "bill_auto_voice_3_6"},
 		{"speaker": "", "text": "[Click]"},
 		{"speaker": "You", "text": "I ended the world."},
 		{"speaker": "You", "text": "But at least my debt is paid."},
