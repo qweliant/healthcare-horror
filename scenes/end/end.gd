@@ -12,8 +12,6 @@ const _SEQUENCE = [
 	{"bg": Color(1, 1, 1, 1),        "text": "it was worth it...",        "fg": Color(0, 0, 0, 1),   "hold": 2.5},
 	{"bg": Color(0, 0, 0, 1),        "text": "",                        "fg": Color(0, 0, 0, 1),   "hold": 1.5},
 	{"bg": Color(0.7, 0.0, 0.0, 1),  "text": "YOU FEEL VERY CLEAN.",    "fg": Color(1, 1, 1, 1),   "hold": 2.0},
-	{"bg": Color(0, 0, 0, 1),        "text": "",                        "fg": Color(0, 0, 0, 1),   "hold": 0.6},
-	{"bg": Color(1, 1, 1, 1),        "text": "CONGRATULATIONS.",        "fg": Color(0, 0, 0, 1),   "hold": 3.0},
 ]
 
 

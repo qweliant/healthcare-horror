@@ -423,7 +423,6 @@ static var dialogues := {
 		{"speaker": "", "text": "The sky cracks open."},
 		{"speaker": "Voices", "text": "THE VESSEL COMPLETES THE CIRCUIT."},
 		{"speaker": "", "text": "You think about the hospital bed. The printer. The number."},
-		{"speaker": "", "text": "You think: at least the bill will be paid."},
 		{"speaker": "Voices", "text": "THE DEBT. IS. PAID."},
 		{"speaker": "", "text": "The light takes you apart at the seams."},
 	],

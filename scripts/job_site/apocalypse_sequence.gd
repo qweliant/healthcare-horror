@@ -73,6 +73,7 @@ func _phase_ritual_dialogue() -> void:
 	var db := get_tree().get_first_node_in_group("dialogue_box")
 	if db:
 		await db.dialogue_finished
+		AudioManager.stop_layer()
 
 
 func _phase_cryptic_flashes() -> void:
