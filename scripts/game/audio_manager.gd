@@ -32,13 +32,6 @@ const STREAMS := {
 	"wind":                 "uid://vee8imeeky6p",
 }
 
-# Tracks that should loop when used as ambient/layer (loop_mode set on load).
-const LOOPABLE := [
-	"light_buzz", "people_hum", "wind",
-	"void_absence", "void_emptiness",
-	"chanting", "heartbeats",
-]
-
 var _streams: Dictionary = {}
 var _sfx_pool: Array[AudioStreamPlayer] = []
 var _voice_pool: Array[AudioStreamPlayer] = []
@@ -66,8 +59,6 @@ func _resolve(track: String) -> AudioStream:
 	if stream == null:
 		push_warning("AudioManager: failed to load '%s' (%s)" % [track, STREAMS[track]])
 		return null
-	if stream is AudioStreamWAV and track in LOOPABLE:
-		(stream as AudioStreamWAV).loop_mode = AudioStreamWAV.LOOP_FORWARD
 	_streams[track] = stream
 	return stream
 
