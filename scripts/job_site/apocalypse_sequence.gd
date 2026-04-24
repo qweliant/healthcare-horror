@@ -87,11 +87,8 @@ func _phase_cryptic_flashes() -> void:
 	var messages := [
 		{"text": "YOU CHOSE THIS",              "color": Color(0.9, 0.05, 0.05, 1)},
 		{"text": "THE GATE IS OPEN",            "color": Color(0.7, 0.0,  0.9,  1)},
-		{"text": "THERE IS NO LEAVING",         "color": Color(0.05, 0.05, 0.8, 1)},
-		{"text": "$247,893",                    "color": Color(1.0,  1.0,  1.0,  1)},
+		{"text": "THIS IS THE END",         "color": Color(0.05, 0.05, 0.8, 1)},
 		{"text": "THIS IS WHAT YOU AGREED TO",  "color": Color(0.9, 0.05, 0.05, 1)},
-		{"text": "IT REMEMBERS YOUR NAME",      "color": Color(0.7, 0.0,  0.9,  1)},
-		{"text": "THE DEBT IS PAID",            "color": Color(0.05, 0.8,  0.05, 1)},
 	]
 
 	cryptic_overlay.visible = true
