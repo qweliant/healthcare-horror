@@ -2,7 +2,7 @@ class_name DialogueData
 extends Resource
 
 # All game dialogue lives here. Each key maps to an array of dialogue lines.
-# Format: { speaker: String, text: String }
+# Format: { speaker: String, text: String, voice: }
 # Choice format: { choices: [{ text: String, response: Array }] }
 
 static var dialogues := {
@@ -250,11 +250,11 @@ static var dialogues := {
 	# -- Post-job phone calls --
 	"job_bill_call_0": [
 		{"speaker": "", "text": "Your phone vibrates."},
-		{"speaker": "Hospital", "text": "This is an automated message from Regional Medical Center."},
-		{"speaker": "Hospital", "text": "A payment of %PAYMENT% has been applied to your account."},
-		{"speaker": "Hospital", "text": "Your remaining balance is %BILL%."},
+		{"speaker": "Hospital", "text": "This is an automated message from Regional Medical Center.", "voice": "bill_auto_voice_1"},
+		{"speaker": "Hospital", "text": "A payment of %PAYMENT% has been applied to your account.", "voice": "bill_auto_voice_1"},
+		{"speaker": "Hospital", "text": "Your remaining balance is %BILL%.", "voice": "bill_auto_voice_1"},
 		{"speaker": "", "text": "Still six figures. One night of... whatever that was. And it barely made a dent."},
-		{"speaker": "Hospital", "text": "Thank you for your prompt payment."},
+		{"speaker": "Hospital", "text": "Thank you for your prompt payment.", "voice": "bill_auto_voice_1"},
 		{"speaker": "", "text": "[Click]"},
 	],
 

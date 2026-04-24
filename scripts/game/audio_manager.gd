@@ -10,7 +10,7 @@ const VOICE_POOL_SIZE := 3
 const STREAMS := {
 	"ambient_scrape":       "uid://b00l4evfgmyhe",
 	"animal_crossing_voice":"uid://cowls02kw013v",
-	# bill_auto_voice_1 — no audio file yet; add when Bill_Auto_Voice_1.wav lands.
+	"bill_auto_voice_1":    "uid://ddnn36qgxx1ns",
 	"bill_auto_voice_2":    "uid://dl64juvv5rhyr",
 	"bill_auto_voice_3":    "uid://cy8e4h0u2svsc",
 	"chanting":             "uid://bp61gqh65e8n5",
