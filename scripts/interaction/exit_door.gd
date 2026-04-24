@@ -33,7 +33,7 @@ func interact() -> void:
 	if GameManager.current_state < GameManager.GameState.HOSPITAL_LEAVING:
 		return
 
-	AudioManager.play_sfx("sliding_door")
+	AudioManager.play_sfx("sliding_door", -8)
 	GameManager.start_dialogue("exit_door")
 
 	var dialogue_box := get_tree().get_first_node_in_group("dialogue_box")
